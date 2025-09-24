@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+
+
+#ifdef defined(__x86_64__) || defined(_M_X64)
 #ifdef USE_RDPMC  /* Needs echo 2 > /sys/devices/cpu/rdpmc */
 
 static inline uint64_t cpucycles(void) {
@@ -29,5 +32,24 @@ static inline uint64_t cpucycles(void) {
 #endif
 
 uint64_t cpucycles_overhead(void);
+
+#elif defined(__arm__) || defined(_M_ARM)
+
+#include "core_cm33.h"
+
+static inline uint32_t cpu_cycles(void) {
+	
+	
+	result = DWT->CYCCNT;
+	return result;
+}
+
+
+static inline uint32_t cpu_overhead(void)
+
+
+#else
+
+static inline uint64_t cpu_cycles(void) { return 0; }
 
 #endif
