@@ -1,0 +1,21 @@
+Module,Median,Average
+Random Bytes Generatedgen_a,786061,786060
+poly_getnoise_eta1,134063,134063
+poly_getnoise_eta2,78264,78264
+NTT,125411,125411
+INVNTT,189858,189858
+polyvec_basemul_acc_montgomery,135301,135301
+poly_tomsg,11834,11834
+poly_frommsg,22015,22014
+poly_compress,12577,12577
+poly_decompress,7746,7745
+polyvec_compress,33583,33583
+polyvec_decompress,19966,19966
+indcpa_keypair,2302582,2302582
+indcpa_enc,2693195,2693195
+indcpa_dec,659648,659648
+kyber_keypair_derand,2670046,2670045
+kyber_keypair,2670468,2670468
+kyber_encaps_derand,3124280,3124279
+kyber_encaps,3124539,3124538
+kyber_decaps,3850835,3850834

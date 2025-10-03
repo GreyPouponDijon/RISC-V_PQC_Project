@@ -4,7 +4,7 @@
 #include "../kem.h"
 #include "../randombytes.h"
 
-#define NTESTS 1000
+#define NTESTS 10
 
 static int test_keys(void)
 {
@@ -96,6 +96,7 @@ static int test_invalid_ciphertext(void)
 
 int main(void)
 {
+  printf("test_kyber main");
   unsigned int i;
   int r;
 

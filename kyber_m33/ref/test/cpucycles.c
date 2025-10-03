@@ -1,10 +1,10 @@
 #include <stdint.h>
 #include "cpucycles.h"
 
-uint32_t cpucycles_overhead(void) {
+uint64_t cpucycles_overhead(void) {
 	uint64_t t0, t1, overhead = 1LL;
   unsigned int i;
-
+  //printf("cpucycles_overhead()");
   for(i=0;i<100000;i++) {
     t0 = cpucycles();
     __asm__ volatile (""::: "memory");

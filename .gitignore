@@ -2,8 +2,8 @@
 
 
 
-
-
+venv/
+build/
 kyber/
 moonlight_m33/
 .venv/

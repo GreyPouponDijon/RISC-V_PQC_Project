@@ -10,14 +10,18 @@
 #include "../randombytes.h"
 #include "cpucycles.h"
 #include "speed_print.h"
+#include "cache.h"
 
-#define NTESTS 1000
+#define NTESTS 10
 
 uint64_t t[NTESTS];
 uint8_t seed[KYBER_SYMBYTES] = {0};
 
 int main(void)
 {
+  cpucycles_init();
+  cache_enable();
+  printf("Cpu Cycles Initalized and Cache Enabled\n");
   unsigned int i;
   uint8_t pk[CRYPTO_PUBLICKEYBYTES];
   uint8_t sk[CRYPTO_SECRETKEYBYTES];
@@ -30,6 +34,7 @@ int main(void)
 
   randombytes(coins32, KYBER_SYMBYTES);
   randombytes(coins64, 2*KYBER_SYMBYTES);
+  printf("%d", 0xCAFEBABE);
 
   for(i=0;i<NTESTS;i++) {
     t[i] = cpucycles();
@@ -147,9 +152,10 @@ int main(void)
 
   for(i=0;i<NTESTS;i++) {
     t[i] = cpucycles();
+    //printf("%d\n", (int)t[i]);
     crypto_kem_dec(key, ct, sk);
   }
   print_results("kyber_decaps: ", t, NTESTS);
-
+  printf("%d", 0xCAFEBABE);
   return 0;
 }
