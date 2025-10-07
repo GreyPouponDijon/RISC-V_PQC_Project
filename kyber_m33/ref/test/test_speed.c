@@ -10,7 +10,7 @@
 #include "../randombytes.h"
 #include "cpucycles.h"
 #include "speed_print.h"
-#include "cache.h"
+#include "nrf_config.h"
 
 #define NTESTS 10
 
@@ -20,7 +20,7 @@ uint8_t seed[KYBER_SYMBYTES] = {0};
 int main(void)
 {
   cpucycles_init();
-  cache_enable();
+  nrf_config_init();
   printf("Cpu Cycles Initalized and Cache Enabled\n");
   unsigned int i;
   uint8_t pk[CRYPTO_PUBLICKEYBYTES];

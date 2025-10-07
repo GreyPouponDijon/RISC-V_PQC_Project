@@ -17,6 +17,8 @@
 #error "KYBER_K must be in {2,3,4}"
 #endif
 
+#define SP_PROFILE 1
+
 #define KYBER_N 256
 #define KYBER_Q 3329
 

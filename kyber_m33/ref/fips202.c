@@ -6,6 +6,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include "fips202.h"
+#include "cpucycles.h"
+#include <stdio.h>
 
 #define NROUNDS 24
 #define ROL(a, offset) ((a << offset) ^ (a >> (64-offset)))
@@ -81,6 +83,7 @@ static const uint64_t KeccakF_RoundConstants[NROUNDS] = {
 **************************************************/
 static void KeccakF1600_StatePermute(uint64_t state[25])
 {
+        //uint32_t t0 = cpucycles();
         int round;
 
         uint64_t Aba, Abe, Abi, Abo, Abu;
@@ -341,6 +344,11 @@ static void KeccakF1600_StatePermute(uint64_t state[25])
         state[22] = Asi;
         state[23] = Aso;
         state[24] = Asu;
+        //uint32_t t1 = cpucycles();
+        //uint32_t dt = t1-t0;
+        //printf("Keccak_StatePermute: %d cycles\n", (int)dt);
+        
+
 }
 
 /*************************************************
