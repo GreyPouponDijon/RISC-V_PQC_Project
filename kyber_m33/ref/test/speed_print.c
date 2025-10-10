@@ -49,3 +49,15 @@ void print_results(const char *s, uint64_t *t, size_t tlen) {
   printf("average: %d cycles/ticks\n", (int)(average(t, tlen)));
   printf("\n");
 }
+
+static uint32_t average_calls(int calls, size_t tlen) {
+  return calls/tlen;
+}
+
+void print_calls(const char *s, int t, size_t tlen) {
+  printf("%s\n", s);
+  printf("average: %d cycles/ticks\n", (int)(average_calls(t, tlen)));
+  printf("\n");
+}
+
+

@@ -1,0 +1,24 @@
+Module,Median,Average
+gen_a,228416,228765
+poly_getnoise_eta1,38447,38618
+poly_getnoise_eta2,22185,22318
+NTT,31565,31613
+INVNTT,47642,47665
+polyvec_basemul_acc_montgomery,37875,37907
+poly_tomsg,3604,3630
+poly_frommsg,5632,5640
+poly_compress,3201,3232
+poly_decompress,2832,2838
+polyvec_compress,9089,9114
+polyvec_decompress,4818,4833
+indcpa_keypair,638910,639185
+indcpa_enc,737560,737784
+indcpa_dec,170957,171041
+kyber_keypair_derand,745289,745612
+kyber_keypair,745535,745726
+kyber_encaps_derand,862671,862765
+kyber_encaps,862745,862948
+kyber_decaps,1050417,1050563
+State Permute calls,,187
+NTT calls,,25
+INVNTT calls,,15

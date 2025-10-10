@@ -5,10 +5,10 @@ import argparse
 import os
 import re
 
-# Patterns for the Kyber speed output
-RE_MODULE = re.compile(r'^([A-Za-z0-9_ \-:/\.]+):\s*$')
-RE_MEDIAN = re.compile(r'^median:\s*([0-9]+)')
-RE_AVG    = re.compile(r'^average:\s*([0-9]+)')
+# Accept module lines with or without a trailing colon
+RE_MODULE = re.compile(r'^([A-Za-z0-9_ \-:/\.]+?)(?:\s*:)?\s*$')
+RE_MEDIAN = re.compile(r'^median:\s*([0-9]+)', re.IGNORECASE)
+RE_AVG    = re.compile(r'^average:\s*([0-9]+)', re.IGNORECASE)
 
 def parse_args():
     p = argparse.ArgumentParser(description="Serial2CSV config")
@@ -18,9 +18,7 @@ def parse_args():
     return p.parse_args()
 
 def main():
-    print("unparsed")
     args = parse_args()
-    print("main")
 
     try:
         ser = serial.Serial(args.port, args.baud, timeout=1)
@@ -28,18 +26,16 @@ def main():
         print(f"Failed to open {args.port}: {e}")
         sys.exit(2)
 
-    # create parent directory if needed
     outdir = os.path.dirname(args.outfile)
     if outdir:
         os.makedirs(outdir, exist_ok=True)
 
-    # open CSV and write header
     with open(args.outfile, "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["Module", "Median", "Average"])
         f.flush()
 
-        current = None  # holds {"Module": str, "Median": int?, "Average": int?}
+        current = None  # {"Module": str, "Median": int?, "Average": int?}
 
         print(f"Logging {args.port}@{args.baud} → {args.outfile} (Ctrl+C to stop)")
         try:
@@ -48,19 +44,31 @@ def main():
                 if not line_bytes:
                     continue
 
-                # decode UART bytes to text
                 line = line_bytes.decode("utf-8", errors="replace").strip()
                 if not line:
                     continue
 
-                # match patterns
-                m_mod = RE_MODULE.match(line)
-                if m_mod:
-                    # if previous block was partially filled, you can flush or ignore;
-                    # here we only write complete rows, so we just start a new block.
-                    current = {"Module": m_mod.group(1)}
+                # average first? (common in your 'State Permute calls' case)
+                m_avg = RE_AVG.match(line)
+                if m_avg:
+                    if current is None:
+                        # If we see an average without having seen a module, bucket it under unknown
+                        current = {"Module": "(unknown)"}
+                    current["Average"] = int(m_avg.group(1))
+
+                    # If we already have a module name, write immediately even if median is missing
+                    if "Module" in current:
+                        writer.writerow([
+                            current.get("Module", "(unknown)"),
+                            current.get("Median", ""),
+                            current.get("Average", ""),
+                        ])
+                        f.flush()
+                        print(f"Wrote: {current.get('Module','(unknown)')}, {current.get('Median','')}, {current.get('Average','')}")
+                        current = None
                     continue
 
+                # median line (optional)
                 m_med = RE_MEDIAN.match(line)
                 if m_med:
                     if current is None:
@@ -68,23 +76,16 @@ def main():
                     current["Median"] = int(m_med.group(1))
                     continue
 
-                m_avg = RE_AVG.match(line)
-                if m_avg:
-                    if current is None:
-                        current = {"Module": "(unknown)"}
-                    current["Average"] = int(m_avg.group(1))
-
-                    # if we have a complete triple, write a CSV row
-                    if "Module" in current and "Median" in current and "Average" in current:
-                        writer.writerow([current["Module"], current["Median"], current["Average"]])
-                        f.flush()
-                        # print for quick feedback
-                        print(f"Wrote: {current['Module']}, {current['Median']}, {current['Average']}")
-                        current = None
+                # module header line (with or without colon)
+                m_mod = RE_MODULE.match(line)
+                if m_mod:
+                    name = m_mod.group(1).strip()
+                    # Heuristic: ignore obviously empty/noise matches
+                    if name:
+                        current = {"Module": name}
                     continue
 
-                # otherwise ignore miscellaneous lines (e.g., banners)
-                # print(f"(ignored) {line}")  # uncomment for debugging
+                # else: ignore miscellaneous lines
 
         except KeyboardInterrupt:
             print("\nStopped by user.")
@@ -93,3 +94,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

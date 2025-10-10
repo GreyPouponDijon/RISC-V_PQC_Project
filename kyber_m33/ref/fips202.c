@@ -12,6 +12,8 @@
 #define NROUNDS 24
 #define ROL(a, offset) ((a << offset) ^ (a >> (64-offset)))
 
+extern int n_statepermute;
+
 /*************************************************
 * Name:        load64
 *
@@ -84,6 +86,7 @@ static const uint64_t KeccakF_RoundConstants[NROUNDS] = {
 static void KeccakF1600_StatePermute(uint64_t state[25])
 {
         //uint32_t t0 = cpucycles();
+        n_statepermute++;
         int round;
 
         uint64_t Aba, Abe, Abi, Abo, Abu;

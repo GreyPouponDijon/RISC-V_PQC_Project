@@ -53,7 +53,7 @@ CFLAGS += $(DEFINITIONS)
 KYBER_SOURCES = kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c fips202.c symmetric-shake.c
 REF_SOURCES := $(addprefix ref/, $(KYBER_SOURCES))
 C_FILES += $(REF_SOURCES)
-C_FILES += test_kyber.c randombytes.c cpucycles.c speed_print.c
+C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
 
 
 INCDIR += -I. -I $(MDK_DIR) -I $(DRIVERS_DIR) -I $(CMSIS_DIR) -I $(REF_DIR) -I $(TEST_DIR)

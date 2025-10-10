@@ -14,6 +14,10 @@
 
 #define NTESTS 10
 
+extern int n_statepermute = 0;
+extern int n_ntt = 0;
+extern int n_invntt = 0;
+
 uint64_t t[NTESTS];
 uint8_t seed[KYBER_SYMBYTES] = {0};
 
@@ -34,7 +38,6 @@ int main(void)
 
   randombytes(coins32, KYBER_SYMBYTES);
   randombytes(coins64, 2*KYBER_SYMBYTES);
-  printf("%d", 0xCAFEBABE);
 
   for(i=0;i<NTESTS;i++) {
     t[i] = cpucycles();
@@ -156,6 +159,8 @@ int main(void)
     crypto_kem_dec(key, ct, sk);
   }
   print_results("kyber_decaps: ", t, NTESTS);
-  printf("%d", 0xCAFEBABE);
+  print_calls("State Permute calls: ", n_statepermute, NTESTS);
+  print_calls("NTT calls: ", n_ntt, NTESTS);
+  print_calls("INVNTT calls: ", n_invntt, NTESTS);
   return 0;
 }
