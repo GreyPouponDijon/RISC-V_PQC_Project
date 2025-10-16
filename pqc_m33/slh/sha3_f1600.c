@@ -6,11 +6,15 @@
 #ifndef SLOTH_KECCAK
 
 #include "plat_local.h"
+#include <stdio.h>
 
+
+extern int keccak_count;
 //  forward permutation
 
 void keccak_f1600(void *st)
 {
+    keccak_count++;
     //  round constants
     static const uint64_t keccak_rc[24] = {
         UINT64_C(0x0000000000000001), UINT64_C(0x0000000000008082),

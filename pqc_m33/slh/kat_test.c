@@ -14,8 +14,10 @@
 #include "kat_drbg.h"
 
 #ifndef KATNUM
-#define KATNUM 100
+#define KATNUM 1
 #endif
+
+extern int keccak_count = 0;
 
 //  fake test drbg state
 aes256_ctr_drbg_t kat_drbg, iut_drbg;
@@ -31,16 +33,20 @@ static void kat_hex(FILE *fh, const char *label,
                     const uint8_t *x, size_t xlen)
 {
     size_t i;
-    fprintf(fh, "%s = ", label);
+    //fprintf(fh, "%s = ", label);
+    printf("%s = ", label);
     for (i = 0; i < xlen; i++) {
-        fprintf(fh, "%02X", x[i]);
+        //fprintf(fh, "%02X", x[i]);
+        printf("%02X", x[i]);
     }
-    fprintf(fh, "\n");
+    //fprintf(fh, "\n");
+    printf("\n");
 }
 
 int kat_test(const slh_param_t *iut, int katnum)
 {
     int fail = 0;
+    keccak_count = 0; 
 
     char fn[256];
     FILE *fh;
@@ -52,7 +58,9 @@ int kat_test(const slh_param_t *iut, int katnum)
     uint8_t pk[2 * 32] = { 0 };
     uint8_t sk[4 * 32] = { 0 };
     uint8_t sm[50000 + 33 * KATNUM];
+    
 
+    /*
     snprintf(fn, sizeof(fn), "%s-%d.rsp", slh_alg_id(iut), katnum);
     fh = fopen(fn, "w");
     if (fh == NULL) {
@@ -60,8 +68,10 @@ int kat_test(const slh_param_t *iut, int katnum)
         fail++;
         return fail;
     }
+    */
 
-    fprintf(fh, "# SPHINCS+\n\n");
+    //fprintf(fh, "# SPHINCS+\n\n");
+    printf("#SPHINCS+\n\n");
 
     //  initialize kat seed drbg
     for (int i = 0; i < 48; i++) {
@@ -80,13 +90,15 @@ int kat_test(const slh_param_t *iut, int katnum)
         printf("[KAT] (%d) %s\n", count, fn);
         fflush(stdout);
 
-        fprintf(fh, "count = %d\n", count);
+        //fprintf(fh, "count = %d\n", count);
+        printf("count = %d\n", count);
 
         aes256ctr_xof(&kat_drbg, seed, 48);
         kat_hex(fh, "seed", seed, 48);
 
         msg_sz = (count + 1) * 33;
-        fprintf(fh, "mlen = %zu\n", msg_sz);
+        //fprintf(fh, "mlen = %zu\n", msg_sz);
+        printf("mlen = %zu\n", msg_sz);
         assert(sizeof(sm) >= sig_sz + msg_sz);
 
         aes256ctr_xof(&kat_drbg, msg, msg_sz);
@@ -94,24 +106,30 @@ int kat_test(const slh_param_t *iut, int katnum)
 
         //  initialize target drbg
         aes256ctr_xof_init(&iut_drbg, seed);
+        uint32_t cnt1 = DWT->CYCCNT
         slh_keygen(pk, sk, &iut_randombytes, iut);
-
+        uint32_t cnt2 = DWT->CYCCNT
+        printf("slh_keygen() cycle count: %d\n" , cnt2 - cnt1);  
         kat_hex(fh, "pk", pk, pk_sz);
         kat_hex(fh, "sk", sk, sk_sz);
+        printf("keccak_count: %d\n", keccak_count);
+        keccak_count = 0;
 
         sm_sz = slh_sign(sm, msg, msg_sz, sk, &iut_randombytes, iut);
 
         memcpy(sm + sm_sz, msg, msg_sz);
         sm_sz += msg_sz;
-        fprintf(fh, "smlen = %zu\n", sm_sz);
+        //fprintf(fh, "smlen = %zu\n", sm_sz);
+        printf("smlen = %zu\n", sm_sz);
 
         kat_hex(fh, "sm", sm, sm_sz);
-        fprintf(fh, "\n");
+        //fprintf(fh, "\n");
         assert(sm_sz == sig_sz + msg_sz);
 
         if (!slh_verify(sm + sig_sz, msg_sz, sm, pk, iut)) {
             fail++;
-            fprintf(stderr, "[FAIL] slh_verify() fails.\n");
+            //fprintf(stderr, "[FAIL] slh_verify() fails.\n");
+            printf("[FAIL] slh_verify() fails. \n");
         }
 
         //  flip random bit
@@ -123,10 +141,13 @@ int kat_test(const slh_param_t *iut, int katnum)
         sm[xbit >> 3] ^= 1 << (xbit & 7);
         if (slh_verify(sm + sig_sz, msg_sz, sm, pk, iut)) {
             fail++;
-            fprintf(stderr, "[FAIL] slh_verify() forgery bit= %u.\n", xbit);
+            //fprintf(stderr, "[FAIL] slh_verify() forgery bit= %u.\n", xbit);
+            printf("[FAIL] slh_verify() forgery bit= %u. \n", xbit);
         }
     }
-    fclose(fh);
+    //fclose(fh);
+    printf("keccak_count: %d\n", keccak_count);
+    keccak_count = 0; 
 
     return fail;
 }
@@ -160,7 +181,9 @@ int main(int argc, char **argv)
         fail += kat_test(test_iut[iut_n], 1);
     } else {
         for (iut_n = 0; test_iut[iut_n] != NULL; iut_n++) {
+            printf("before kat_test \n");
             fail += kat_test(test_iut[iut_n], KATNUM);
+            printf("after kat_test, fails = %d", fail);
         }
     }
 
@@ -168,5 +191,4 @@ int main(int argc, char **argv)
 
     return fail;
 }
-
 #endif

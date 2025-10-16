@@ -68,6 +68,7 @@ else ifeq ($(ALG), slh-dsa)
 	C_FILES += $(SLH_SOURCES)
 	INCDIR += -I $(SLH_DSA_DIR)	
 	VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(SLH_DSA_DIR)
+	CFLAGS += -DNDEBUG
 else
 	$(error Unknown algorithm '$(ALG)')
 endif
