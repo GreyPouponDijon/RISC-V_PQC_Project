@@ -1,6 +1,6 @@
 
 
-TARGET := m33_kyber
+
 
 
 GCC_PATH := /usr/bin
@@ -20,8 +20,10 @@ C_FILES += $(DRIVERS_DIR)/uarte.c
 C_FILES += $(DRIVERS_DIR)/nrf_config.c
 S_FILES = $(MDK_DIR)/gcc_startup_nrf54l15_application.S
 
-REF_DIR = ./ref
-TEST_DIR = $(REF_DIR)/test
+KYBER_DIR = ./ref
+KYBER_TEST_DIR = $(KYBER_DIR)/test
+
+SLH_DSA_DIR = slh
 
 LINKER_SCRIPTS ?= -T target.ld
 OUTDIR = ./build
@@ -42,7 +44,7 @@ OPTIMISATION_OPTIONS = -O3 -g
 LIB_OPT :=  -ffreestanding  --specs=nano.specs -lgcc -lc
 LINKER_OPTIONS := -Wl,--gc-sections -lgcc -lc
 
-VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(REF_DIR):$(TEST_DIR)
+
 
 CFLAGS += $(ARCH_OPT)
 CFLAGS += $(OPTIMISATION_OPTIONS)
@@ -50,23 +52,41 @@ CFLAGS += $(WARNINGS)
 CFLAGS += $(LIB_OPT)
 CFLAGS += $(DEFINITIONS)
 
-KYBER_SOURCES = kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c fips202.c symmetric-shake.c
-REF_SOURCES := $(addprefix ref/, $(KYBER_SOURCES))
-C_FILES += $(REF_SOURCES)
-C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
+INCDIR += -I. -I $(MDK_DIR) -I $(DRIVERS_DIR) -I $(CMSIS_DIR)
+# Kyber
+ifeq ($(ALG), kyber)
+	TARGET := m33_kyber
+	KYBER_SOURCES = kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c fips202.c symmetric-shake.c
+	REF_SOURCES := $(addprefix ref/, $(KYBER_SOURCES))
+	C_FILES += $(REF_SOURCES)
+	C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
+	INCDIR += -I $(KYBER_DIR) -I $(KYBER_TEST_DIR) 
+  VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(KYBER_DIR):$(KYBER_TEST_DIR)
+else ifeq ($(ALG), slh-dsa)
+	TARGET := m33_slh-dsa
+	SLH_SOURCES = $(wildcard $(SLH_DSA_DIR)/*.c) 
+	C_FILES += $(SLH_SOURCES)
+	INCDIR += -I $(SLH_DSA_DIR)	
+	VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(SLH_DSA_DIR)
+else
+	$(error Unknown algorithm '$(ALG)')
+endif
 
 
-INCDIR += -I. -I $(MDK_DIR) -I $(DRIVERS_DIR) -I $(CMSIS_DIR) -I $(REF_DIR) -I $(TEST_DIR)
+#INCDIR += -I. -I $(MDK_DIR) -I $(DRIVERS_DIR) -I $(CMSIS_DIR) -I $(KYBER_DIR) -I $(KYBER_TEST_DIR)
 
 OBJS  := $(patsubst %.c,  $(OUTDIR)/%.o, $(notdir $(C_FILES)))
 S_OBJ := $(patsubst %.S,  $(OUTDIR)/%.o, $(notdir $(S_FILES)))
 
-all: dis ihex hex map bin lst size $(OUTDIR)
+all: print dis ihex hex map bin lst size $(OUTDIR)
 
 OBJ_DIRS = $(sort $(dir $(OBJS)))
 $(OBJS): | $(OBJ_DIRS)
 $(OBJ_DIRS):
 	mkdir -p $@
+
+print:
+	@echo "$(C_FILES)"
 
 
 $(OUTDIR)/%.o: %.c
