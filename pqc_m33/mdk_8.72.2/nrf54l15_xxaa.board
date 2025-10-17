@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<flash_board>
+  <pass>
+    <loader>$TOOLKIT_DIR$\config\flashloader\NordicSemiconductor\nrf54l15_xxaa_application.flash</loader>
+    <range>CODE 0x00000000 0x0017CFFF</range>
+  </pass>
+  <pass>
+    <loader>$TOOLKIT_DIR$\config\flashloader\NordicSemiconductor\nrf54l15_xxaa_flpr.flash</loader>
+    <range>CODE 0x00000000 0x0017CFFF</range>
+  </pass>
+</flash_board>

@@ -1,0 +1,56 @@
+h_keygen() cycle count: 735844939
+                                 keccak_count: 289791
+                                                     Average cycles per keccak: 17022
+                                                                                     before kat_test
+                                                                                                     #SPHINCS+
+
+                                                                                                              slh_keygen() cycle count: 735844939
+                                                                                                                                                 keccak_count: 289791
+                                                                                                                                                                     Average cycles per keccak: 17022
+                                                                                                                                                                                                     slh_sig
+n() cycle count: 3991771526
+                           slh_sign() keccak count: 2200336
+                                                           slh_verify() cycle count: 37412081
+                                                                                             slh_verify() keccak_count: 2144
+                                                                                                                            slh_verify() forgery bit keccak count: 2159
+                                                                                                                                                                       keccak_count: 2159
+                                                                                                                                                                                         after kat_test, fai
+ls = 0before kat_test
+                      #SPHINCS+
+
+                               slh_keygen() cycle count: 78599677
+                                                                 keccak_count: 4527
+                                                                                   Average cycles per keccak: 17022
+                                                                                                                   slh_sign() cycle count: 1840231162
+                                                                                                                                                     slh_sign() keccak count: 105671
+                                                                                                                                                                                    slh_verify() cycle count
+: 108053157
+           slh_verify() keccak_count: 6218
+                                          slh_verify() forgery bit keccak count: 6113
+                                                                                     keccak_count: 6113
+                                                                                                       after kat_test, fails = 0before kat_test
+                                                                                                                                                #SPHINCS+
+
+                                                                                                                                                         slh_keygen() cycle count: 3062145563
+                                                                                                                                                                                             keccak_count: 4
+23423
+     Average cycles per keccak: 17022
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

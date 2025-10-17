@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<optionMenuItem>
+  <tag>nrf54l15_xxaa_flpr</tag>
+  <display>nRF54L15_xxAA_FLPR</display>
+  <data>$CUR_DIR$\nrf54l15_xxaa_flpr.i79</data>
+</optionMenuItem>

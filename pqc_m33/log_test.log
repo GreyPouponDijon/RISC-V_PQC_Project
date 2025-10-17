@@ -1,0 +1,123 @@
+slh_keygen() cycle count: 735844939
+keccak_count: 289791
+Average cycles per keccak: 17022
+slh_sign() cycle count: 3991771526
+slh_sign() keccak count: 2200336
+slh_verify() cycle count: 37412081
+slh_verify() keccak_count: 2144
+slh_verify() forgery bit keccak count: 2159
+keccak_count: 2159
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 78599677
+keccak_count: 4527
+Average cycles per keccak: 17022
+slh_sign() cycle count: 1840231162
+slh_sign() keccak count: 105671
+slh_verify() cycle count: 108053157
+slh_verify() keccak_count: 6218
+slh_verify() forgery bit keccak count: 6113
+keccak_count: 6113
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 3062145563
+keccak_count: 423423
+Average cycles per keccak: 17022
+slh_sign() cycle count: 2535306362
+slh_sign() keccak count: 3799140
+slh_verify() cycle count: 54822472
+slh_verify() keccak_count: 3138
+slh_verify() forgery bit keccak count: 3303
+keccak_count: 3303
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 114950643
+keccak_count: 6615
+Average cycles per keccak: 17022
+slh_sign() cycle count: 2990806674
+slh_sign() keccak count: 170462
+slh_verify() cycle count: 157882324
+slh_verify() keccak_count: 9081
+slh_verify() forgery bit keccak count: 9246
+keccak_count: 9246
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 559859301
+keccak_count: 279039
+Average cycles per keccak: 17022
+slh_sign() cycle count: 3292654162
+slh_sign() keccak count: 3313122
+slh_verify() cycle count: 79703072
+slh_verify() keccak_count: 4557
+slh_verify() forgery bit keccak count: 4332
+keccak_count: 4332
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 303423759
+keccak_count: 17439
+Average cycles per keccak: 17022
+slh_sign() cycle count: 1861623558
+slh_sign() keccak count: 349608
+slh_verify() cycle count: 165583840
+slh_verify() keccak_count: 9507
+slh_verify() forgery bit keccak count: 9132
+keccak_count: 9132
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 930263024
+keccak_count: 0
+Average cycles per keccak: 0
+slh_sign() cycle count: 2811692765
+slh_sign() keccak count: 0
+slh_verify() cycle count: 6918431
+slh_verify() keccak_count: 0
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 14556189
+keccak_count: 0
+Average cycles per keccak: 0
+slh_sign() cycle count: 341231505
+slh_sign() keccak count: 0
+slh_verify() cycle count: 19589221
+slh_verify() keccak_count: 0
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 1409890559
+keccak_count: 0
+Average cycles per keccak: 0
+slh_sign() cycle count: 3409591204
+slh_sign() keccak count: 0
+slh_verify() cycle count: 14048390
+slh_verify() keccak_count: 0
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 22048244
+keccak_count: 0
+Average cycles per keccak: 0
+slh_sign() cycle count: 678097853
+slh_sign() keccak count: 0
+slh_verify() cycle count: 35862818
+slh_verify() keccak_count: 0
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+after kat_test, fails = 0before kat_test 
+#SPHINCS+
+
+slh_keygen() cycle count: 943287793
+keccak_count: 0
+Average cycles per keccak: 0

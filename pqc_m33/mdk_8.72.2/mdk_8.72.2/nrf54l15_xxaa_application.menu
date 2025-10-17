@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='iso-8859-1'?>
+<optionMenuItem>
+  <tag>nrf54l15_xxaa_application</tag>
+  <display>nRF54L15_xxAA_Application</display>
+  <data>$CUR_DIR$\nrf54l15_xxaa_application.i79</data>
+</optionMenuItem>
