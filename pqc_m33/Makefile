@@ -23,7 +23,7 @@ S_FILES = $(MDK_DIR)/gcc_startup_nrf54l15_application.S
 KYBER_DIR = ./ref
 KYBER_TEST_DIR = $(KYBER_DIR)/test
 
-SLH_DSA_DIR = slh
+SLH_DSA_DIR = ./slh
 
 LINKER_SCRIPTS ?= -T target.ld
 OUTDIR = ./build

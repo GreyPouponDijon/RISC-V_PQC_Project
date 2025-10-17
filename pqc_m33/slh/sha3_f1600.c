@@ -7,14 +7,18 @@
 
 #include "plat_local.h"
 #include <stdio.h>
-
+#include "cpucycles.h"
+#include "nrf.h"
 
 extern int keccak_count;
+extern int avg_keccak_cycles;
 //  forward permutation
 
 void keccak_f1600(void *st)
 {
     keccak_count++;
+    DWT->CYCCNT = 0;
+    uint32_t time1 = cpucycles();
     //  round constants
     static const uint64_t keccak_rc[24] = {
         UINT64_C(0x0000000000000001), UINT64_C(0x0000000000008082),
@@ -148,6 +152,12 @@ void keccak_f1600(void *st)
         //  Iota
 
         x[0] = x[0] ^ keccak_rc[i];
+    }
+    uint32_t time2 = cpucycles;
+    if(avg_keccak_cycles != 0){
+      avg_keccak_cycles = (avg_keccak_cycles + (time2 - time1)) / 2;
+    } else {
+      avg_keccak_cycles = time2 - time1;
     }
 }
 

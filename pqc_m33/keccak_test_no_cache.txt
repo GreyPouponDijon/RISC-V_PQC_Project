@@ -1,0 +1,58 @@
+before kat_test
+                #SPHINCS+
+
+                         [KAT] (0)
+                                   count = 0
+                                            seed = 061550234D158C5EC95595FE04EF7A25767F2E24CC2BC479D09D86DC9ABCFDE7056A8C266F9EF97ED08541DBD2E1FFA1
+                                                                                                                                                   mlen = u
+                                                                                                                                                           msg = D81C4D8D734FCBFBEADE3D3F8A039FAA2A2C9957E83
+5AD55B22E75BF57BB556AC8
+                       pk = B505D7CFAD1B497499323C8686325E47AC524902FC81F5032BC27B17D9261EBD
+                                                                                            sk = 7C9935A0B07694AA0C6D10E4DB6B1ADD2FD81A25CCB148032DCD739936737F2DB505D7CFAD1B497499323C8686325E47AC524902FC8
+1F5032BC27B17D9261EBD
+                     keccak_count: 289791
+                                         Average cycles per keccak: 22423
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

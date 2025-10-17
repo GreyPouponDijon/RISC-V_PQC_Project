@@ -12,12 +12,15 @@
 
 #include "slh_dsa.h"
 #include "kat_drbg.h"
+#include "cpucycles.h"
+#include "nrf_config.h"
 
 #ifndef KATNUM
 #define KATNUM 1
 #endif
 
 extern int keccak_count = 0;
+extern int avg_keccak_cycles = 0;
 
 //  fake test drbg state
 aes256_ctr_drbg_t kat_drbg, iut_drbg;
@@ -46,7 +49,8 @@ static void kat_hex(FILE *fh, const char *label,
 int kat_test(const slh_param_t *iut, int katnum)
 {
     int fail = 0;
-    keccak_count = 0; 
+    keccak_count = 0;
+    avg_keccak_cycles = 0;
 
     char fn[256];
     FILE *fh;
@@ -106,14 +110,16 @@ int kat_test(const slh_param_t *iut, int katnum)
 
         //  initialize target drbg
         aes256ctr_xof_init(&iut_drbg, seed);
-        uint32_t cnt1 = DWT->CYCCNT
+        //uint32_t cnt1 = cpucycles(); 
         slh_keygen(pk, sk, &iut_randombytes, iut);
-        uint32_t cnt2 = DWT->CYCCNT
-        printf("slh_keygen() cycle count: %d\n" , cnt2 - cnt1);  
+        //uint32_t cnt2 = cpucycles();
+        //printf("slh_keygen() cycle count: %d\n" , cnt2 - cnt1);
         kat_hex(fh, "pk", pk, pk_sz);
         kat_hex(fh, "sk", sk, sk_sz);
         printf("keccak_count: %d\n", keccak_count);
+        printf("Average cycles per keccak: %d\n", avg_keccak_cycles);
         keccak_count = 0;
+        avg_keccak_cycles = 0;
 
         sm_sz = slh_sign(sm, msg, msg_sz, sk, &iut_randombytes, iut);
 
@@ -172,6 +178,8 @@ const slh_param_t *test_iut[] = {
 
 int main(int argc, char **argv)
 {
+    cpucycles_init();
+    nrf_config_init();
     int fail = 0;
     int iut_n = 0;
 
