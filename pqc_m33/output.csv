@@ -1,22 +1,21 @@
 Module,Median,Average
-gen_a,228772,229121
-poly_getnoise_eta1,38449,38619
-poly_getnoise_eta2,22241,22366
-NTT,31560,31609
-INVNTT,47636,47658
-polyvec_basemul_acc_montgomery,37876,37907
-poly_tomsg,3604,3630
-poly_frommsg,5632,5641
-poly_compress,3201,3231
-poly_decompress,2832,2838
-polyvec_compress,9089,9114
-polyvec_decompress,4818,4833
-indcpa_keypair,639222,639494
-indcpa_enc,738266,738464
-indcpa_dec,170941,171037
-kyber_keypair_derand,745620,745939
-kyber_keypair,745888,746083
-kyber_encaps_derand,863321,863413
-kyber_encaps,863388,863574
-kyber_decaps,1051021,1051178
-State Permute calls,,187
+kyber_keypair_derand,745458,745953
+State Permute calls,,27
+NTT calls,,4
+INVNTT calls,,0
+kyber_keypair,745488,745688
+State Permute calls,,54
+NTT calls,,8
+INVNTT calls,,0
+kyber_encaps_derand,862401,862556
+State Permute calls,,80
+NTT calls,,10
+INVNTT calls,,3
+kyber_encaps,862493,862756
+State Permute calls,,106
+NTT calls,,12
+INVNTT calls,,3
+kyber_decaps,1050126,1050365
+State Permute calls,,132
+NTT calls,,16
+INVNTT calls,,4

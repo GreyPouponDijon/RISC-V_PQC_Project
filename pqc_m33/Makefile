@@ -10,6 +10,8 @@ GCC_OBJDUMP := $(GCC_PREFIX)objdump
 GCC_OBJCOPY := $(GCC_PREFIX)objcopy
 GCC_SIZE := $(GCC_PREFIX)size
 
+KYBER_K ?= 4
+
 
 DRIVERS_DIR = ./drivers
 MDK_DIR = ./mdk_8.72.2
@@ -20,7 +22,7 @@ C_FILES += $(DRIVERS_DIR)/uarte.c
 C_FILES += $(DRIVERS_DIR)/nrf_config.c
 S_FILES = $(MDK_DIR)/gcc_startup_nrf54l15_application.S
 
-KYBER_DIR = ./ref
+KYBER_DIR = ./kyber
 KYBER_TEST_DIR = $(KYBER_DIR)/test
 
 SLH_DSA_DIR = ./slh
@@ -53,24 +55,42 @@ CFLAGS += $(LIB_OPT)
 CFLAGS += $(DEFINITIONS)
 
 INCDIR += -I. -I $(MDK_DIR) -I $(DRIVERS_DIR) -I $(CMSIS_DIR)
-# Kyber
-ifeq ($(ALG), kyber)
-	TARGET := m33_kyber
-	KYBER_SOURCES = kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c fips202.c symmetric-shake.c
-	REF_SOURCES := $(addprefix ref/, $(KYBER_SOURCES))
-	C_FILES += $(REF_SOURCES)
-	C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
-	INCDIR += -I $(KYBER_DIR) -I $(KYBER_TEST_DIR) 
-  VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(KYBER_DIR):$(KYBER_TEST_DIR)
-else ifeq ($(ALG), slh-dsa)
-	TARGET := m33_slh-dsa
-	SLH_SOURCES = $(wildcard $(SLH_DSA_DIR)/*.c) 
-	C_FILES += $(SLH_SOURCES)
-	INCDIR += -I $(SLH_DSA_DIR)	
-	VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(SLH_DSA_DIR)
-	CFLAGS += -DNDEBUG
+
+
+ifeq ($(KYBER_K), 2)
+KYBER_DEFINES = -DKYBER_K=2
+else ifeq ($(KYBER_K), 3)
+KYBER_DEFINES = -DKYBER_K=3
 else
-	$(error Unknown algorithm '$(ALG)')
+KYBER_DEFINES = -DKYBER_K=4
+endif
+
+# Kyber / ML-KEM
+ifeq ($(ALG), kyber)
+TARGET := m33_kyber
+KYBER_SOURCES = kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c fips202.c symmetric-shake.c
+ALG_SOURCES := $(addprefix kyber/, $(KYBER_SOURCES))
+C_FILES += $(ALG_SOURCES)
+C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
+C_DEFINES += $(KYBER_DEFINES)
+INCDIR += -I $(KYBER_DIR) -I $(KYBER_TEST_DIR) 
+VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(KYBER_DIR):$(KYBER_TEST_DIR)
+#SPHINCS + / slh-dsa
+else ifeq ($(ALG), slh-dsa)
+TARGET := m33_slh-dsa
+ALG_SOURCES = $(wildcard $(SLH_DSA_DIR)/*.c) 
+C_FILES += $(ALG_SOURCES)
+INCDIR += -I $(SLH_DSA_DIR)	
+VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(SLH_DSA_DIR)
+CFLAGS += -DNDEBUG
+#optimized kyber impl.
+else ifeq ($(ALG), opt_kyber)
+TARGET := m33_kyber-opt
+ALG_SOURCES := $(wildcard $(KYBER_OPT_PATH)/*.c) $(wildcard $(KYBER_OPT_PATH)/*.S)
+C_FILES += ALG_SOURCES
+C_FILES += randombytes.c cpucycles.c
+else
+$(error Unknown algorithm '$(ALG)')
 endif
 
 
