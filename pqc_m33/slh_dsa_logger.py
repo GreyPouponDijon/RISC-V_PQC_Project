@@ -7,7 +7,7 @@ from pathlib import Path
 def main():
     parser = argparse.ArgumentParser(description="Basic UART line logger (Ctrl+C to stop).")
     parser.add_argument("--port", required=True, help="Serial port (e.g. /dev/ttyACM0 or COM5)")
-    parser.add_argument("--baud", type=int, default=115200, help="Baud rate (default: 115200)")
+    parser.add_argument("--baud", type=int, default=1000000, help="Baud rate (default: 1000000)")
     parser.add_argument("--out", default="uart_log.txt", help="Output text file (default: uart_log.txt)")
     parser.add_argument("--newline", default="\n", help="Line ending (default: \\n)")
     args = parser.parse_args()

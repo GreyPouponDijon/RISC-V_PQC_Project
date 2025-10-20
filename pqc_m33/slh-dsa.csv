@@ -1,0 +1,110 @@
+Header,Key,Value
+(0) SLH-DSA-SHAKE-128s,slh_keygen() cycle count,736978758
+(0) SLH-DSA-SHAKE-128s,keccak_count,289791
+(0) SLH-DSA-SHAKE-128s,Average cycles per keccak,17024
+(0) SLH-DSA-SHAKE-128s,slh_sign() cycle count,4000309438
+(0) SLH-DSA-SHAKE-128s,slh_sign() keccak count,2200336
+(0) SLH-DSA-SHAKE-128s,slh_verify() cycle count,37420700
+(0) SLH-DSA-SHAKE-128s,slh_verify() keccak_count,2144
+(0) SLH-DSA-SHAKE-128s,slh_verify() forgery bit keccak count,2159
+(0) SLH-DSA-SHAKE-128s,keccak_count,2159
+(0) SLH-DSA-SHAKE-128f,slh_keygen() cycle count,78617601
+(0) SLH-DSA-SHAKE-128f,keccak_count,4527
+(0) SLH-DSA-SHAKE-128f,Average cycles per keccak,17024
+(0) SLH-DSA-SHAKE-128f,slh_sign() cycle count,1840642286
+(0) SLH-DSA-SHAKE-128f,slh_sign() keccak count,105671
+(0) SLH-DSA-SHAKE-128f,slh_verify() cycle count,108079832
+(0) SLH-DSA-SHAKE-128f,slh_verify() keccak_count,6218
+(0) SLH-DSA-SHAKE-128f,slh_verify() forgery bit keccak count,6113
+(0) SLH-DSA-SHAKE-128f,keccak_count,6113
+(0) SLH-DSA-SHAKE-192s,slh_keygen() cycle count,3063801308
+(0) SLH-DSA-SHAKE-192s,keccak_count,423423
+(0) SLH-DSA-SHAKE-192s,Average cycles per keccak,17024
+(0) SLH-DSA-SHAKE-192s,slh_sign() cycle count,2549818158
+(0) SLH-DSA-SHAKE-192s,slh_sign() keccak count,3799140
+(0) SLH-DSA-SHAKE-192s,slh_verify() cycle count,54834856
+(0) SLH-DSA-SHAKE-192s,slh_verify() keccak_count,3138
+(0) SLH-DSA-SHAKE-192s,slh_verify() forgery bit keccak count,3303
+(0) SLH-DSA-SHAKE-192s,keccak_count,3303
+(0) SLH-DSA-SHAKE-192f,slh_keygen() cycle count,114976654
+(0) SLH-DSA-SHAKE-192f,keccak_count,6615
+(0) SLH-DSA-SHAKE-192f,Average cycles per keccak,17024
+(0) SLH-DSA-SHAKE-192f,slh_sign() cycle count,2991461398
+(0) SLH-DSA-SHAKE-192f,slh_sign() keccak count,170462
+(0) SLH-DSA-SHAKE-192f,slh_verify() cycle count,157919889
+(0) SLH-DSA-SHAKE-192f,slh_verify() keccak_count,9081
+(0) SLH-DSA-SHAKE-192f,slh_verify() forgery bit keccak count,9246
+(0) SLH-DSA-SHAKE-192f,keccak_count,9246
+(0) SLH-DSA-SHAKE-256s,slh_keygen() cycle count,560948843
+(0) SLH-DSA-SHAKE-256s,keccak_count,279039
+(0) SLH-DSA-SHAKE-256s,Average cycles per keccak,17024
+(0) SLH-DSA-SHAKE-256s,slh_sign() cycle count,3304973502
+(0) SLH-DSA-SHAKE-256s,slh_sign() keccak count,3313122
+(0) SLH-DSA-SHAKE-256s,slh_verify() cycle count,79721563
+(0) SLH-DSA-SHAKE-256s,slh_verify() keccak_count,4557
+(0) SLH-DSA-SHAKE-256s,slh_verify() forgery bit keccak count,4332
+(0) SLH-DSA-SHAKE-256s,keccak_count,4332
+(0) SLH-DSA-SHAKE-256f,slh_keygen() cycle count,303491970
+(0) SLH-DSA-SHAKE-256f,keccak_count,17439
+(0) SLH-DSA-SHAKE-256f,Average cycles per keccak,17024
+(0) SLH-DSA-SHAKE-256f,slh_sign() cycle count,1862986194
+(0) SLH-DSA-SHAKE-256f,slh_sign() keccak count,349608
+(0) SLH-DSA-SHAKE-256f,slh_verify() cycle count,165623816
+(0) SLH-DSA-SHAKE-256f,slh_verify() keccak_count,9507
+(0) SLH-DSA-SHAKE-256f,slh_verify() forgery bit keccak count,9132
+(0) SLH-DSA-SHAKE-256f,keccak_count,9132
+(0) SLH-DSA-SHA2-128s,slh_keygen() cycle count,930043668
+(0) SLH-DSA-SHA2-128s,keccak_count,0
+(0) SLH-DSA-SHA2-128s,Average cycles per keccak,0
+(0) SLH-DSA-SHA2-128s,slh_sign() cycle count,2809743417
+(0) SLH-DSA-SHA2-128s,slh_sign() keccak count,0
+(0) SLH-DSA-SHA2-128s,slh_verify() cycle count,6921501
+(0) SLH-DSA-SHA2-128s,slh_verify() keccak_count,0
+(0) SLH-DSA-SHA2-128s,slh_verify() forgery bit keccak count,0
+(0) SLH-DSA-SHA2-128s,keccak_count,0
+(0) SLH-DSA-SHA2-128f,slh_keygen() cycle count,14542722
+(0) SLH-DSA-SHA2-128f,keccak_count,0
+(0) SLH-DSA-SHA2-128f,Average cycles per keccak,0
+(0) SLH-DSA-SHA2-128f,slh_sign() cycle count,340915961
+(0) SLH-DSA-SHA2-128f,slh_sign() keccak count,0
+(0) SLH-DSA-SHA2-128f,slh_verify() cycle count,19569549
+(0) SLH-DSA-SHA2-128f,slh_verify() keccak_count,0
+(0) SLH-DSA-SHA2-128f,slh_verify() forgery bit keccak count,0
+(0) SLH-DSA-SHA2-128f,keccak_count,0
+(0) SLH-DSA-SHA2-192s,slh_keygen() cycle count,1409873755
+(0) SLH-DSA-SHA2-192s,keccak_count,0
+(0) SLH-DSA-SHA2-192s,Average cycles per keccak,0
+(0) SLH-DSA-SHA2-192s,slh_sign() cycle count,3397614383
+(0) SLH-DSA-SHA2-192s,slh_sign() keccak count,0
+(0) SLH-DSA-SHA2-192s,slh_verify() cycle count,14018157
+(0) SLH-DSA-SHA2-192s,slh_verify() keccak_count,0
+(0) SLH-DSA-SHA2-192s,slh_verify() forgery bit keccak count,0
+(0) SLH-DSA-SHA2-192s,keccak_count,0
+(0) SLH-DSA-SHA2-192f,slh_keygen() cycle count,22046887
+(0) SLH-DSA-SHA2-192f,keccak_count,0
+(0) SLH-DSA-SHA2-192f,Average cycles per keccak,0
+(0) SLH-DSA-SHA2-192f,slh_sign() cycle count,677651705
+(0) SLH-DSA-SHA2-192f,slh_sign() keccak count,0
+(0) SLH-DSA-SHA2-192f,slh_verify() cycle count,35860295
+(0) SLH-DSA-SHA2-192f,slh_verify() keccak_count,0
+(0) SLH-DSA-SHA2-192f,slh_verify() forgery bit keccak count,0
+(0) SLH-DSA-SHA2-192f,keccak_count,0
+(0) SLH-DSA-SHA2-256s,slh_keygen() cycle count,943033955
+(0) SLH-DSA-SHA2-256s,keccak_count,0
+(0) SLH-DSA-SHA2-256s,Average cycles per keccak,0
+(0) SLH-DSA-SHA2-256s,slh_sign() cycle count,2985444179
+(0) SLH-DSA-SHA2-256s,slh_sign() keccak count,0
+(0) SLH-DSA-SHA2-256s,slh_verify() cycle count,20837382
+(0) SLH-DSA-SHA2-256s,slh_verify() keccak_count,0
+(0) SLH-DSA-SHA2-256s,slh_verify() forgery bit keccak count,0
+(0) SLH-DSA-SHA2-256s,keccak_count,0
+(0) SLH-DSA-SHA2-256f,slh_keygen() cycle count,58935620
+(0) SLH-DSA-SHA2-256f,keccak_count,0
+(0) SLH-DSA-SHA2-256f,Average cycles per keccak,0
+(0) SLH-DSA-SHA2-256f,slh_sign() cycle count,1413793744
+(0) SLH-DSA-SHA2-256f,slh_sign() keccak count,0
+(0) SLH-DSA-SHA2-256f,slh_verify() cycle count,38250534
+(0) SLH-DSA-SHA2-256f,slh_verify() keccak_count,0
+(0) SLH-DSA-SHA2-256f,slh_verify() forgery bit keccak count,0
+(0) SLH-DSA-SHA2-256f,keccak_count,0
+(0) SLH-DSA-SHA2-256f,[INFO] test_slh_dsa() fail= 0,

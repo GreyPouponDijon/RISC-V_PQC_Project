@@ -1,0 +1,36 @@
+Module,Median,Average
+kyber_keypair_derand,746715,747180
+State Permute calls,,27
+NTT calls,,4
+INVNTT calls,,0
+State Permute Cycles,,16715
+NTT Cycles,,26812
+INVNTT Cycles,,0
+kyber_keypair,746966,747149
+State Permute calls,,54
+NTT calls,,8
+INVNTT calls,,0
+State Permute Cycles,,16715
+NTT Cycles,,26811
+INVNTT Cycles,,0
+kyber_encaps_derand,862325,862445
+State Permute calls,,80
+NTT calls,,10
+INVNTT calls,,3
+State Permute Cycles,,16820
+NTT Cycles,,26895
+INVNTT Cycles,,47490
+kyber_encaps,862543,862767
+State Permute calls,,106
+NTT calls,,12
+INVNTT calls,,3
+State Permute Cycles,,16820
+NTT Cycles,,26895
+INVNTT Cycles,,47490
+kyber_decaps,1050256,1050458
+State Permute calls,,132
+NTT calls,,16
+INVNTT calls,,4
+State Permute Cycles,,16716
+NTT Cycles,,26877
+INVNTT Cycles,,47488
