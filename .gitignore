@@ -1,5 +1,7 @@
 
 *.old
+*.rsp
+*.log
 
 
 venv/
