@@ -22,7 +22,7 @@ C_FILES += $(DRIVERS_DIR)/uarte.c
 C_FILES += $(DRIVERS_DIR)/nrf_config.c
 S_FILES = $(MDK_DIR)/gcc_startup_nrf54l15_application.S
 
-KYBER_DIR = ./kyber
+KYBER_DIR = ./kyber_ref
 KYBER_TEST_DIR = $(KYBER_DIR)/test
 
 SLH_DSA_DIR = ./slh
@@ -66,10 +66,10 @@ KYBER_DEFINES = -DKYBER_K=4
 endif
 
 # Kyber / ML-KEM
-ifeq ($(ALG), kyber)
-TARGET := m33_kyber
+ifeq ($(ALG), kyber_ref)
+TARGET := m33_kyber_ref
 KYBER_SOURCES = kem.c indcpa.c polyvec.c poly.c ntt.c cbd.c reduce.c verify.c fips202.c symmetric-shake.c
-ALG_SOURCES := $(addprefix kyber/, $(KYBER_SOURCES))
+ALG_SOURCES := $(addprefix kyber_ref/, $(KYBER_SOURCES))
 C_FILES += $(ALG_SOURCES)
 C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
 C_DEFINES += $(KYBER_DEFINES)
@@ -83,7 +83,7 @@ C_FILES += $(ALG_SOURCES)
 INCDIR += -I $(SLH_DSA_DIR)	
 VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(SLH_DSA_DIR)
 CFLAGS += -DNDEBUG
-#optimized kyber impl.
+#optimized kyber_ref impl.
 else ifeq ($(ALG), opt_kyber)
 TARGET := m33_kyber-opt
 ALG_SOURCES := $(wildcard $(KYBER_OPT_PATH)/*.c) $(wildcard $(KYBER_OPT_PATH)/*.S)
