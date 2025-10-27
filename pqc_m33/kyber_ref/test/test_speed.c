@@ -133,6 +133,7 @@ int main(void)
   }
   print_results("indcpa_dec: ", t, NTESTS);
   */
+  DWT->CYCCNT = 0;
   for(i=0;i<NTESTS;i++) {
     t[i] = cpucycles();
     crypto_kem_keypair_derand(pk, sk, coins64);

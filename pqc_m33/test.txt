@@ -1,0 +1,27 @@
+==========================DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+==========================DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+DONE key pair generation!DONE encapsulation!DONE decapsulation!ERROR KEYS
+keypair cycles: 32encaps cycles: 536931696decaps cycles: 536931728ERROR KEYS
+poly ntt cycles: 1398poly invntt cycles: 1640poly basemul cycles: 536932752#keypair cycles: 32encaps cycles: 536931696decaps cycles: 536931728ERROR KEYS
+poly ntt cycles: 1398poly invntt cycles: 1640poly basemul cycles: 536932752#keypair cycles: 32encaps cycles: 536931696decaps cycles: 536931728ERROR KEYS
+poly ntt cycles: 1398poly invntt cycles: 1640poly basemul cycles: 536932752#keypair cycles: 32encaps cycles: 536931696decaps cycles: 536931728ERROR KEYS
+poly ntt cycles: 1398poly invntt cycles: 1640poly basemul cycles: 536932752#keypair cycles: 32encaps cycles: 536931696decaps cycles: 536931728ERROR KEYS
+poly ntt cycles: 1398poly invntt cycles: 1640poly basemul cycles: 536932752#keypair cycles: 32encaps cycles: 536931696decaps cycles: 536931728ERROR KEYS
+poly ntt cycles: 1398poly invntt cycles: 1640poly basemul cycles: 536932752#keypair cycles: 32encaps cycles: 536931696decaps cycles: 536931728ERROR KEYS

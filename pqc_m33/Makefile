@@ -27,6 +27,9 @@ KYBER_TEST_DIR = $(KYBER_DIR)/test
 
 SLH_DSA_DIR = ./slh
 
+KYBER_OPT_DIR = ./kyber_opt
+KYBER_OPT_TEST_DIR = $(KYBER_OPT_DIR)/test
+
 LINKER_SCRIPTS ?= -T target.ld
 OUTDIR = ./build
 
@@ -85,10 +88,16 @@ VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(SLH_DSA_DIR)
 CFLAGS += -DNDEBUG
 #optimized kyber_ref impl.
 else ifeq ($(ALG), opt_kyber)
-TARGET := m33_kyber-opt
-ALG_SOURCES := $(wildcard $(KYBER_OPT_PATH)/*.c) $(wildcard $(KYBER_OPT_PATH)/*.S)
-C_FILES += ALG_SOURCES
+TARGET := m33_kyber_opt
+ALG_SOURCES := $(wildcard $(KYBER_OPT_DIR)/*.c) 
+S_ALG_SOURCES := $(wildcard $(KYBER_OPT_DIR)/*.S)
+C_FILES += speed.c
+C_FILES += $(ALG_SOURCES)
+S_FILES += $(S_ALG_SOURCES)
 C_FILES += randombytes.c cpucycles.c
+INCDIR += -I $(KYBER_OPT_DIR) -I $(KYBER_OPT_TEST_DIR)
+C_DEFINES += -DKYBER_P=512
+VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(KYBER_OPT_DIR):$(KYBER_OPT_TEST_DIR)
 else
 $(error Unknown algorithm '$(ALG)')
 endif
@@ -99,14 +108,16 @@ endif
 OBJS  := $(patsubst %.c,  $(OUTDIR)/%.o, $(notdir $(C_FILES)))
 S_OBJ := $(patsubst %.S,  $(OUTDIR)/%.o, $(notdir $(S_FILES)))
 
-all: print dis ihex hex map bin lst size $(OUTDIR)
+OBJS  := $(sort $(OBJS))
+S_OBJ := $(sort $(S_OBJ))
+
+
+all: bin dis $(OUTDIR)
 
 OBJ_DIRS = $(sort $(dir $(OBJS)))
 $(OBJS): | $(OBJ_DIRS)
 $(OBJ_DIRS):
-	mkdir -p $@
-
-print:
+	mkdir -p $@print:
 	@echo "$(C_FILES)"
 
 

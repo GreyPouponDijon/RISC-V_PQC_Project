@@ -84,7 +84,7 @@ def append_row(csv_path: Path, row: Dict[str, object], fieldnames):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Read UART, parse PQC/Keccak metrics, stop on Ctrl+C.")
     ap.add_argument("--port", required=True, help="Serial port (e.g. /dev/ttyACM0 or COM5)")
-    ap.add_argument("--baud", type=int, default=115200, help="Baud rate (default: 115200)")
+    ap.add_argument("--baud", type=int, default=1000000, help="Baud rate (default: 1000000)")
     ap.add_argument("--csv", type=str, default="uart_keccak_log.csv", help="Output CSV path")
     ap.add_argument("--function", type=str, help="Function name (slh_keygen/slh_sign/slh_verify). If omitted, auto-detect from lines.")
     ap.add_argument("--flush-every", type=int, default=0, help="Force-close a run every N lines (0 = disabled)")
