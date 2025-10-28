@@ -7,4 +7,8 @@
 6. [Evaluation of Optimized PQC Standards ML-KEM and ML-DSA on Sargantana RV64GBV core](https://riscv-europe.org/summit/2025/media/proceedings/2025-05-14-RISC-V-Summit-Europe-P1.2.01-CARRIL-GIL-abstract.pdf)
 7. [Towards ML-KEM & ML-DSA on OpenTitan](https://eprint.iacr.org/2024/1192.pdf)
 8. [Accelerating SLH-DSA by Two Orders of Magnitude with a Single Hash Unit](https://eprint.iacr.org/2024/367.pdf)
-9. [High-Efficiency Multi-Standard Polynomial Multiplication Accelerator on RISC-V SoC for Post-Quantum Cryptography](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10811006) 
+9. [High-Efficiency Multi-Standard Polynomial Multiplication Accelerator on RISC-V SoC for Post-Quantum Cryptography](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10811006)
+10. [Cortex-M4 Optimizations for {R,M}LWE Schemes](https://eprint.iacr.org/2020/012.pdf)
+11. [Faster multiplication in Z2m \[x\] on Cortex-M4 to speed up NIST PQC candidates](https://eprint.iacr.org/2018/1018.pdf)
+12. [HORCRUX A Lightweight PQC-RISC-V eXtension Architecture](https://eprint.iacr.org/2025/1934.pdf)
+
