@@ -22,5 +22,7 @@
 5. [Towards ML-KEM & ML-DSA on OpenTitan](https://eprint.iacr.org/2024/1192.pdf)
 6. [Accelerating SLH-DSA by Two Orders of Magnitude with a Single Hash Unit](https://eprint.iacr.org/2024/367.pdf)
 7. [High-Efficiency Multi-Standard Polynomial Multiplication Accelerator on RISC-V SoC for Post-Quantum Cryptography](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10811006)
-8. 
- 
+8. [CRYSTALS – Kyber: a CCA-secure module-lattice-based KEM](https://eprint.iacr.org/2017/634.pdf)
+9. [SPHINCS: Practical stateless hash-based signatures](https://www.scopus.com/inward/record.uri?eid=2-s2.0-84942567011&doi=10.1007%2f978-3-662-46800-5_15&partnerID=40&md5=8f17d7702837e6683b30b8a61be4fc01) 
+10. [CRYSTALS-Dilithium: A Lattic-Based Digital Signature Scheme](https://eprint.iacr.org/2017/633.pdf)
+11. 
