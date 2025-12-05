@@ -8,7 +8,7 @@
 #include "plat_local.h"
 #include <stdio.h>
 #include "cpucycles.h"
-#include "nrf.h"
+//#include "nrf.h"
 
 extern int keccak_count;
 extern int avg_keccak_cycles;

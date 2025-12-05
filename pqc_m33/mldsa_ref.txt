@@ -1,0 +1,25 @@
+CYCCNT initalized and Cache Enabled
+polyvec_matrix_expand:
+median: 1463309 cycles/ticks
+average: 1463672 cycles/ticks
+poly_uniform_eta:
+median: 41361 cycles/ticks
+average: 41449 cycles/ticks
+poly_uniform_gamma1:
+median: 91416 cycles/ticks
+average: 91537 cycles/ticks
+poly_ntt:
+median: 32794 cycles/ticks
+average: 32905 cycles/ticks
+poly_invntt_tomont:
+median: 40588 cycles/ticks
+average: 40617 cycles/ticks
+poly_pointwise_montgomery:
+median: 5408 cycles/ticks
+average: 5413 cycles/ticks
+poly_challenge:
+median: 19884 cycles/ticks
+average: 20077 cycles/ticks
+Keypair:
+median: 2381089 cycles/ticks
+average: 2381253 cycles/ticks

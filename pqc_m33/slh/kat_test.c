@@ -13,8 +13,8 @@
 #include "slh_dsa.h"
 #include "kat_drbg.h"
 #include "cpucycles.h"
-#include "nrf_config.h"
-#include "nrf.h"
+//#include "nrf_config.h"
+//#include "nrf.h"
 
 #ifndef KATNUM
 #define KATNUM 1
@@ -115,21 +115,29 @@ int kat_test(const slh_param_t *iut, int katnum)
         slh_keygen(pk, sk, &iut_randombytes, iut);
         uint32_t cnt2 = cpucycles();
         printf("slh_keygen() cycle count: %u\n" , cnt2 - cnt1);
-        DWT->CYCCNT = 0;
+        //DWT->CYCCNT = 0;
         //kat_hex(fh, "pk", pk, pk_sz);
         //kat_hex(fh, "sk", sk, sk_sz);
         printf("keccak_count: %d\n", keccak_count);
         printf("Average cycles per keccak: %d\n", avg_keccak_cycles);
+        double percentage =
+          ((double)keccak_count * (double)avg_keccak_cycles) /
+          ((double)(cnt2 - cnt1)) * 100.0;
+        printf("Keccak percentage: %.2f%%\n", percentage);        
         keccak_count = 0;
         avg_keccak_cycles = 0;
+       
         
         cnt1 = cpucycles();
         sm_sz = slh_sign(sm, msg, msg_sz, sk, &iut_randombytes, iut);
         cnt2 = cpucycles();
         printf("slh_sign() cycle count: %u\n", cnt2 - cnt1);
-        DWT->CYCCNT = 0; 
+        //DWT->CYCCNT = 0; 
         printf("slh_sign() keccak count: %u\n", keccak_count);
-
+        percentage =
+          ((double)keccak_count * (double)avg_keccak_cycles) /
+          ((double)(cnt2 - cnt1)) * 100.0;
+        printf("Keccak percentage: %.2f%%\n", percentage);        
         memcpy(sm + sm_sz, msg, msg_sz);
         sm_sz += msg_sz;
         //fprintf(fh, "smlen = %zu\n", sm_sz);
@@ -149,7 +157,11 @@ int kat_test(const slh_param_t *iut, int katnum)
         cnt2 = cpucycles();
         printf("slh_verify() cycle count: %u\n", cnt2 - cnt1);
         printf("slh_verify() keccak_count: %u\n", keccak_count); 
+        percentage =
+          ((double)keccak_count * (double)avg_keccak_cycles) /
+          ((double)(cnt2 - cnt1)) * 100.0;
 
+        printf("Keccak percentage: %.2f%%\n", percentage);        
         //  flip random bit
         uint32_t xbit = ((uint32_t) seed[4]) +
                         (((uint32_t) seed[5]) <<  8) +
@@ -193,7 +205,7 @@ const slh_param_t *test_iut[] = {
 int main(int argc, char **argv)
 {
     cpucycles_init();
-    nrf_config_init();
+    //nrf_config_init();
     int fail = 0;
     int iut_n = 0;
 

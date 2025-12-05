@@ -10,8 +10,10 @@ GCC_OBJDUMP := $(GCC_PREFIX)objdump
 GCC_OBJCOPY := $(GCC_PREFIX)objcopy
 GCC_SIZE := $(GCC_PREFIX)size
 
-KYBER_K ?= 4
+KYBER_K ?= 2
+MLDSA_MODE ?= 2
 
+ALG ?= kyber_ref
 
 DRIVERS_DIR = ./drivers
 MDK_DIR = ./mdk_8.72.2
@@ -24,6 +26,9 @@ S_FILES = $(MDK_DIR)/gcc_startup_nrf54l15_application.S
 
 KYBER_DIR = ./kyber_ref
 KYBER_TEST_DIR = $(KYBER_DIR)/test
+
+MLDSA_DIR = ./dilithium_ref
+MLDSA_TEST_DIR = $(MLDSA_DIR)/test
 
 SLH_DSA_DIR = ./slh
 
@@ -68,6 +73,14 @@ else
 KYBER_DEFINES = -DKYBER_K=4
 endif
 
+ifeq ($(MLDSA_MODE) , 2)
+MLDSA_DEFINES = -DDILITHIUM_MODE=2
+else ifeq ($(MLDSA_MODE), 3)
+MLDSA_DEFINES = -DDILITHIUM_MODE=3
+else ifeq ($(MLDSA_MODE), 5)
+MLDSA_DEFINES = -DDILITHIUM_MODE=5
+endif
+
 # Kyber / ML-KEM
 ifeq ($(ALG), kyber_ref)
 TARGET := m33_kyber_ref
@@ -78,6 +91,16 @@ C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
 C_DEFINES += $(KYBER_DEFINES)
 INCDIR += -I $(KYBER_DIR) -I $(KYBER_TEST_DIR) 
 VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(KYBER_DIR):$(KYBER_TEST_DIR)
+#kyber-dilithium / ml-dsa
+else ifeq ($(ALG), mldsa_ref)
+TARGET := m33_mldsa_ref
+MLDSA_SOURCES = sign.c packing.c polyvec.c poly.c ntt.c reduce.c rounding.c fips202.c symmetric-shake.c
+ALG_SOURCES := $(addprefix dilithium_ref/, $(MLDSA_SOURCES))
+C_FILES += $(ALG_SOURCES)
+C_FILES += test_speed.c randombytes.c cpucycles.c speed_print.c
+C_DEFINES += $(MLDSA_DEFINES)
+INCDIR += -I $(MLDSA_DIR) -I $(MLDSA_TEST_DIR)
+VPATH := $(MDK_DIR):$(DRIVERS_DIR):$(MLDSA_DIR):$(MLDSA_TEST_DIR)
 #SPHINCS + / slh-dsa
 else ifeq ($(ALG), slh-dsa)
 TARGET := m33_slh-dsa
@@ -112,13 +135,16 @@ OBJS  := $(sort $(OBJS))
 S_OBJ := $(sort $(S_OBJ))
 
 
-all: bin dis $(OUTDIR)
+all: print bin dis map size lst $(OUTDIR)
 
 OBJ_DIRS = $(sort $(dir $(OBJS)))
 $(OBJS): | $(OBJ_DIRS)
 $(OBJ_DIRS):
-	mkdir -p $@print:
-	@echo "$(C_FILES)"
+	mkdir -p $@
+
+
+print:
+	@echo $(C_FILES)
 
 
 $(OUTDIR)/%.o: %.c
