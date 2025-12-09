@@ -6,6 +6,7 @@
 #include "sha2_api.h"
 #include "plat_local.h"
 #include <string.h>
+#include "cpucycles.h"
 
 #ifndef SLOTH_SHA256
 //  ( slow / processor implementation fallback )
@@ -25,9 +26,16 @@
             (ror32(x1,  7) ^ ror32(x1, 18) ^ (x1 >>  3)) +  \
             (ror32(xe, 17) ^ ror32(xe, 19) ^ (xe >> 10));   }
 
+
+extern int sha256_compress_count;
+extern int avg_sha256_compress_cycles;
+
 void sha256_compress(void *v)
 {
     //  4.2.2 SHA-224 and SHA-256 Constants
+    
+    sha256_compress_count++;
+    uint32_t time1 = cpucycles();
 
     const uint32_t ck[64] = {
         0x428A2F98, 0x71374491, 0xB5C0FBCF, 0xE9B5DBA5,
@@ -132,6 +140,13 @@ void sha256_compress(void *v)
     sp[5] = rev8_be32(sp[5] + f);
     sp[6] = rev8_be32(sp[6] + g);
     sp[7] = rev8_be32(sp[7] + h);
+
+    uint32_t time2 = cpucycles();
+    if (avg_sha256_compress_cycles != 0){
+      avg_sha256_compress_cycles = (avg_sha256_compress_cycles + (time2 - time1)) / 2;
+    } else {
+      avg_sha256_compress_cycles = time2 - time1;
+    }
 }
 
 #endif

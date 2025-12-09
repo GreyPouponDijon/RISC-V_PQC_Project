@@ -1,4 +1,4 @@
-
+*.o
 *.old
 *.rsp
 *.log

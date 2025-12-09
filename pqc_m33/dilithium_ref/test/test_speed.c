@@ -1,5 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stddef.h>
 #include "nrf_config.h"
 #include "nrf.h"
 #include "../sign.h"
@@ -8,6 +9,7 @@
 #include "../params.h"
 #include "cpucycles.h"
 #include "speed_print.h"
+#include "stack_usage.h"
 
 #define NTESTS 10
 
@@ -16,7 +18,8 @@ extern int n_ntt = 0;
 extern int n_invntt = 0;
 extern int statepermute_cyc = 0;
 extern int ntt_cyc = 0;
-extern int inv_ntt_cyc = 0; 
+extern int inv_ntt_cyc = 0;
+size_t stack_used = 0;
 
 uint64_t t[NTESTS];
 
@@ -32,6 +35,8 @@ void print_stuff(void)
   print_cycles("NTT Cycles: ", ntt_cyc, NTESTS);
   print_cycles("INVNTT Cycles: ", inv_ntt_cyc, NTESTS);
   DWT->CYCCNT = 0;
+  stack_used = check_stack();
+  printf("Stack Used: %d\n", (int)stack_used);
 }
 
 int main(void)
@@ -49,7 +54,8 @@ int main(void)
   poly *a = &mat[0].vec[0];
   poly *b = &mat[0].vec[1];
   poly *c = &mat[0].vec[2];
-
+  
+  /*
   DWT->CYCCNT = 0;
   for(i = 0; i < NTESTS; ++i) {
     t[i] = cpucycles();
@@ -93,18 +99,28 @@ int main(void)
   }
   print_results("poly_challenge:", t, NTESTS);
   print_stuff();
+  */
+
+  fill_stack();
+  
   for(i = 0; i < NTESTS; ++i) {
     t[i] = cpucycles();
     crypto_sign_keypair(pk, sk);
-  }
+  }  
   print_results("Keypair:", t, NTESTS);
   print_stuff();
+
+  fill_stack();
+
   for(i = 0; i < NTESTS; ++i) {
     t[i] = cpucycles();
     crypto_sign_signature(sig, &siglen, sig, CRHBYTES, NULL, 0, sk);
   }
   print_results("Sign:", t, NTESTS);
   print_stuff();
+
+  fill_stack();
+
   for(i = 0; i < NTESTS; ++i) {
     t[i] = cpucycles();
     crypto_sign_verify(sig, CRYPTO_BYTES, sig, CRHBYTES, NULL, 0, pk);

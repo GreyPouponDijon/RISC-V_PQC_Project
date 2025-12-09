@@ -1,0 +1,121 @@
+CYCCNT initalized and Cache Enabled
+polyvec_matrix_expand:
+median: 1461947 cycles/ticks
+average: 1462328 cycles/ticks
+State Permute calls:
+average: 80 cycles/ticks
+NTT calls:
+average: 0 cycles/ticks
+INVNTT calls:
+average: 0 cycles/ticks
+State Permute Cycles:
+average: 16701 cycles/ticks
+NTT Cycles:
+average: 0 cycles/ticks
+INVNTT Cycles:
+average: 0 cycles/ticks
+poly_uniform_eta:
+median: 24105 cycles/ticks
+average: 24244 cycles/ticks
+State Permute calls:
+average: 1 cycles/ticks
+NTT calls:
+average: 0 cycles/ticks
+INVNTT calls:
+average: 0 cycles/ticks
+State Permute Cycles:
+average: 16816 cycles/ticks
+NTT Cycles:
+average: 0 cycles/ticks
+INVNTT Cycles:
+average: 0 cycles/ticks
+poly_uniform_gamma1:
+median: 91427 cycles/ticks
+average: 91607 cycles/ticks
+State Permute calls:
+average: 5 cycles/ticks
+NTT calls:
+average: 0 cycles/ticks
+INVNTT calls:
+average: 0 cycles/ticks
+State Permute Cycles:
+average: 16699 cycles/ticks
+NTT Cycles:
+average: 0 cycles/ticks
+INVNTT Cycles:
+average: 0 cycles/ticks
+poly_ntt:
+median: 33063 cycles/ticks
+average: 33180 cycles/ticks
+State Permute calls:
+average: 0 cycles/ticks
+NTT calls:
+average: 1 cycles/ticks
+INVNTT calls:
+average: 0 cycles/ticks
+State Permute Cycles:
+average: 16699 cycles/ticks
+NTT Cycles:
+average: 33020 cycles/ticks
+INVNTT Cycles:
+average: 0 cycles/ticks
+poly_invntt_tomont:
+median: 39813 cycles/ticks
+average: 39846 cycles/ticks
+State Permute calls:
+average: 0 cycles/ticks
+NTT calls:
+average: 0 cycles/ticks
+INVNTT calls:
+average: 1 cycles/ticks
+State Permute Cycles:
+average: 16699 cycles/ticks
+NTT Cycles:
+average: 33020 cycles/ticks
+INVNTT Cycles:
+average: 39766 cycles/ticks
+poly_pointwise_montgomery:
+median: 5408 cycles/ticks
+average: 5414 cycles/ticks
+State Permute calls:
+average: 0 cycles/ticks
+NTT calls:
+average: 0 cycles/ticks
+INVNTT calls:
+average: 0 cycles/ticks
+State Permute Cycles:
+average: 16699 cycles/ticks
+NTT Cycles:
+average: 33020 cycles/ticks
+INVNTT Cycles:
+average: 39766 cycles/ticks
+poly_challenge:
+median: 19917 cycles/ticks
+average: 20122 cycles/ticks
+State Permute calls:
+average: 1 cycles/ticks
+NTT calls:
+average: 0 cycles/ticks
+INVNTT calls:
+average: 0 cycles/ticks
+State Permute Cycles:
+average: 16775 cycles/ticks
+NTT Cycles:
+average: 33020 cycles/ticks
+INVNTT Cycles:
+average: 39766 cycles/ticks
+Keypair:
+median: 2377410 cycles/ticks
+average: 2377581 cycles/ticks
+State Permute calls:
+average: 101 cycles/ticks
+NTT calls:
+average: 4 cycles/ticks
+INVNTT calls:
+average: 4 cycles/ticks
+State Permute Cycles:
+average: 16720 cycles/ticks
+NTT Cycles:
+average: 33055 cycles/ticks
+INVNTT Cycles:
+average: 39773 cycles/ticks

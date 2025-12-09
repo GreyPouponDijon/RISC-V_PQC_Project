@@ -1,0 +1,49 @@
+CYCCNT initalized and Cache Enabled
+Keypair:
+median: 2380096 cycles/ticks
+average: 2380540 cycles/ticks
+State Permute calls:
+average: 101 calls
+NTT calls:
+average: 4 calls
+INVNTT calls:
+average: 4 calls
+State Permute Cycles:
+average: 16734 cycles/ticks
+NTT Cycles:
+average: 33074 cycles/ticks
+INVNTT Cycles:
+average: 39772 cycles/ticks
+Stack Used: 38532
+Sign:
+median: 6163674 cycles/ticks
+average: 8587406 cycles/ticks
+State Permute calls:
+average: 202 calls
+NTT calls:
+average: 33 calls
+INVNTT calls:
+average: 48 calls
+State Permute Cycles:
+average: 16718 cycles/ticks
+NTT Cycles:
+average: 33292 cycles/ticks
+INVNTT Cycles:
+average: 39766 cycles/ticks
+Stack Used: 52484
+Verify:
+median: 2527645 cycles/ticks
+average: 2527993 cycles/ticks
+State Permute calls:
+average: 99 calls
+NTT calls:
+average: 9 calls
+INVNTT calls:
+average: 4 calls
+State Permute Cycles:
+average: 16707 cycles/ticks
+NTT Cycles:
+average: 33040 cycles/ticks
+INVNTT Cycles:
+average: 39776 cycles/ticks
+Stack Used: 36700

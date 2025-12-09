@@ -24,14 +24,14 @@ int crypto_sign_keypair(uint8_t *pk, uint8_t *sk) {
   uint8_t seedbuf[2*SEEDBYTES + CRHBYTES];
   uint8_t tr[TRBYTES];
   const uint8_t *rho, *rhoprime, *key;
-  polyvecl mat[K];
+  polyvecl mat[DILITHIUM_K];
   polyvecl s1, s1hat;
   polyveck s2, t1, t0;
 
   /* Get randomness for rho, rhoprime and key */
   randombytes(seedbuf, SEEDBYTES);
-  seedbuf[SEEDBYTES+0] = K;
-  seedbuf[SEEDBYTES+1] = L;
+  seedbuf[SEEDBYTES+0] = DILITHIUM_K;
+  seedbuf[SEEDBYTES+1] = DILITHIUM_L;
   shake256(seedbuf, 2*SEEDBYTES + CRHBYTES, seedbuf, SEEDBYTES+2);
   rho = seedbuf;
   rhoprime = rho + SEEDBYTES;
@@ -42,7 +42,7 @@ int crypto_sign_keypair(uint8_t *pk, uint8_t *sk) {
 
   /* Sample short vectors s1 and s2 */
   polyvecl_uniform_eta(&s1, rhoprime, 0);
-  polyveck_uniform_eta(&s2, rhoprime, L);
+  polyveck_uniform_eta(&s2, rhoprime, DILITHIUM_L);
 
   /* Matrix-vector multiplication */
   s1hat = s1;
@@ -95,7 +95,7 @@ int crypto_sign_signature_internal(uint8_t *sig,
   uint8_t seedbuf[2*SEEDBYTES + TRBYTES + 2*CRHBYTES];
   uint8_t *rho, *tr, *key, *mu, *rhoprime;
   uint16_t nonce = 0;
-  polyvecl mat[K], s1, y, z;
+  polyvecl mat[DILITHIUM_K], s1, y, z;
   polyveck t0, s2, w1, w0, h;
   poly cp;
   keccak_state state;
@@ -147,7 +147,7 @@ rej:
 
   shake256_init(&state);
   shake256_absorb(&state, mu, CRHBYTES);
-  shake256_absorb(&state, sig, K*POLYW1_PACKEDBYTES);
+  shake256_absorb(&state, sig, DILITHIUM_K*POLYW1_PACKEDBYTES);
   shake256_finalize(&state);
   shake256_squeeze(sig, CTILDEBYTES, &state);
   poly_challenge(&cp, sig);
@@ -295,13 +295,13 @@ int crypto_sign_verify_internal(const uint8_t *sig,
                                 const uint8_t *pk)
 {
   unsigned int i;
-  uint8_t buf[K*POLYW1_PACKEDBYTES];
+  uint8_t buf[DILITHIUM_K*POLYW1_PACKEDBYTES];
   uint8_t rho[SEEDBYTES];
   uint8_t mu[CRHBYTES];
   uint8_t c[CTILDEBYTES];
   uint8_t c2[CTILDEBYTES];
   poly cp;
-  polyvecl mat[K], z;
+  polyvecl mat[DILITHIUM_K], z;
   polyveck t1, w1, h;
   keccak_state state;
 
@@ -347,7 +347,7 @@ int crypto_sign_verify_internal(const uint8_t *sig,
   /* Call random oracle and verify challenge */
   shake256_init(&state);
   shake256_absorb(&state, mu, CRHBYTES);
-  shake256_absorb(&state, buf, K*POLYW1_PACKEDBYTES);
+  shake256_absorb(&state, buf, DILITHIUM_K*POLYW1_PACKEDBYTES);
   shake256_finalize(&state);
   shake256_squeeze(c2, CTILDEBYTES, &state);
   for(i = 0; i < CTILDEBYTES; ++i)

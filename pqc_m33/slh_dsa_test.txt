@@ -1,0 +1,11 @@
+[KAT] (0) SLH-DSA-SHAKE-128s
+slh_keygen() cycle count: 3727881135
+keccak_count: 289791
+Average cycles per keccak: 56268
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 2f%
+SHA256 compress percentage: 2f%
+SHA512 compress percentage: 2f%

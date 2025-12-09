@@ -92,6 +92,57 @@ static int printi(char **out, int i, int b, int sg, int width, int pad, int letb
 	return pc + prints (out, s, width, pad);
 }
 
+static int printf_float(char **out, double v, int width, int pad, int precision)
+{
+  int pc = 0;
+  long ipart;
+  long frac;
+  long mult = 1;
+  int i;
+
+  if (precision < 0)
+    precision = 2;
+
+  if (v < 0) {
+    printchar(out, '-');
+    pc++;
+    v = -v;
+    if(width > 0) width--;
+  }
+
+  ipart = (long)v;
+  double fpart = v - (double)ipart;
+
+  for (i = 0; i < precision; i++) {
+    mult *= 10;
+  }
+
+  frac = (long)(fpart * mult + 0.5);
+
+  if (frac >= mult) {
+    ipart++;
+    frac -= mult;
+  }
+
+  pc += printi(out, ipart, 10, 0, width, pad, 'a');
+
+  if (precision > 0){
+    printchar(out, '.');
+    pc++;
+
+    char buf[32];
+    int pos = precision;
+    buf[pos] = '\0';
+    while (pos > 0) {
+      buf[--pos] = '0' + (frac % 10);
+      frac /= 10;
+    }
+    pc += prints(out, buf, 0, 0);
+  }
+
+  return pc;
+}
+
 static int print(char **out, const char *format, va_list args )
 {
 	register int width, pad;
@@ -100,6 +151,7 @@ static int print(char **out, const char *format, va_list args )
 
 	for (; *format != 0; ++format) {
 		if (*format == '%') {
+      int precision = -1;
 			++format;
 			width = pad = 0;
 			if (*format == '\0') break;
@@ -116,6 +168,14 @@ static int print(char **out, const char *format, va_list args )
 				width *= 10;
 				width += *format - '0';
 			}
+      if( *format == '.') {
+        ++format;
+        precision = 0;
+        while(*format >= '0' && *format <= '9') {
+          precision = precision * 10 + (*format - '0');
+          ++format;
+        }
+      }
 			if( *format == 's' ) {
 				register char *s = (char *)va_arg( args, int );
 				pc += prints (out, s?s:"(null)", width, pad);
@@ -144,6 +204,12 @@ static int print(char **out, const char *format, va_list args )
 				pc += prints (out, scr, width, pad);
 				continue;
 			}
+      if( *format == '.f' ) {
+        double v = va_arg( args, double);
+        if ( precision < 0) precision = 2;
+        pc += printf_float( out, v, width, pad, precision);
+        continue;
+      }
 		}
 		else {
 		out:

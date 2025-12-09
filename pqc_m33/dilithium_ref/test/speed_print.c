@@ -56,7 +56,7 @@ static uint32_t average_calls(int calls, size_t tlen) {
 
 void print_calls(const char *s, int t, size_t tlen) {
   printf("%s\n", s);
-  printf("average: %d cycles/ticks\n", (int)(average_calls(t, tlen)));
+  printf("average: %d calls\n", (int)(average_calls(t, tlen)));
   printf("\n");
 }
 

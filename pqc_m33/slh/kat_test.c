@@ -9,7 +9,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <assert.h>
-
 #include "slh_dsa.h"
 #include "kat_drbg.h"
 #include "cpucycles.h"
@@ -22,6 +21,10 @@
 
 extern int keccak_count = 0;
 extern int avg_keccak_cycles = 0;
+extern int sha256_compress_count = 0;
+extern int sha512_compress_count = 0;
+extern int avg_sha256_compress_cycles = 0;
+extern int avg_sha512_compress_cycles = 0;
 
 //  fake test drbg state
 aes256_ctr_drbg_t kat_drbg, iut_drbg;
@@ -50,6 +53,7 @@ static void kat_hex(FILE *fh, const char *label,
 int kat_test(const slh_param_t *iut, int katnum)
 {
     int fail = 0;
+    double percentage = 0;
     keccak_count = 0;
     avg_keccak_cycles = 0;
 
@@ -120,12 +124,28 @@ int kat_test(const slh_param_t *iut, int katnum)
         //kat_hex(fh, "sk", sk, sk_sz);
         printf("keccak_count: %d\n", keccak_count);
         printf("Average cycles per keccak: %d\n", avg_keccak_cycles);
-        double percentage =
+        printf("SHA256 compress count: %d\n", sha256_compress_count);
+        printf("SHA512 compress count: %d\n", sha512_compress_count);
+        printf("Average cycles per SHA256 compress: %d\n", avg_sha256_compress_cycles);
+        printf("Average cycles per SHA512 compress: %d\n", avg_sha512_compress_cycles);
+        percentage =
           ((double)keccak_count * (double)avg_keccak_cycles) /
           ((double)(cnt2 - cnt1)) * 100.0;
-        printf("Keccak percentage: %.2f%%\n", percentage);        
+        printf("Keccak percentage: %.2f%%\n", percentage);
+        percentage = 
+          ((double)sha256_compress_count * (double) avg_sha256_compress_cycles) /
+          ((double)(cnt2-cnt1)) * 100.0;
+        printf("SHA256 compress percentage: %.2f%%\n", percentage);
+        percentage = 
+          ((double)sha512_compress_count * (double) avg_sha512_compress_cycles) /
+          ((double)(cnt2-cnt1)) * 100.0;
+        printf("SHA512 compress percentage: %.2f%%\n", percentage);
         keccak_count = 0;
         avg_keccak_cycles = 0;
+        sha256_compress_count = 0;
+        sha512_compress_count = 0;
+        avg_sha256_compress_cycles = 0;
+        avg_sha512_compress_cycles = 0;
        
         
         cnt1 = cpucycles();
@@ -133,11 +153,30 @@ int kat_test(const slh_param_t *iut, int katnum)
         cnt2 = cpucycles();
         printf("slh_sign() cycle count: %u\n", cnt2 - cnt1);
         //DWT->CYCCNT = 0; 
-        printf("slh_sign() keccak count: %u\n", keccak_count);
+        printf("keccak_count: %d\n", keccak_count);
+        printf("Average cycles per keccak: %d\n", avg_keccak_cycles);
+        printf("SHA256 compress count: %d\n", sha256_compress_count);
+        printf("SHA512 compress count: %d\n", sha512_compress_count);
+        printf("Average cycles per SHA256 compress: %d\n", avg_sha256_compress_cycles);
+        printf("Average cycles per SHA512 compress: %d\n", avg_sha512_compress_cycles);
         percentage =
           ((double)keccak_count * (double)avg_keccak_cycles) /
           ((double)(cnt2 - cnt1)) * 100.0;
-        printf("Keccak percentage: %.2f%%\n", percentage);        
+        printf("Keccak percentage: %.2f%%\n", percentage);
+        percentage = 
+          ((double)sha256_compress_count * (double) avg_sha256_compress_cycles) /
+          ((double)(cnt2-cnt1)) * 100.0;
+        printf("SHA256 compress percentage: %.2f%%\n", percentage);
+        percentage = 
+          ((double)sha512_compress_count * (double) avg_sha512_compress_cycles) /
+          ((double)(cnt2-cnt1)) * 100.0;
+        printf("SHA512 compress percentage: %.2f%%\n", percentage);
+        keccak_count = 0;
+        avg_keccak_cycles = 0;
+        sha256_compress_count = 0;
+        sha512_compress_count = 0;
+        avg_sha256_compress_cycles = 0;
+        avg_sha512_compress_cycles = 0;  
         memcpy(sm + sm_sz, msg, msg_sz);
         sm_sz += msg_sz;
         //fprintf(fh, "smlen = %zu\n", sm_sz);
@@ -156,12 +195,30 @@ int kat_test(const slh_param_t *iut, int katnum)
         }
         cnt2 = cpucycles();
         printf("slh_verify() cycle count: %u\n", cnt2 - cnt1);
-        printf("slh_verify() keccak_count: %u\n", keccak_count); 
+        printf("keccak_count: %d\n", keccak_count);
+        printf("Average cycles per keccak: %d\n", avg_keccak_cycles);
+        printf("SHA256 compress count: %d\n", sha256_compress_count);
+        printf("SHA512 compress count: %d\n", sha512_compress_count);
+        printf("Average cycles per SHA256 compress: %d\n", avg_sha256_compress_cycles);
+        printf("Average cycles per SHA512 compress: %d\n", avg_sha512_compress_cycles);
         percentage =
           ((double)keccak_count * (double)avg_keccak_cycles) /
           ((double)(cnt2 - cnt1)) * 100.0;
-
-        printf("Keccak percentage: %.2f%%\n", percentage);        
+        printf("Keccak percentage: %.2f%%\n", percentage);
+        percentage = 
+          ((double)sha256_compress_count * (double) avg_sha256_compress_cycles) /
+          ((double)(cnt2-cnt1)) * 100.0;
+        printf("SHA256 compress percentage: %.2f%%\n", percentage);
+        percentage = 
+          ((double)sha512_compress_count * (double) avg_sha512_compress_cycles) /
+          ((double)(cnt2-cnt1)) * 100.0;
+        printf("SHA512 compress percentage: %.2f%%\n", percentage);
+        keccak_count = 0;
+        avg_keccak_cycles = 0;
+        sha256_compress_count = 0;
+        sha512_compress_count = 0;
+        avg_sha256_compress_cycles = 0;
+        avg_sha512_compress_cycles = 0;     
         //  flip random bit
         uint32_t xbit = ((uint32_t) seed[4]) +
                         (((uint32_t) seed[5]) <<  8) +

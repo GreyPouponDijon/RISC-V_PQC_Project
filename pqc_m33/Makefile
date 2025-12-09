@@ -22,6 +22,7 @@ C_FILES += $(MDK_DIR)/system_nrf54l.c
 C_FILES += $(DRIVERS_DIR)/print_lib.c
 C_FILES += $(DRIVERS_DIR)/uarte.c
 C_FILES += $(DRIVERS_DIR)/nrf_config.c
+C_FILES += $(DRIVERS_DIR)/stack_usage.c
 S_FILES = $(MDK_DIR)/gcc_startup_nrf54l15_application.S
 
 KYBER_DIR = ./kyber_ref
@@ -38,7 +39,7 @@ KYBER_OPT_TEST_DIR = $(KYBER_OPT_DIR)/test
 LINKER_SCRIPTS ?= -T target.ld
 OUTDIR = ./build
 
-C_DEFINES =  -D__START=main -D__MTVT_PRESENT  -D__STACK_SIZE=2048 -D__HEAP_SIZE=2048 -D__STARTUP_CLEAR_BSS
+C_DEFINES =  -D__START=main -D__MTVT_PRESENT -D__HEAP_SIZE=2048 -D__STARTUP_CLEAR_BSS
 C_DEFINES += -DCONFIG_HW_UARTE_INSTANCE=0x500C6000
 C_DEFINES += -DNRF54L15_XXAA
 C_DEFINES += -DNRF_SKIP_SAU_CONFIGURATION
@@ -49,6 +50,8 @@ VPATH := $(MDK_DIR):$(DRIVERS_DIR)
 ARCH_OPT = -mthumb -mabi=aapcs  -mcmse -march=armv8-m.main+dsp -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard
 
 WARNINGS = -Wall -Wextra -Wshadow -Wundef -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings  -Wredundant-decls -Wstrict-prototypes  -Wpedantic
+
+BENCHMARK_OPT =  
 
 OPTIMISATION_OPTIONS = -O3 -g
 LIB_OPT :=  -ffreestanding  --specs=nano.specs -lgcc -lc
@@ -61,6 +64,7 @@ CFLAGS += $(OPTIMISATION_OPTIONS)
 CFLAGS += $(WARNINGS)
 CFLAGS += $(LIB_OPT)
 CFLAGS += $(DEFINITIONS)
+CFLAGS += $(BENCHMARK_OPT)
 
 INCDIR += -I. -I $(MDK_DIR) -I $(DRIVERS_DIR) -I $(CMSIS_DIR)
 
@@ -75,10 +79,15 @@ endif
 
 ifeq ($(MLDSA_MODE) , 2)
 MLDSA_DEFINES = -DDILITHIUM_MODE=2
+MLDSA_DEFINES += -D__STACK_SIZE=65536
 else ifeq ($(MLDSA_MODE), 3)
 MLDSA_DEFINES = -DDILITHIUM_MODE=3
+MLDSA_DEFINES += -D__STACK_SIZE=131072
 else ifeq ($(MLDSA_MODE), 5)
 MLDSA_DEFINES = -DDILITHIUM_MODE=5
+MLDSA_DEFINES +=	-D__STACK_SIZE=131072
+else
+C_DEFINES += -D__STACK_SIZE=2048
 endif
 
 # Kyber / ML-KEM

@@ -6,6 +6,7 @@
 #include "sha2_api.h"
 #include "plat_local.h"
 #include <string.h>
+#include "cpucycles.h"
 
 #ifndef SLOTH_SHA512
 //  ( slow / processor implementation fallback )
@@ -27,9 +28,15 @@
 
 //  compression function (this one does *not* modify m[16])
 
+extern int sha512_compress_count;
+extern int avg_sha512_compress_cycles;
+
 void sha512_compress(void *v)
 {
     //  4.2.3 SHA-384, SHA-512, SHA-512/224 and SHA-512/256 Constants
+    sha512_compress_count++;
+    uint32_t time1 = cpucycles();
+
 
     const uint64_t ck[80] = {
         UINT64_C(0x428A2F98D728AE22),   UINT64_C(0x7137449123EF65CD),
@@ -160,6 +167,13 @@ void sha512_compress(void *v)
     sp[5] = rev8_be64(sp[5] + f);
     sp[6] = rev8_be64(sp[6] + g);
     sp[7] = rev8_be64(sp[7] + h);
+    uint32_t time2 = cpucycles();
+    if (avg_sha512_compress_cycles != 0){
+      avg_sha512_compress_cycles = (avg_sha512_compress_cycles + (time2 - time1)) / 2;
+    } else {
+      avg_sha512_compress_cycles = time2 - time1;
+    }
+
 }
 
 #endif
