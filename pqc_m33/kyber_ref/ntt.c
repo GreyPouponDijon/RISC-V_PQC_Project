@@ -8,6 +8,8 @@ extern int n_ntt;
 extern int n_invntt;
 extern int ntt_cyc;
 extern int inv_ntt_cyc;
+extern int n_basemul;
+extern int basemul_cyc;
 
 /* Code to generate zetas and zetas_inv used in the number-theoretic transform:
 
@@ -161,9 +163,17 @@ void invntt(int16_t r[256]) {
 **************************************************/
 void basemul(int16_t r[2], const int16_t a[2], const int16_t b[2], int16_t zeta)
 {
+  n_basemul++;
+  uint32_t cnt1 = cpucycles();
   r[0]  = fqmul(a[1], b[1]);
   r[0]  = fqmul(r[0], zeta);
   r[0] += fqmul(a[0], b[0]);
   r[1]  = fqmul(a[0], b[1]);
   r[1] += fqmul(a[1], b[0]);
+  uint32_t cnt2 = cpucycles();
+  if (basemul_cyc != 0){
+    basemul_cyc = (basemul_cyc + cnt2-cnt1) / 2;
+  } else {
+    basemul_cyc = cnt2-cnt1;
+  }
 }

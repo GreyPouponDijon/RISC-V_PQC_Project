@@ -6,7 +6,16 @@
 #include "cbd.h"
 #include "symmetric.h"
 #include "verify.h"
+#include "cpucycles.h"
 
+extern int n_poly_compress;
+extern int poly_compress_cyc;
+extern int n_poly_decompress;
+extern int poly_decompress_cyc;
+extern int n_poly_add;
+extern int n_poly_sub;
+extern int poly_add_cyc;
+extern int poly_sub_cyc;
 /*************************************************
 * Name:        poly_compress
 *
@@ -18,6 +27,8 @@
 **************************************************/
 void poly_compress(uint8_t r[KYBER_POLYCOMPRESSEDBYTES], const poly *a)
 {
+  n_poly_compress++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i,j;
   int16_t u;
   uint32_t d0;
@@ -65,6 +76,12 @@ void poly_compress(uint8_t r[KYBER_POLYCOMPRESSEDBYTES], const poly *a)
     r[4] = (t[6] >> 2) | (t[7] << 3);
     r += 5;
   }
+  uint32_t cnt2 = cpucycles();
+  if (poly_compress_cyc != 0){
+    poly_compress_cyc = (poly_compress_cyc + cnt2-cnt1) / 2;
+  } else {
+    poly_compress_cyc = cnt2-cnt1;
+  }
 #else
 #error "KYBER_POLYCOMPRESSEDBYTES needs to be in {128, 160}"
 #endif
@@ -82,6 +99,8 @@ void poly_compress(uint8_t r[KYBER_POLYCOMPRESSEDBYTES], const poly *a)
 **************************************************/
 void poly_decompress(poly *r, const uint8_t a[KYBER_POLYCOMPRESSEDBYTES])
 {
+  n_poly_decompress++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i;
 
 #if (KYBER_POLYCOMPRESSEDBYTES == 128)
@@ -106,6 +125,12 @@ void poly_decompress(poly *r, const uint8_t a[KYBER_POLYCOMPRESSEDBYTES])
 
     for(j=0;j<8;j++)
       r->coeffs[8*i+j] = ((uint32_t)(t[j] & 31)*KYBER_Q + 16) >> 5;
+  }
+  uint32_t cnt2 = cpucycles();
+  if (poly_decompress_cyc != 0){
+    poly_decompress_cyc = (poly_decompress_cyc + cnt2-cnt1) / 2;
+  } else {
+    poly_decompress_cyc = cnt2-cnt1;
   }
 #else
 #error "KYBER_POLYCOMPRESSEDBYTES needs to be in {128, 160}"
@@ -338,9 +363,17 @@ void poly_reduce(poly *r)
 **************************************************/
 void poly_add(poly *r, const poly *a, const poly *b)
 {
+  n_poly_add++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i;
   for(i=0;i<KYBER_N;i++)
     r->coeffs[i] = a->coeffs[i] + b->coeffs[i];
+  uint32_t cnt2 = cpucycles();
+  if (poly_add_cyc != 0){
+    poly_add_cyc = (poly_add_cyc + cnt2-cnt1) / 2;
+  } else {
+    poly_add_cyc = cnt2-cnt1;
+  }
 }
 
 /*************************************************
@@ -354,7 +387,15 @@ void poly_add(poly *r, const poly *a, const poly *b)
 **************************************************/
 void poly_sub(poly *r, const poly *a, const poly *b)
 {
+  n_poly_sub++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i;
   for(i=0;i<KYBER_N;i++)
     r->coeffs[i] = a->coeffs[i] - b->coeffs[i];
+  uint32_t cnt2 = cpucycles(); 
+  if (poly_sub_cyc != 0){
+    poly_sub_cyc = (poly_sub_cyc + cnt2-cnt1) / 2;
+  } else {
+    poly_sub_cyc = cnt2-cnt1;
+  }
 }

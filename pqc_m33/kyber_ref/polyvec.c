@@ -2,7 +2,12 @@
 #include "params.h"
 #include "poly.h"
 #include "polyvec.h"
+#include "cpucycles"
 
+extern int n_polyvec_compress;
+extern int n_polyvec_decompress;
+extern int polyvec_compress_cyc;
+extern int polyvec_decompress_cyc;
 /*************************************************
 * Name:        polyvec_compress
 *
@@ -14,6 +19,8 @@
 **************************************************/
 void polyvec_compress(uint8_t r[KYBER_POLYVECCOMPRESSEDBYTES], const polyvec *a)
 {
+  n_polyvec_compress++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i,j,k;
   uint64_t d0;
 
@@ -74,6 +81,12 @@ void polyvec_compress(uint8_t r[KYBER_POLYVECCOMPRESSEDBYTES], const polyvec *a)
 #else
 #error "KYBER_POLYVECCOMPRESSEDBYTES needs to be in {320*KYBER_K, 352*KYBER_K}"
 #endif
+  uint32_t cnt2 = cpucycles();
+  if (polyvec_compress_cyc != 0){
+    polyvec_compress_cyc = (polyvec_compress_cyc + cnt2-cnt1) / 2;
+  } else {
+    polyvec_compress_cyc = cnt2-cnt1;
+  } 
 }
 
 /*************************************************
@@ -88,6 +101,8 @@ void polyvec_compress(uint8_t r[KYBER_POLYVECCOMPRESSEDBYTES], const polyvec *a)
 **************************************************/
 void polyvec_decompress(polyvec *r, const uint8_t a[KYBER_POLYVECCOMPRESSEDBYTES])
 {
+  n_polyvec_decompress++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i,j,k;
 
 #if (KYBER_POLYVECCOMPRESSEDBYTES == (KYBER_K * 352))
@@ -125,6 +140,12 @@ void polyvec_decompress(polyvec *r, const uint8_t a[KYBER_POLYVECCOMPRESSEDBYTES
 #else
 #error "KYBER_POLYVECCOMPRESSEDBYTES needs to be in {320*KYBER_K, 352*KYBER_K}"
 #endif
+    uint32_t cnt2 = cpucycles();
+  if (polyvec_decompress_cyc != 0){
+    polyvec_decompress_cyc = (polyvec_decompress_cyc + cnt2-cnt1) / 2;
+  } else {
+    polyvec_decompress_cyc = cnt2-cnt1;
+  }
 }
 
 /*************************************************

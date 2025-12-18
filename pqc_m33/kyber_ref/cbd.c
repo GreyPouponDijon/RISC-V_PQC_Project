@@ -1,6 +1,12 @@
 #include <stdint.h>
 #include "params.h"
 #include "cbd.h"
+#include "cpucycles.h"
+
+extern int n_poly_cbd_eta1;
+extern int n_poly_cbd_eta2;
+extern int poly_cbd_eta1_cyc;
+extern int poly_cbd_eta2_cyc;
 
 /*************************************************
 * Name:        load32_littleendian
@@ -109,6 +115,8 @@ static void cbd3(poly *r, const uint8_t buf[3*KYBER_N/4])
 
 void poly_cbd_eta1(poly *r, const uint8_t buf[KYBER_ETA1*KYBER_N/4])
 {
+  n_poly_cbd_eta1++;
+  uint32_t cnt1 = cpucycles();
 #if KYBER_ETA1 == 2
   cbd2(r, buf);
 #elif KYBER_ETA1 == 3
@@ -116,13 +124,27 @@ void poly_cbd_eta1(poly *r, const uint8_t buf[KYBER_ETA1*KYBER_N/4])
 #else
 #error "This implementation requires eta1 in {2,3}"
 #endif
+  uint32_t cnt2 = cpucycles();
+  if(poly_cbd_eta1 != 0){
+    poly_cbd_eta1_cyc = (poly_cbd_eta1_cyc + cnt2-cnt1) / 2;
+  } else {
+    poly_cbd_eta1_cyc = cnt2-cnt1;
+  }
 }
 
 void poly_cbd_eta2(poly *r, const uint8_t buf[KYBER_ETA2*KYBER_N/4])
 {
+  n_poly_cbd_eta1++;
+  uint32_t cnt1 = cpucycles();
 #if KYBER_ETA2 == 2
   cbd2(r, buf);
 #else
 #error "This implementation requires eta2 = 2"
 #endif
+  uint32_t cnt2 = cpucycles();
+  if(poly_cbd_eta2_cyc != 0){
+    poly_cbd_eta2_cyc = (poly_cbd_eta2_cyc + cnt2-cnt1) /2;
+  } else {
+    poly_cbd_eta2_cyc = cnt2-cnt1;
+  }
 }

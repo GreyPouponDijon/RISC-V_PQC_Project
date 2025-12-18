@@ -271,7 +271,7 @@ void indcpa_enc(uint8_t c[KYBER_INDCPA_BYTES],
   unpack_pk(&pkpv, seed, pk);
   poly_frommsg(&k, m);
   gen_at(at, seed);
-
+  
   for(i=0;i<KYBER_K;i++)
     poly_getnoise_eta1(sp.vec+i, coins, nonce++);
   for(i=0;i<KYBER_K;i++)
