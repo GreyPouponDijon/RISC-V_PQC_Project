@@ -20,17 +20,19 @@ extern int montgomery_cyc;
 **************************************************/
 int16_t montgomery_reduce(int32_t a)
 {
-  uint32_t cnt1 = cpucycles();
+  //uint32_t cnt1 = cpucycles();
   int16_t t;
 
   t = (int16_t)a*QINV;
   t = (a - (int32_t)t*KYBER_Q) >> 16;
+  /*
   uint32_t cnt2 = cpucycles();
   if (montgomery_cyc != 0){
     montgomery_cyc = (montgomery_cyc + cnt2-cnt1) / 2;
   } else {
     montgomery_cyc = cnt2-cnt1;
   }
+  */
   return t;
 }
 
@@ -45,17 +47,19 @@ int16_t montgomery_reduce(int32_t a)
 * Returns:     integer in {-(q-1)/2,...,(q-1)/2} congruent to a modulo q.
 **************************************************/
 int16_t barrett_reduce(int16_t a) {
-  uint32_t cnt1 = cpucycles();
+  //uint32_t cnt1 = cpucycles();
   int16_t t;
   const int16_t v = ((1<<26) + KYBER_Q/2)/KYBER_Q;
 
   t  = ((int32_t)v*a + (1<<25)) >> 26;
   t *= KYBER_Q;
+  /*
   uint32_t cnt2 = cpucycles();
   if (barrett_cyc != 0){
     barrett_cyc = (montgomery_cyc + cnt2-cnt1) / 2;
   } else {
     barrett_cyc = cnt2-cnt1;
   }
+  */
   return a - t;
 }
