@@ -28,7 +28,7 @@ static uint64_t average(uint64_t *t, size_t tlen) {
   return acc/tlen;
 }
 
-void print_results(const char *s, uint64_t *t, size_t tlen) {
+int print_results(const char *s, uint64_t *t, size_t tlen) {
   size_t i;
   static uint64_t overhead = -1;
 
@@ -48,6 +48,7 @@ void print_results(const char *s, uint64_t *t, size_t tlen) {
   printf("median: %d cycles/ticks\n", (int)(median(t, tlen)));
   printf("average: %d cycles/ticks\n", (int)(average(t, tlen)));
   printf("\n");
+  return (int)(average(t, tlen));
 }
 
 static uint32_t average_calls(int calls, size_t tlen) {

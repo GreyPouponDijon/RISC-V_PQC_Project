@@ -2,7 +2,7 @@
 #include "params.h"
 #include "poly.h"
 #include "polyvec.h"
-#include "cpucycles"
+#include "cpucycles.h"
 
 extern int n_polyvec_compress;
 extern int n_polyvec_decompress;
