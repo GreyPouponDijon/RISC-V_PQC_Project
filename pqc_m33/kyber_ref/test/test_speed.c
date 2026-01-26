@@ -42,7 +42,22 @@ extern int montgomery_cyc = 0;
 extern int n_polyvec_compress = 0;
 extern int n_polyvec_decompress = 0;
 extern int polyvec_compress_cyc = 0;
-extern int polyvec_decompress_cyc = 0; 
+extern int polyvec_decompress_cyc = 0;
+extern int n_shake256 = 0;
+extern int n_shake128 = 0;
+extern int shake256_cyc = 0;
+extern int shake128_cyc = 0;
+extern int sha3_256_cyc = 0;
+extern int n_sha3_256 = 0;
+extern int n_sha3_512 = 0;
+extern int sha3_512_cyc = 0;
+extern int n_gen_matrix = 0;
+extern int gen_matrix_cyc = 0;
+extern int rkprf_cyc = 0;
+extern int n_rkprf = 0;
+extern int n_rej_uniform = 0;
+extern int rej_uniform_cyc = 0;
+
 
 uint64_t t[NTESTS];
 uint8_t seed[KYBER_SYMBYTES] = {0};
@@ -54,8 +69,10 @@ static inline int calc_percentage(uint32_t n,
                                        uint32_t n_tests)
 {
     uint64_t num, den;
+    uint32_t benchmark_cyc = 65;
 
     if (total == 0 || n_tests == 0) return 0;
+    //uint32_t norm_cyc = cyc - (benchmark_cyc * n);
 
     num = (uint64_t)n * (uint64_t)cyc * 100ULL;
     den = (uint64_t)total * (uint64_t)n_tests;
@@ -63,10 +80,88 @@ static inline int calc_percentage(uint32_t n,
     return (int)((num + den / 2) / den);
 }
 
+void reset_vals()
+{
+/* ---- Reset all counters ---- */
+    n_statepermute = 0;
+    n_ntt = 0;
+    n_invntt = 0;
+    statepermute_cyc = 0;
+    ntt_cyc = 0;
+    inv_ntt_cyc = 0;
+
+    n_poly_compress = 0;
+    n_poly_decompress = 0;
+    poly_compress_cyc = 0;
+    poly_decompress_cyc = 0;
+
+    n_poly_add = 0;
+    n_poly_sub = 0;
+
+    n_poly_cbd_eta1 = 0;
+    n_poly_cbd_eta2 = 0;
+    n_basemul = 0;
+    poly_cbd_eta1_cyc = 0;
+    poly_cbd_eta2_cyc = 0;
+    basemul_cyc = 0;
+
+    n_barrett = 0;
+    n_montgomery = 0;
+    barrett_cyc = 0;
+    montgomery_cyc = 0;
+
+    n_polyvec_compress = 0;
+    n_polyvec_decompress = 0;
+    polyvec_compress_cyc = 0;
+    polyvec_decompress_cyc = 0;
+
+    n_shake256 = 0;
+    n_shake128 = 0;
+    shake256_cyc = 0;
+    shake128_cyc = 0;
+    sha3_256_cyc = 0;
+    n_sha3_256 = 0;
+    n_sha3_512 = 0;
+    sha3_512_cyc = 0;
+    n_gen_matrix = 0;
+    gen_matrix_cyc = 0;
+    rej_uniform_cyc = 0;
+    n_rej_uniform = 0;
+}
 
 
 void print_stuff(int total, uint32_t n_tests)
 {
+
+    print_calls("SHAKE128 calls: ", n_shake128, n_tests);
+    print_cycles("SHAKE128 cycles: ", shake128_cyc, n_tests);
+    printf("SHAKE128 %%: %d\n",
+           calc_percentage(n_shake128, shake128_cyc, total, n_tests));
+
+    print_calls("SHAKE256 calls: ", n_shake256, n_tests);
+    print_cycles("SHAKE256 cycles: ", shake256_cyc, n_tests);
+    printf("SHAKE256 %%: %d\n",
+           calc_percentage(n_shake256, shake256_cyc, total, n_tests));
+
+    print_calls("sha3_256 calls: ", n_sha3_256, n_tests);
+    print_cycles("sha3_256 cycles: ", sha3_256_cyc, n_tests);
+    printf("sha3_256 %%: %d\n",
+           calc_percentage(n_sha3_256, sha3_256_cyc, total, n_tests));
+
+    print_calls("sha3_512 calls: ", n_sha3_512, n_tests);
+    print_cycles("sha3_512 cycles: ", sha3_512_cyc, n_tests);
+    printf("sha3_512 %%: %d\n",
+           calc_percentage(n_sha3_512, sha3_512_cyc, total, n_tests));
+
+    print_calls("gen_matrix calls: ", n_gen_matrix, n_tests);
+    print_cycles("gen_matrix cycles: ", gen_matrix_cyc, n_tests);
+    printf("gen_matrix %%: %d\n",
+           calc_percentage(n_gen_matrix, gen_matrix_cyc, total, n_tests));
+
+    
+
+
+
     /* ---- State permute / NTT ---- */
     print_calls("State Permute calls: ", n_statepermute, n_tests);
     print_cycles("State Permute cycles: ", statepermute_cyc, n_tests);
@@ -95,7 +190,15 @@ void print_stuff(int total, uint32_t n_tests)
            calc_percentage(n_poly_decompress, poly_decompress_cyc, total, n_tests));
 
     print_calls("Poly add calls: ", n_poly_add, n_tests);
+    print_cycles("Poly add cycles: ", poly_add_cyc, n_tests);
+    printf("Poly add %%: %d\n",
+           calc_percentage(n_poly_add, poly_add_cyc, total, n_tests));
+
     print_calls("Poly sub calls: ", n_poly_sub, n_tests);
+    print_calls("Poly sub calls: ", n_poly_sub, n_tests);
+    print_cycles("Poly sub cycles: ", poly_sub_cyc, n_tests);
+    printf("Poly sub %%: %d\n",
+           calc_percentage(n_poly_sub, poly_sub_cyc, total, n_tests));
 
     /* ---- Base multiplication ---- */
     print_calls("Basemul calls: ", n_basemul, n_tests);
@@ -137,39 +240,18 @@ void print_stuff(int total, uint32_t n_tests)
            calc_percentage(n_polyvec_decompress, polyvec_decompress_cyc, total, n_tests));
 
 
+    print_calls("rkprf calls: ", n_rkprf, n_tests);
+    print_cycles("rkprf cycles: ", rkprf_cyc, n_tests);
+    printf("rkprf %%: %d\n",
+           calc_percentage(n_rkprf, rkprf_cyc, total, n_tests));
 
-    /* ---- Reset all counters ---- */
-    n_statepermute = 0;
-    n_ntt = 0;
-    n_invntt = 0;
-    statepermute_cyc = 0;
-    ntt_cyc = 0;
-    inv_ntt_cyc = 0;
 
-    n_poly_compress = 0;
-    n_poly_decompress = 0;
-    poly_compress_cyc = 0;
-    poly_decompress_cyc = 0;
-
-    n_poly_add = 0;
-    n_poly_sub = 0;
-
-    n_poly_cbd_eta1 = 0;
-    n_poly_cbd_eta2 = 0;
-    n_basemul = 0;
-    poly_cbd_eta1_cyc = 0;
-    poly_cbd_eta2_cyc = 0;
-    basemul_cyc = 0;
-
-    n_barrett = 0;
-    n_montgomery = 0;
-    barrett_cyc = 0;
-    montgomery_cyc = 0;
-
-    n_polyvec_compress = 0;
-    n_polyvec_decompress = 0;
-    polyvec_compress_cyc = 0;
-    polyvec_decompress_cyc = 0;
+    print_calls("rej_uniform calls: ", n_rej_uniform, n_tests);
+    print_cycles("rej_uniform cycles: ", rej_uniform_cyc, n_tests);
+    printf("rej_uniform %%: %d\n",
+           calc_percentage(n_rej_uniform, rej_uniform_cyc, total, n_tests));
+    
+    reset_vals();
 }
 
 
@@ -191,7 +273,6 @@ int main(void)
 
   randombytes(coins32, KYBER_SYMBYTES);
   randombytes(coins64, 2*KYBER_SYMBYTES);
-  /*
   for(i=0;i<NTESTS;i++) {
     t[i] = cpucycles();
     gen_matrix(matrix, seed, 0);
@@ -281,14 +362,15 @@ int main(void)
     indcpa_dec(key, ct, sk);
   }
   print_results("indcpa_dec: ", t, NTESTS);
-  */
   DWT->CYCCNT = 0;
+  reset_vals();
+
   for(i=0;i<NTESTS;i++) {
     t[i] = cpucycles();
     crypto_kem_keypair_derand(pk, sk, coins64);
   }
   result = print_results("kyber_keypair_derand: ", t, NTESTS);
-  /*
+   /*
   print_calls("State Permute calls: ", n_statepermute, NTESTS);
   print_calls("NTT calls: ", n_ntt, NTESTS);
   print_calls("INVNTT calls: ", n_invntt, NTESTS);

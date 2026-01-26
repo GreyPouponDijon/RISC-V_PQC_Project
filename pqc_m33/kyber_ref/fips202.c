@@ -15,6 +15,16 @@
 extern int n_statepermute;
 extern int statepermute_cyc;
 
+extern int n_shake128;
+extern int shake128_cyc;
+extern int n_shake256;
+extern int shake256_cyc;
+
+extern int n_sha3_256;
+extern int sha3_256_cyc;
+extern int n_sha3_512;
+extern int sha3_512_cyc;
+
 /*************************************************
 * Name:        load64
 *
@@ -86,8 +96,8 @@ static const uint64_t KeccakF_RoundConstants[NROUNDS] = {
 **************************************************/
 static void KeccakF1600_StatePermute(uint64_t state[25])
 {
-        uint32_t cnt1 = cpucycles();
-        n_statepermute++;
+        n_statepermute++; 
+        uint32_t cnt1 = cpucycles(); 
         int round;
 
         uint64_t Aba, Abe, Abi, Abo, Abu;
@@ -712,6 +722,8 @@ void shake256_squeezeblocks(uint8_t *out, size_t nblocks, keccak_state *state)
 **************************************************/
 void shake128(uint8_t *out, size_t outlen, const uint8_t *in, size_t inlen)
 {
+  n_shake128++;
+  uint32_t cnt1 = cpucycles();
   size_t nblocks;
   keccak_state state;
 
@@ -721,6 +733,12 @@ void shake128(uint8_t *out, size_t outlen, const uint8_t *in, size_t inlen)
   outlen -= nblocks*SHAKE128_RATE;
   out += nblocks*SHAKE128_RATE;
   shake128_squeeze(out, outlen, &state);
+  uint32_t cnt2 = cpucycles();
+  if (shake128_cyc != 0){
+    shake128_cyc = (shake128_cyc + cnt2-cnt1) / 2;
+  } else {
+    shake128_cyc = cnt2-cnt1;
+  }
 }
 
 /*************************************************
@@ -735,6 +753,8 @@ void shake128(uint8_t *out, size_t outlen, const uint8_t *in, size_t inlen)
 **************************************************/
 void shake256(uint8_t *out, size_t outlen, const uint8_t *in, size_t inlen)
 {
+  n_shake256++;
+  uint32_t cnt1 = cpucycles();
   size_t nblocks;
   keccak_state state;
 
@@ -744,6 +764,12 @@ void shake256(uint8_t *out, size_t outlen, const uint8_t *in, size_t inlen)
   outlen -= nblocks*SHAKE256_RATE;
   out += nblocks*SHAKE256_RATE;
   shake256_squeeze(out, outlen, &state);
+  uint32_t cnt2 = cpucycles();
+  if (shake256_cyc != 0){
+    shake256_cyc = (shake256_cyc + cnt2-cnt1) / 2;
+  } else {
+    shake256_cyc = cnt2-cnt1;
+  }
 }
 
 /*************************************************
@@ -757,6 +783,8 @@ void shake256(uint8_t *out, size_t outlen, const uint8_t *in, size_t inlen)
 **************************************************/
 void sha3_256(uint8_t h[32], const uint8_t *in, size_t inlen)
 {
+  n_sha3_256++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i;
   uint64_t s[25];
 
@@ -764,6 +792,13 @@ void sha3_256(uint8_t h[32], const uint8_t *in, size_t inlen)
   KeccakF1600_StatePermute(s);
   for(i=0;i<4;i++)
     store64(h+8*i,s[i]);
+  uint32_t cnt2 = cpucycles();
+  if (sha3_256_cyc != 0){
+    sha3_256_cyc = (sha3_256_cyc + cnt2-cnt1) / 2;
+  } else {
+    sha3_256_cyc = cnt2-cnt1;
+  }
+
 }
 
 /*************************************************
@@ -777,6 +812,8 @@ void sha3_256(uint8_t h[32], const uint8_t *in, size_t inlen)
 **************************************************/
 void sha3_512(uint8_t h[64], const uint8_t *in, size_t inlen)
 {
+  n_sha3_512++;
+  uint32_t cnt1 = cpucycles();
   unsigned int i;
   uint64_t s[25];
 
@@ -784,4 +821,10 @@ void sha3_512(uint8_t h[64], const uint8_t *in, size_t inlen)
   KeccakF1600_StatePermute(s);
   for(i=0;i<8;i++)
     store64(h+8*i,s[i]);
+  uint32_t cnt2 = cpucycles();
+  if (sha3_512_cyc != 0){
+    sha3_512_cyc = (sha3_512_cyc + cnt2-cnt1) / 2;
+  } else {
+    sha3_512_cyc = cnt2-cnt1;
+  }
 }

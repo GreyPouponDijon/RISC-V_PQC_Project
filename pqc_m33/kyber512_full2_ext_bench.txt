@@ -1,0 +1,531 @@
+Cpu Cycles Initalized and Cache Enabled
+gen_a:
+median: 228053 cycles/ticks
+average: 228418 cycles/ticks
+poly_getnoise_eta1:
+median: 38775 cycles/ticks
+average: 38943 cycles/ticks
+poly_getnoise_eta2:
+median: 22524 cycles/ticks
+average: 22660 cycles/ticks
+NTT:
+median: 33514 cycles/ticks
+average: 33567 cycles/ticks
+INVNTT:
+median: 47519 cycles/ticks
+average: 47548 cycles/ticks
+polyvec_basemul_acc_montgomery:
+median: 43012 cycles/ticks
+average: 43045 cycles/ticks
+poly_tomsg:
+median: 3603 cycles/ticks
+average: 3629 cycles/ticks
+poly_frommsg:
+median: 5632 cycles/ticks
+average: 5640 cycles/ticks
+poly_compress:
+median: 3209 cycles/ticks
+average: 3240 cycles/ticks
+poly_decompress:
+median: 2845 cycles/ticks
+average: 2852 cycles/ticks
+polyvec_compress:
+median: 9109 cycles/ticks
+average: 9138 cycles/ticks
+polyvec_decompress:
+median: 4961 cycles/ticks
+average: 4980 cycles/ticks
+indcpa_keypair:
+median: 657913 cycles/ticks
+average: 658271 cycles/ticks
+indcpa_enc:
+median: 759101 cycles/ticks
+average: 759212 cycles/ticks
+indcpa_dec:
+median: 180050 cycles/ticks
+average: 180138 cycles/ticks
+kyber_keypair_derand:
+median: 764415 cycles/ticks
+average: 764767 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 15 cycles/ticks
+SHAKE256 cycles:
+average: 36101 cycles/ticks
+SHAKE256 %: 71
+sha3_256 calls:
+average: 1 cycles/ticks
+sha3_256 cycles:
+average: 105892 cycles/ticks
+sha3_256 %: 14
+sha3_512 calls:
+average: 2 cycles/ticks
+sha3_512 cycles:
+average: 17855 cycles/ticks
+sha3_512 %: 5
+gen_matrix calls:
+average: 4 cycles/ticks
+gen_matrix cycles:
+average: 228122 cycles/ticks
+gen_matrix %: 119
+State Permute calls:
+average: 0 cycles/ticks
+State Permute cycles:
+average: 0 cycles/ticks
+State Permute %: 0
+NTT calls:
+average: 13 cycles/ticks
+NTT cycles:
+average: 28599 cycles/ticks
+NTT %: 49
+INVNTT calls:
+average: 5 cycles/ticks
+INVNTT cycles:
+average: 47466 cycles/ticks
+INVNTT %: 31
+Poly compress calls:
+average: 2 cycles/ticks
+Poly compress cycles:
+average: 0 cycles/ticks
+Poly compress %: 0
+Poly decompress calls:
+average: 2 cycles/ticks
+Poly decompress cycles:
+average: 0 cycles/ticks
+Poly decompress %: 0
+Poly add calls:
+average: 17 cycles/ticks
+Poly sub calls:
+average: 1 cycles/ticks
+Basemul calls:
+average: 2304 cycles/ticks
+Basemul cycles:
+average: 92 cycles/ticks
+Basemul %: 28
+CBD eta1 calls:
+average: 15 cycles/ticks
+CBD eta1 cycles:
+average: 2382 cycles/ticks
+CBD eta1 %: 5
+CBD eta2 calls:
+average: 0 cycles/ticks
+CBD eta2 cycles:
+average: 1518 cycles/ticks
+CBD eta2 %: 0
+Barrett calls:
+average: 0 cycles/ticks
+Barrett cycles:
+average: 0 cycles/ticks
+Barrett %: 0
+Montgomery calls:
+average: 0 cycles/ticks
+Montgomery cycles:
+average: 0 cycles/ticks
+Montgomery %: 0
+Polyvec compress calls:
+average: 2 cycles/ticks
+Polyvec compress cycles:
+average: 9067 cycles/ticks
+Polyvec compress %: 2
+Polyvec decompress calls:
+average: 2 cycles/ticks
+Polyvec decompress cycles:
+average: 4921 cycles/ticks
+Polyvec decompress %: 1
+rkprf calls:
+average: 0 cycles/ticks
+rkprf cycles:
+average: 0 cycles/ticks
+rkprf %: 0
+kyber_keypair:
+median: 764560 cycles/ticks
+average: 764908 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 4 cycles/ticks
+SHAKE256 cycles:
+average: 36103 cycles/ticks
+SHAKE256 %: 19
+sha3_256 calls:
+average: 1 cycles/ticks
+sha3_256 cycles:
+average: 105892 cycles/ticks
+sha3_256 %: 14
+sha3_512 calls:
+average: 1 cycles/ticks
+sha3_512 cycles:
+average: 17856 cycles/ticks
+sha3_512 %: 2
+gen_matrix calls:
+average: 1 cycles/ticks
+gen_matrix cycles:
+average: 228127 cycles/ticks
+gen_matrix %: 30
+State Permute calls:
+average: 0 cycles/ticks
+State Permute cycles:
+average: 0 cycles/ticks
+State Permute %: 0
+NTT calls:
+average: 4 cycles/ticks
+NTT cycles:
+average: 28597 cycles/ticks
+NTT %: 15
+INVNTT calls:
+average: 0 cycles/ticks
+INVNTT cycles:
+average: 0 cycles/ticks
+INVNTT %: 0
+Poly compress calls:
+average: 0 cycles/ticks
+Poly compress cycles:
+average: 0 cycles/ticks
+Poly compress %: 0
+Poly decompress calls:
+average: 0 cycles/ticks
+Poly decompress cycles:
+average: 0 cycles/ticks
+Poly decompress %: 0
+Poly add calls:
+average: 4 cycles/ticks
+Poly sub calls:
+average: 0 cycles/ticks
+Basemul calls:
+average: 512 cycles/ticks
+Basemul cycles:
+average: 92 cycles/ticks
+Basemul %: 6
+CBD eta1 calls:
+average: 4 cycles/ticks
+CBD eta1 cycles:
+average: 2382 cycles/ticks
+CBD eta1 %: 1
+CBD eta2 calls:
+average: 0 cycles/ticks
+CBD eta2 cycles:
+average: 0 cycles/ticks
+CBD eta2 %: 0
+Barrett calls:
+average: 0 cycles/ticks
+Barrett cycles:
+average: 0 cycles/ticks
+Barrett %: 0
+Montgomery calls:
+average: 0 cycles/ticks
+Montgomery cycles:
+average: 0 cycles/ticks
+Montgomery %: 0
+Polyvec compress calls:
+average: 0 cycles/ticks
+Polyvec compress cycles:
+average: 0 cycles/ticks
+Polyvec compress %: 0
+Polyvec decompress calls:
+average: 0 cycles/ticks
+Polyvec decompress cycles:
+average: 0 cycles/ticks
+Polyvec decompress %: 0
+rkprf calls:
+average: 0 cycles/ticks
+rkprf cycles:
+average: 0 cycles/ticks
+rkprf %: 0
+kyber_encaps_derand:
+median: 884020 cycles/ticks
+average: 884228 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 5 cycles/ticks
+SHAKE256 cycles:
+average: 22205 cycles/ticks
+SHAKE256 %: 13
+sha3_256 calls:
+average: 1 cycles/ticks
+sha3_256 cycles:
+average: 106453 cycles/ticks
+sha3_256 %: 12
+sha3_512 calls:
+average: 1 cycles/ticks
+sha3_512 cycles:
+average: 18780 cycles/ticks
+sha3_512 %: 2
+gen_matrix calls:
+average: 1 cycles/ticks
+gen_matrix cycles:
+average: 228216 cycles/ticks
+gen_matrix %: 26
+State Permute calls:
+average: 0 cycles/ticks
+State Permute cycles:
+average: 0 cycles/ticks
+State Permute %: 0
+NTT calls:
+average: 2 cycles/ticks
+NTT cycles:
+average: 28707 cycles/ticks
+NTT %: 6
+INVNTT calls:
+average: 3 cycles/ticks
+INVNTT cycles:
+average: 47485 cycles/ticks
+INVNTT %: 16
+Poly compress calls:
+average: 1 cycles/ticks
+Poly compress cycles:
+average: 0 cycles/ticks
+Poly compress %: 0
+Poly decompress calls:
+average: 0 cycles/ticks
+Poly decompress cycles:
+average: 0 cycles/ticks
+Poly decompress %: 0
+Poly add calls:
+average: 7 cycles/ticks
+Poly sub calls:
+average: 0 cycles/ticks
+Basemul calls:
+average: 768 cycles/ticks
+Basemul cycles:
+average: 92 cycles/ticks
+Basemul %: 8
+CBD eta1 calls:
+average: 5 cycles/ticks
+CBD eta1 cycles:
+average: 2394 cycles/ticks
+CBD eta1 %: 1
+CBD eta2 calls:
+average: 0 cycles/ticks
+CBD eta2 cycles:
+average: 1518 cycles/ticks
+CBD eta2 %: 0
+Barrett calls:
+average: 0 cycles/ticks
+Barrett cycles:
+average: 0 cycles/ticks
+Barrett %: 0
+Montgomery calls:
+average: 0 cycles/ticks
+Montgomery cycles:
+average: 0 cycles/ticks
+Montgomery %: 0
+Polyvec compress calls:
+average: 1 cycles/ticks
+Polyvec compress cycles:
+average: 9228 cycles/ticks
+Polyvec compress %: 1
+Polyvec decompress calls:
+average: 0 cycles/ticks
+Polyvec decompress cycles:
+average: 0 cycles/ticks
+Polyvec decompress %: 0
+rkprf calls:
+average: 0 cycles/ticks
+rkprf cycles:
+average: 0 cycles/ticks
+rkprf %: 0
+kyber_encaps:
+median: 884343 cycles/ticks
+average: 884636 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 5 cycles/ticks
+SHAKE256 cycles:
+average: 22206 cycles/ticks
+SHAKE256 %: 13
+sha3_256 calls:
+average: 1 cycles/ticks
+sha3_256 cycles:
+average: 106611 cycles/ticks
+sha3_256 %: 12
+sha3_512 calls:
+average: 1 cycles/ticks
+sha3_512 cycles:
+average: 18780 cycles/ticks
+sha3_512 %: 2
+gen_matrix calls:
+average: 1 cycles/ticks
+gen_matrix cycles:
+average: 228216 cycles/ticks
+gen_matrix %: 26
+State Permute calls:
+average: 0 cycles/ticks
+State Permute cycles:
+average: 0 cycles/ticks
+State Permute %: 0
+NTT calls:
+average: 2 cycles/ticks
+NTT cycles:
+average: 28707 cycles/ticks
+NTT %: 6
+INVNTT calls:
+average: 3 cycles/ticks
+INVNTT cycles:
+average: 47485 cycles/ticks
+INVNTT %: 16
+Poly compress calls:
+average: 1 cycles/ticks
+Poly compress cycles:
+average: 0 cycles/ticks
+Poly compress %: 0
+Poly decompress calls:
+average: 0 cycles/ticks
+Poly decompress cycles:
+average: 0 cycles/ticks
+Poly decompress %: 0
+Poly add calls:
+average: 7 cycles/ticks
+Poly sub calls:
+average: 0 cycles/ticks
+Basemul calls:
+average: 768 cycles/ticks
+Basemul cycles:
+average: 92 cycles/ticks
+Basemul %: 8
+CBD eta1 calls:
+average: 5 cycles/ticks
+CBD eta1 cycles:
+average: 2394 cycles/ticks
+CBD eta1 %: 1
+CBD eta2 calls:
+average: 0 cycles/ticks
+CBD eta2 cycles:
+average: 1518 cycles/ticks
+CBD eta2 %: 0
+Barrett calls:
+average: 0 cycles/ticks
+Barrett cycles:
+average: 0 cycles/ticks
+Barrett %: 0
+Montgomery calls:
+average: 0 cycles/ticks
+Montgomery cycles:
+average: 0 cycles/ticks
+Montgomery %: 0
+Polyvec compress calls:
+average: 1 cycles/ticks
+Polyvec compress cycles:
+average: 9228 cycles/ticks
+Polyvec compress %: 1
+Polyvec decompress calls:
+average: 0 cycles/ticks
+Polyvec decompress cycles:
+average: 0 cycles/ticks
+Polyvec decompress %: 0
+rkprf calls:
+average: 0 cycles/ticks
+rkprf cycles:
+average: 0 cycles/ticks
+rkprf %: 0
+kyber_decaps:
+median: 1080852 cycles/ticks
+average: 1081171 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 5 cycles/ticks
+SHAKE256 cycles:
+average: 22212 cycles/ticks
+SHAKE256 %: 10
+sha3_256 calls:
+average: 0 cycles/ticks
+sha3_256 cycles:
+average: 0 cycles/ticks
+sha3_256 %: 0
+sha3_512 calls:
+average: 1 cycles/ticks
+sha3_512 cycles:
+average: 19673 cycles/ticks
+sha3_512 %: 2
+gen_matrix calls:
+average: 1 cycles/ticks
+gen_matrix cycles:
+average: 228222 cycles/ticks
+gen_matrix %: 21
+State Permute calls:
+average: 0 cycles/ticks
+State Permute cycles:
+average: 0 cycles/ticks
+State Permute %: 0
+NTT calls:
+average: 4 cycles/ticks
+NTT cycles:
+average: 28650 cycles/ticks
+NTT %: 11
+INVNTT calls:
+average: 4 cycles/ticks
+INVNTT cycles:
+average: 47484 cycles/ticks
+INVNTT %: 18
+Poly compress calls:
+average: 1 cycles/ticks
+Poly compress cycles:
+average: 0 cycles/ticks
+Poly compress %: 0
+Poly decompress calls:
+average: 1 cycles/ticks
+Poly decompress cycles:
+average: 0 cycles/ticks
+Poly decompress %: 0
+Poly add calls:
+average: 8 cycles/ticks
+Poly sub calls:
+average: 1 cycles/ticks
+Basemul calls:
+average: 1024 cycles/ticks
+Basemul cycles:
+average: 92 cycles/ticks
+Basemul %: 9
+CBD eta1 calls:
+average: 5 cycles/ticks
+CBD eta1 cycles:
+average: 2394 cycles/ticks
+CBD eta1 %: 1
+CBD eta2 calls:
+average: 0 cycles/ticks
+CBD eta2 cycles:
+average: 1518 cycles/ticks
+CBD eta2 %: 0
+Barrett calls:
+average: 0 cycles/ticks
+Barrett cycles:
+average: 0 cycles/ticks
+Barrett %: 0
+Montgomery calls:
+average: 0 cycles/ticks
+Montgomery cycles:
+average: 0 cycles/ticks
+Montgomery %: 0
+Polyvec compress calls:
+average: 1 cycles/ticks
+Polyvec compress cycles:
+average: 9228 cycles/ticks
+Polyvec compress %: 1
+Polyvec decompress calls:
+average: 1 cycles/ticks
+Polyvec decompress cycles:
+average: 5057 cycles/ticks
+Polyvec decompress %: 0
+rkprf calls:
+average: 1 cycles/ticks
+rkprf cycles:
+average: 119844 cycles/ticks
+rkprf %: 11

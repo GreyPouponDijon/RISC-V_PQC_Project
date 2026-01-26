@@ -8,6 +8,12 @@
 #include "ntt.h"
 #include "symmetric.h"
 #include "randombytes.h"
+#include "cpucycles.h"
+
+extern int n_gen_matrix;
+extern int gen_matrix_cyc;
+extern int n_rej_uniform;
+extern int rej_uniform_cyc;
 
 /*************************************************
 * Name:        pack_pk
@@ -123,6 +129,8 @@ static unsigned int rej_uniform(int16_t *r,
                                 const uint8_t *buf,
                                 unsigned int buflen)
 {
+  n_rej_uniform++;
+  uint32_t cnt1 = cpucycles();
   unsigned int ctr, pos;
   uint16_t val0, val1;
 
@@ -136,6 +144,13 @@ static unsigned int rej_uniform(int16_t *r,
       r[ctr++] = val0;
     if(ctr < len && val1 < KYBER_Q)
       r[ctr++] = val1;
+  }
+
+  uint32_t cnt2 = cpucycles();
+  if (rej_uniform_cyc != 0){
+    rej_uniform_cyc = (rej_uniform_cyc + (cnt2 - cnt1)) / 2;
+  } else {
+    rej_uniform_cyc = cnt2 - cnt1;
   }
 
   return ctr;
@@ -164,6 +179,8 @@ static unsigned int rej_uniform(int16_t *r,
 // Not static for benchmarking
 void gen_matrix(polyvec *a, const uint8_t seed[KYBER_SYMBYTES], int transposed)
 {
+  n_gen_matrix++;
+  uint32_t cnt1 = cpucycles();
   unsigned int ctr, i, j;
   unsigned int buflen;
   uint8_t buf[GEN_MATRIX_NBLOCKS*XOF_BLOCKBYTES];
@@ -187,6 +204,13 @@ void gen_matrix(polyvec *a, const uint8_t seed[KYBER_SYMBYTES], int transposed)
       }
     }
   }
+  uint32_t cnt2 = cpucycles();
+  if (gen_matrix_cyc != 0){
+    gen_matrix_cyc = (gen_matrix_cyc + (cnt2 - cnt1)) / 2;
+  } else {
+    gen_matrix_cyc = cnt2 - cnt1;
+  }
+
 }
 
 /*************************************************

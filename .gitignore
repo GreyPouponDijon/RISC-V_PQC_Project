@@ -2,7 +2,8 @@
 *.old
 *.rsp
 *.log
-
+*.bin
+*.hex
 
 venv/
 build/

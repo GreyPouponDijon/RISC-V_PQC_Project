@@ -95,7 +95,13 @@ int kat_test(const slh_param_t *iut, int katnum)
     sig_sz = slh_sig_sz(iut);
 
     for (int count = 0; count < katnum; count++) {
-
+          
+        keccak_count = 0;
+        avg_keccak_cycles = 0;
+        sha256_compress_count = 0;
+        sha512_compress_count = 0;
+        avg_sha256_compress_cycles = 0;
+        avg_sha512_compress_cycles = 0;
         printf("[KAT] (%d) %s\n", count, slh_alg_id(iut));
         fflush(stdout);
 

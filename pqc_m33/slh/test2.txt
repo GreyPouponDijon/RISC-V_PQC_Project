@@ -1,0 +1,397 @@
+[KAT] (0) SLH-DSA-SHAKE-128s
+slh_keygen() cycle count: 299266010
+keccak_count: 289791
+Average cycles per keccak: 910
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 88.12%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 2218420730
+keccak_count: 2200336
+Average cycles per keccak: 927
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 91.94%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 2123571
+keccak_count: 2144
+Average cycles per keccak: 915
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 92.38%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 2159
+keccak_count: 2159
+[KAT] (0) SLH-DSA-SHAKE-128f
+slh_keygen() cycle count: 4397623
+keccak_count: 4527
+Average cycles per keccak: 917
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 94.40%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 105777437
+keccak_count: 105671
+Average cycles per keccak: 909
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 90.81%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 6229740
+keccak_count: 6218
+Average cycles per keccak: 897
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 89.53%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 6113
+keccak_count: 6113
+[KAT] (0) SLH-DSA-SHAKE-192s
+slh_keygen() cycle count: 426168806
+keccak_count: 423423
+Average cycles per keccak: 911
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 90.51%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 3971325415
+keccak_count: 3799140
+Average cycles per keccak: 923
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 88.30%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 3239123
+keccak_count: 3138
+Average cycles per keccak: 913
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 88.45%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 3303
+keccak_count: 3303
+[KAT] (0) SLH-DSA-SHAKE-192f
+slh_keygen() cycle count: 6687957
+keccak_count: 6615
+Average cycles per keccak: 921
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 91.10%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 173709000
+keccak_count: 170462
+Average cycles per keccak: 927
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 90.97%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 9137656
+keccak_count: 9081
+Average cycles per keccak: 918
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 91.23%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 9246
+keccak_count: 9246
+[KAT] (0) SLH-DSA-SHAKE-256s
+slh_keygen() cycle count: 276202817
+keccak_count: 279039
+Average cycles per keccak: 892
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 90.12%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 3510143433
+keccak_count: 3313122
+Average cycles per keccak: 896
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 84.57%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 4405155
+keccak_count: 4557
+Average cycles per keccak: 894
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 92.48%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 4332
+keccak_count: 4332
+[KAT] (0) SLH-DSA-SHAKE-256f
+slh_keygen() cycle count: 16791488
+keccak_count: 17439
+Average cycles per keccak: 896
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 93.06%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 355963244
+keccak_count: 349608
+Average cycles per keccak: 894
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 87.80%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 9607657
+keccak_count: 9507
+Average cycles per keccak: 898
+SHA256 compress count: 0
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 0
+Average cycles per SHA512 compress: 0
+Keccak percentage: 88.86%
+SHA256 compress percentage: 0.00%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 9132
+keccak_count: 9132
+[KAT] (0) SLH-DSA-SHA2-128s
+slh_keygen() cycle count: 161154250
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 292352
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 533
+Average cycles per SHA512 compress: 0
+Keccak percentage: 0.00%
+SHA256 compress percentage: 96.69%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 1244475494
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 2218244
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 522
+Average cycles per SHA512 compress: 0
+Keccak percentage: 0.00%
+SHA256 compress percentage: 93.05%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 1204452
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 2139
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 533
+Average cycles per SHA512 compress: 0
+Keccak percentage: 0.00%
+SHA256 compress percentage: 94.66%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+[KAT] (0) SLH-DSA-SHA2-128f
+slh_keygen() cycle count: 2526714
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 4568
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 524
+Average cycles per SHA512 compress: 0
+Keccak percentage: 0.00%
+SHA256 compress percentage: 94.73%
+SHA512 compress percentage: 0.00%
+slh_sign() cycle count: 59025845
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 106514
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 519
+Average cycles per SHA512 compress: 0
+Keccak percentage: 0.00%
+SHA256 compress percentage: 93.66%
+SHA512 compress percentage: 0.00%
+slh_verify() cycle count: 3398159
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 6098
+SHA512 compress count: 0
+Average cycles per SHA256 compress: 531
+Average cycles per SHA512 compress: 0
+Keccak percentage: 0.00%
+SHA256 compress percentage: 95.29%
+SHA512 compress percentage: 0.00%
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+[KAT] (0) SLH-DSA-SHA2-192s
+slh_keygen() cycle count: 234592978
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 417793
+SHA512 compress count: 5632
+Average cycles per SHA256 compress: 510
+Average cycles per SHA512 compress: 673
+Keccak percentage: 0.00%
+SHA256 compress percentage: 90.83%
+SHA512 compress percentage: 1.62%
+slh_sign() cycle count: 2259924296
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 3481196
+SHA512 compress count: 317921
+Average cycles per SHA256 compress: 523
+Average cycles per SHA512 compress: 690
+Keccak percentage: 0.00%
+SHA256 compress percentage: 80.56%
+SHA512 compress percentage: 9.71%
+slh_verify() cycle count: 1912300
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 2688
+SHA512 compress count: 379
+Average cycles per SHA256 compress: 537
+Average cycles per SHA512 compress: 692
+Keccak percentage: 0.00%
+SHA256 compress percentage: 75.48%
+SHA512 compress percentage: 13.71%
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+[KAT] (0) SLH-DSA-SHA2-192f
+slh_keygen() cycle count: 3786706
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 6529
+SHA512 compress count: 88
+Average cycles per SHA256 compress: 522
+Average cycles per SHA512 compress: 682
+Keccak percentage: 0.00%
+SHA256 compress percentage: 90.00%
+SHA512 compress percentage: 1.58%
+slh_sign() cycle count: 100285984
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 160093
+SHA512 compress count: 10331
+Average cycles per SHA256 compress: 526
+Average cycles per SHA512 compress: 690
+Keccak percentage: 0.00%
+SHA256 compress percentage: 83.97%
+SHA512 compress percentage: 7.11%
+slh_verify() cycle count: 5532877
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 8704
+SHA512 compress count: 561
+Average cycles per SHA256 compress: 525
+Average cycles per SHA512 compress: 694
+Keccak percentage: 0.00%
+SHA256 compress percentage: 82.59%
+SHA512 compress percentage: 7.04%
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+[KAT] (0) SLH-DSA-SHA2-256s
+slh_keygen() cycle count: 160299232
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 274433
+SHA512 compress count: 4864
+Average cycles per SHA256 compress: 524
+Average cycles per SHA512 compress: 682
+Keccak percentage: 0.00%
+SHA256 compress percentage: 89.71%
+SHA512 compress percentage: 2.07%
+slh_sign() cycle count: 2000777820
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 2915843
+SHA512 compress count: 399319
+Average cycles per SHA256 compress: 528
+Average cycles per SHA512 compress: 696
+Keccak percentage: 0.00%
+SHA256 compress percentage: 76.95%
+SHA512 compress percentage: 13.89%
+slh_verify() cycle count: 2722729
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 4163
+SHA512 compress count: 527
+Average cycles per SHA256 compress: 529
+Average cycles per SHA512 compress: 688
+Keccak percentage: 0.00%
+SHA256 compress percentage: 80.88%
+SHA512 compress percentage: 13.32%
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+[KAT] (0) SLH-DSA-SHA2-256f
+slh_keygen() cycle count: 9723303
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 17153
+SHA512 compress count: 304
+Average cycles per SHA256 compress: 523
+Average cycles per SHA512 compress: 687
+Keccak percentage: 0.00%
+SHA256 compress percentage: 92.26%
+SHA512 compress percentage: 2.15%
+slh_sign() cycle count: 205311091
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 326930
+SHA512 compress count: 23033
+Average cycles per SHA256 compress: 522
+Average cycles per SHA512 compress: 689
+Keccak percentage: 0.00%
+SHA256 compress percentage: 83.12%
+SHA512 compress percentage: 7.73%
+slh_verify() cycle count: 5763469
+keccak_count: 0
+Average cycles per keccak: 0
+SHA256 compress count: 8841
+SHA512 compress count: 704
+Average cycles per SHA256 compress: 524
+Average cycles per SHA512 compress: 694
+Keccak percentage: 0.00%
+SHA256 compress percentage: 80.38%
+SHA512 compress percentage: 8.48%
+slh_verify() forgery bit keccak count: 0
+keccak_count: 0
+[INFO] test_slh_dsa() fail= 0

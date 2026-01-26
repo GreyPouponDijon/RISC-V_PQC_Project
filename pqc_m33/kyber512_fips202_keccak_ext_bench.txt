@@ -1,17 +1,42 @@
 Cpu Cycles Initalized and Cache Enabled
 kyber_keypair_derand:
-median: 1981915 cycles/ticks
-average: 1982389 cycles/ticks
+median: 772033 cycles/ticks
+average: 772517 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 4 cycles/ticks
+SHAKE256 cycles:
+average: 36207 cycles/ticks
+SHAKE256 %: 19
+sha3_256 calls:
+average: 1 cycles/ticks
+sha3_256 cycles:
+average: 106377 cycles/ticks
+sha3_256 %: 14
+sha3_512 calls:
+average: 1 cycles/ticks
+sha3_512 cycles:
+average: 18066 cycles/ticks
+sha3_512 %: 2
+gen_matrix calls:
+average: 1 cycles/ticks
+gen_matrix cycles:
+average: 227088 cycles/ticks
+gen_matrix %: 29
 State Permute calls:
-average: 69 cycles/ticks
+average: 27 cycles/ticks
 State Permute cycles:
-average: 16702 cycles/ticks
+average: 16721 cycles/ticks
 State Permute %: 58
 NTT calls:
-average: 8 cycles/ticks
+average: 4 cycles/ticks
 NTT cycles:
-average: 26793 cycles/ticks
-NTT %: 11
+average: 30394 cycles/ticks
+NTT %: 16
 INVNTT calls:
 average: 0 cycles/ticks
 INVNTT cycles:
@@ -28,18 +53,18 @@ Poly decompress cycles:
 average: 0 cycles/ticks
 Poly decompress %: 0
 Poly add calls:
-average: 16 cycles/ticks
+average: 4 cycles/ticks
 Poly sub calls:
 average: 0 cycles/ticks
 Basemul calls:
-average: 2048 cycles/ticks
+average: 512 cycles/ticks
 Basemul cycles:
-average: 96 cycles/ticks
-Basemul %: 10
+average: 92 cycles/ticks
+Basemul %: 6
 CBD eta1 calls:
-average: 8 cycles/ticks
+average: 4 cycles/ticks
 CBD eta1 cycles:
-average: 1646 cycles/ticks
+average: 2383 cycles/ticks
 CBD eta1 %: 1
 CBD eta2 calls:
 average: 0 cycles/ticks
@@ -67,18 +92,43 @@ Polyvec decompress cycles:
 average: 0 cycles/ticks
 Polyvec decompress %: 0
 kyber_keypair:
-median: 1982151 cycles/ticks
-average: 1982437 cycles/ticks
+median: 772217 cycles/ticks
+average: 772525 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 8 cycles/ticks
+SHAKE256 cycles:
+average: 36207 cycles/ticks
+SHAKE256 %: 37
+sha3_256 calls:
+average: 2 cycles/ticks
+sha3_256 cycles:
+average: 106378 cycles/ticks
+sha3_256 %: 28
+sha3_512 calls:
+average: 2 cycles/ticks
+sha3_512 cycles:
+average: 18099 cycles/ticks
+sha3_512 %: 5
+gen_matrix calls:
+average: 2 cycles/ticks
+gen_matrix cycles:
+average: 227088 cycles/ticks
+gen_matrix %: 59
 State Permute calls:
-average: 69 cycles/ticks
+average: 27 cycles/ticks
 State Permute cycles:
-average: 16702 cycles/ticks
+average: 16721 cycles/ticks
 State Permute %: 58
 NTT calls:
-average: 8 cycles/ticks
+average: 4 cycles/ticks
 NTT cycles:
-average: 26793 cycles/ticks
-NTT %: 11
+average: 30394 cycles/ticks
+NTT %: 16
 INVNTT calls:
 average: 0 cycles/ticks
 INVNTT cycles:
@@ -95,18 +145,18 @@ Poly decompress cycles:
 average: 0 cycles/ticks
 Poly decompress %: 0
 Poly add calls:
-average: 16 cycles/ticks
+average: 4 cycles/ticks
 Poly sub calls:
 average: 0 cycles/ticks
 Basemul calls:
-average: 2048 cycles/ticks
+average: 512 cycles/ticks
 Basemul cycles:
-average: 96 cycles/ticks
-Basemul %: 10
+average: 92 cycles/ticks
+Basemul %: 6
 CBD eta1 calls:
-average: 8 cycles/ticks
+average: 4 cycles/ticks
 CBD eta1 cycles:
-average: 1646 cycles/ticks
+average: 2383 cycles/ticks
 CBD eta1 %: 1
 CBD eta2 calls:
 average: 0 cycles/ticks
@@ -134,27 +184,52 @@ Polyvec decompress cycles:
 average: 0 cycles/ticks
 Polyvec decompress %: 0
 kyber_encaps_derand:
-median: 2208963 cycles/ticks
-average: 2209213 cycles/ticks
+median: 886978 cycles/ticks
+average: 887203 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 13 cycles/ticks
+SHAKE256 cycles:
+average: 22196 cycles/ticks
+SHAKE256 %: 33
+sha3_256 calls:
+average: 3 cycles/ticks
+sha3_256 cycles:
+average: 106460 cycles/ticks
+sha3_256 %: 36
+sha3_512 calls:
+average: 3 cycles/ticks
+sha3_512 cycles:
+average: 18805 cycles/ticks
+sha3_512 %: 6
+gen_matrix calls:
+average: 3 cycles/ticks
+gen_matrix cycles:
+average: 227224 cycles/ticks
+gen_matrix %: 77
 State Permute calls:
-average: 70 cycles/ticks
+average: 26 cycles/ticks
 State Permute cycles:
-average: 16903 cycles/ticks
-State Permute %: 54
+average: 16941 cycles/ticks
+State Permute %: 50
 NTT calls:
-average: 4 cycles/ticks
+average: 2 cycles/ticks
 NTT cycles:
-average: 26805 cycles/ticks
-NTT %: 5
+average: 30468 cycles/ticks
+NTT %: 7
 INVNTT calls:
-average: 5 cycles/ticks
+average: 3 cycles/ticks
 INVNTT cycles:
-average: 47468 cycles/ticks
-INVNTT %: 11
+average: 47471 cycles/ticks
+INVNTT %: 16
 Poly compress calls:
 average: 1 cycles/ticks
 Poly compress cycles:
-average: 3359 cycles/ticks
+average: 0 cycles/ticks
 Poly compress %: 0
 Poly decompress calls:
 average: 0 cycles/ticks
@@ -162,23 +237,23 @@ Poly decompress cycles:
 average: 0 cycles/ticks
 Poly decompress %: 0
 Poly add calls:
-average: 21 cycles/ticks
+average: 7 cycles/ticks
 Poly sub calls:
 average: 0 cycles/ticks
 Basemul calls:
-average: 2560 cycles/ticks
+average: 768 cycles/ticks
 Basemul cycles:
-average: 97 cycles/ticks
-Basemul %: 11
+average: 92 cycles/ticks
+Basemul %: 8
 CBD eta1 calls:
-average: 9 cycles/ticks
+average: 5 cycles/ticks
 CBD eta1 cycles:
-average: 1604 cycles/ticks
+average: 2405 cycles/ticks
 CBD eta1 %: 1
 CBD eta2 calls:
 average: 0 cycles/ticks
 CBD eta2 cycles:
-average: 1599 cycles/ticks
+average: 1526 cycles/ticks
 CBD eta2 %: 0
 Barrett calls:
 average: 0 cycles/ticks
@@ -193,7 +268,7 @@ Montgomery %: 0
 Polyvec compress calls:
 average: 1 cycles/ticks
 Polyvec compress cycles:
-average: 17811 cycles/ticks
+average: 9228 cycles/ticks
 Polyvec compress %: 1
 Polyvec decompress calls:
 average: 0 cycles/ticks
@@ -201,27 +276,52 @@ Polyvec decompress cycles:
 average: 0 cycles/ticks
 Polyvec decompress %: 0
 kyber_encaps:
-median: 2209001 cycles/ticks
-average: 2209325 cycles/ticks
-State Permute calls:
-average: 70 cycles/ticks
-State Permute cycles:
-average: 16903 cycles/ticks
-State Permute %: 54
-NTT calls:
+median: 887237 cycles/ticks
+average: 887546 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 18 cycles/ticks
+SHAKE256 cycles:
+average: 22195 cycles/ticks
+SHAKE256 %: 45
+sha3_256 calls:
 average: 4 cycles/ticks
+sha3_256 cycles:
+average: 106632 cycles/ticks
+sha3_256 %: 48
+sha3_512 calls:
+average: 4 cycles/ticks
+sha3_512 cycles:
+average: 18807 cycles/ticks
+sha3_512 %: 8
+gen_matrix calls:
+average: 4 cycles/ticks
+gen_matrix cycles:
+average: 227224 cycles/ticks
+gen_matrix %: 102
+State Permute calls:
+average: 26 cycles/ticks
+State Permute cycles:
+average: 16941 cycles/ticks
+State Permute %: 50
+NTT calls:
+average: 2 cycles/ticks
 NTT cycles:
-average: 26805 cycles/ticks
-NTT %: 5
+average: 30468 cycles/ticks
+NTT %: 7
 INVNTT calls:
-average: 5 cycles/ticks
+average: 3 cycles/ticks
 INVNTT cycles:
-average: 47468 cycles/ticks
-INVNTT %: 11
+average: 47471 cycles/ticks
+INVNTT %: 16
 Poly compress calls:
 average: 1 cycles/ticks
 Poly compress cycles:
-average: 3359 cycles/ticks
+average: 0 cycles/ticks
 Poly compress %: 0
 Poly decompress calls:
 average: 0 cycles/ticks
@@ -229,23 +329,23 @@ Poly decompress cycles:
 average: 0 cycles/ticks
 Poly decompress %: 0
 Poly add calls:
-average: 21 cycles/ticks
+average: 7 cycles/ticks
 Poly sub calls:
 average: 0 cycles/ticks
 Basemul calls:
-average: 2560 cycles/ticks
+average: 768 cycles/ticks
 Basemul cycles:
-average: 97 cycles/ticks
-Basemul %: 11
+average: 92 cycles/ticks
+Basemul %: 8
 CBD eta1 calls:
-average: 9 cycles/ticks
+average: 5 cycles/ticks
 CBD eta1 cycles:
-average: 1604 cycles/ticks
+average: 2405 cycles/ticks
 CBD eta1 %: 1
 CBD eta2 calls:
 average: 0 cycles/ticks
 CBD eta2 cycles:
-average: 1599 cycles/ticks
+average: 1526 cycles/ticks
 CBD eta2 %: 0
 Barrett calls:
 average: 0 cycles/ticks
@@ -260,7 +360,7 @@ Montgomery %: 0
 Polyvec compress calls:
 average: 1 cycles/ticks
 Polyvec compress cycles:
-average: 17811 cycles/ticks
+average: 9228 cycles/ticks
 Polyvec compress %: 1
 Polyvec decompress calls:
 average: 0 cycles/ticks
@@ -268,51 +368,76 @@ Polyvec decompress cycles:
 average: 0 cycles/ticks
 Polyvec decompress %: 0
 kyber_decaps:
-median: 2536363 cycles/ticks
-average: 2536601 cycles/ticks
+median: 1088004 cycles/ticks
+average: 1088283 cycles/ticks
+SHAKE128 calls:
+average: 0 cycles/ticks
+SHAKE128 cycles:
+average: 0 cycles/ticks
+SHAKE128 %: 0
+SHAKE256 calls:
+average: 23 cycles/ticks
+SHAKE256 cycles:
+average: 22203 cycles/ticks
+SHAKE256 %: 47
+sha3_256 calls:
+average: 4 cycles/ticks
+sha3_256 cycles:
+average: 106632 cycles/ticks
+sha3_256 %: 39
+sha3_512 calls:
+average: 5 cycles/ticks
+sha3_512 cycles:
+average: 19655 cycles/ticks
+sha3_512 %: 9
+gen_matrix calls:
+average: 5 cycles/ticks
+gen_matrix cycles:
+average: 227224 cycles/ticks
+gen_matrix %: 104
 State Permute calls:
-average: 70 cycles/ticks
+average: 26 cycles/ticks
 State Permute cycles:
-average: 16702 cycles/ticks
-State Permute %: 46
+average: 16801 cycles/ticks
+State Permute %: 40
 NTT calls:
-average: 8 cycles/ticks
+average: 4 cycles/ticks
 NTT cycles:
-average: 26803 cycles/ticks
-NTT %: 8
+average: 30453 cycles/ticks
+NTT %: 11
 INVNTT calls:
-average: 6 cycles/ticks
+average: 4 cycles/ticks
 INVNTT cycles:
-average: 47471 cycles/ticks
-INVNTT %: 11
+average: 47473 cycles/ticks
+INVNTT %: 17
 Poly compress calls:
 average: 1 cycles/ticks
 Poly compress cycles:
-average: 3359 cycles/ticks
+average: 0 cycles/ticks
 Poly compress %: 0
 Poly decompress calls:
 average: 1 cycles/ticks
 Poly decompress cycles:
-average: 2276 cycles/ticks
+average: 0 cycles/ticks
 Poly decompress %: 0
 Poly add calls:
-average: 24 cycles/ticks
+average: 8 cycles/ticks
 Poly sub calls:
 average: 1 cycles/ticks
 Basemul calls:
-average: 3072 cycles/ticks
+average: 1024 cycles/ticks
 Basemul cycles:
-average: 97 cycles/ticks
-Basemul %: 12
+average: 92 cycles/ticks
+Basemul %: 9
 CBD eta1 calls:
-average: 9 cycles/ticks
+average: 5 cycles/ticks
 CBD eta1 cycles:
-average: 1605 cycles/ticks
+average: 2405 cycles/ticks
 CBD eta1 %: 1
 CBD eta2 calls:
 average: 0 cycles/ticks
 CBD eta2 cycles:
-average: 1599 cycles/ticks
+average: 1526 cycles/ticks
 CBD eta2 %: 0
 Barrett calls:
 average: 0 cycles/ticks
@@ -327,10 +452,10 @@ Montgomery %: 0
 Polyvec compress calls:
 average: 1 cycles/ticks
 Polyvec compress cycles:
-average: 17811 cycles/ticks
+average: 9228 cycles/ticks
 Polyvec compress %: 1
 Polyvec decompress calls:
 average: 1 cycles/ticks
 Polyvec decompress cycles:
-average: 10401 cycles/ticks
+average: 5052 cycles/ticks
 Polyvec decompress %: 0
