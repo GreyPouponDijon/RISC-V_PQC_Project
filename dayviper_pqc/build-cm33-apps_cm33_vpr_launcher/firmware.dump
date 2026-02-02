@@ -1,0 +1,176 @@
+
+build-cm33-apps_cm33_vpr_launcher/firmware.elf:     file format elf32-littlearm
+
+
+Disassembly of section .vectors:
+
+00000000 <__isr_vector>:
+   0:	20002000 	.word	0x20002000
+   4:	00000095 	.word	0x00000095
+
+Disassembly of section .text:
+
+00000008 <deregister_tm_clones>:
+   8:	4803      	ldr	r0, [pc, #12]	@ (18 <deregister_tm_clones+0x10>)
+   a:	4b04      	ldr	r3, [pc, #16]	@ (1c <__bss_size>)
+   c:	4283      	cmp	r3, r0
+   e:	d002      	beq.n	16 <deregister_tm_clones+0xe>
+  10:	4b03      	ldr	r3, [pc, #12]	@ (20 <__bss_size+0x4>)
+  12:	b103      	cbz	r3, 16 <deregister_tm_clones+0xe>
+  14:	4718      	bx	r3
+  16:	4770      	bx	lr
+  18:	20000000 	.word	0x20000000
+  1c:	20000000 	.word	0x20000000
+  20:	00000000 	.word	0x00000000
+
+00000024 <register_tm_clones>:
+  24:	4b06      	ldr	r3, [pc, #24]	@ (40 <register_tm_clones+0x1c>)
+  26:	4907      	ldr	r1, [pc, #28]	@ (44 <register_tm_clones+0x20>)
+  28:	1ac9      	subs	r1, r1, r3
+  2a:	1089      	asrs	r1, r1, #2
+  2c:	bf48      	it	mi
+  2e:	3101      	addmi	r1, #1
+  30:	1049      	asrs	r1, r1, #1
+  32:	d003      	beq.n	3c <register_tm_clones+0x18>
+  34:	4b04      	ldr	r3, [pc, #16]	@ (48 <register_tm_clones+0x24>)
+  36:	b10b      	cbz	r3, 3c <register_tm_clones+0x18>
+  38:	4801      	ldr	r0, [pc, #4]	@ (40 <register_tm_clones+0x1c>)
+  3a:	4718      	bx	r3
+  3c:	4770      	bx	lr
+  3e:	bf00      	nop
+  40:	20000000 	.word	0x20000000
+  44:	20000000 	.word	0x20000000
+  48:	00000000 	.word	0x00000000
+
+0000004c <__do_global_dtors_aux>:
+  4c:	b510      	push	{r4, lr}
+  4e:	4c06      	ldr	r4, [pc, #24]	@ (68 <__do_global_dtors_aux+0x1c>)
+  50:	7823      	ldrb	r3, [r4, #0]
+  52:	b943      	cbnz	r3, 66 <__do_global_dtors_aux+0x1a>
+  54:	f7ff ffd8 	bl	8 <deregister_tm_clones>
+  58:	4b04      	ldr	r3, [pc, #16]	@ (6c <__do_global_dtors_aux+0x20>)
+  5a:	b113      	cbz	r3, 62 <__do_global_dtors_aux+0x16>
+  5c:	4804      	ldr	r0, [pc, #16]	@ (70 <__do_global_dtors_aux+0x24>)
+  5e:	f3af 8000 	nop.w
+  62:	2301      	movs	r3, #1
+  64:	7023      	strb	r3, [r4, #0]
+  66:	bd10      	pop	{r4, pc}
+  68:	20000000 	.word	0x20000000
+  6c:	00000000 	.word	0x00000000
+  70:	000000fc 	.word	0x000000fc
+
+00000074 <frame_dummy>:
+  74:	b508      	push	{r3, lr}
+  76:	4b04      	ldr	r3, [pc, #16]	@ (88 <frame_dummy+0x14>)
+  78:	b11b      	cbz	r3, 82 <frame_dummy+0xe>
+  7a:	4904      	ldr	r1, [pc, #16]	@ (8c <frame_dummy+0x18>)
+  7c:	4804      	ldr	r0, [pc, #16]	@ (90 <frame_dummy+0x1c>)
+  7e:	f3af 8000 	nop.w
+  82:	e8bd 4008 	ldmia.w	sp!, {r3, lr}
+  86:	e7cd      	b.n	24 <register_tm_clones>
+  88:	00000000 	.word	0x00000000
+  8c:	20000004 	.word	0x20000004
+  90:	000000fc 	.word	0x000000fc
+
+00000094 <Reset_Handler>:
+    .align 1
+    .globl Reset_Handler
+    .type Reset_Handler, %function
+Reset_Handler:
+    // Set frequency to 128 (1 = 128, 3 = 64 - default)
+    movs r0, #1 
+  94:	2001      	movs	r0, #1
+    ldr r1, =OSCILLATORS_PLL_FREQ
+  96:	490c      	ldr	r1, [pc, #48]	@ (c8 <Reset_Handler+0x34>)
+    str r0, [r1]
+  98:	6008      	str	r0, [r1, #0]
+
+    /* Copy FLPR code from NVM to RAM */
+    ldr r1, =VPR_CODE_NVM_START
+  9a:	f44f 2180 	mov.w	r1, #262144	@ 0x40000
+    ldr r2, =VPR_CODE_RAM_START
+  9e:	f04f 5200 	mov.w	r2, #536870912	@ 0x20000000
+    ldr r3, =VPR_CODE_RAM_END
+  a2:	4b0a      	ldr	r3, [pc, #40]	@ (cc <Reset_Handler+0x38>)
+
+    subs r3, r3, r2
+  a4:	1a9b      	subs	r3, r3, r2
+    ble .L_loop1_done
+  a6:	dd03      	ble.n	b0 <Reset_Handler+0x1c>
+
+.L_loop1:
+    subs r3, r3, #4
+  a8:	3b04      	subs	r3, #4
+    ldr r0, [r1,r3]
+  aa:	58c8      	ldr	r0, [r1, r3]
+    str r0, [r2,r3]
+  ac:	50d0      	str	r0, [r2, r3]
+    bgt .L_loop1
+  ae:	dcfb      	bgt.n	a8 <Reset_Handler+0x14>
+
+.L_loop1_done: 
+    /* 0x50040530 = (1 << 4);  // SPU00->PERIPH[0xc].PERM = (1 << 4); */
+    movs r0, #16
+  b0:	2010      	movs	r0, #16
+    ldr r1, =SPU00_PERIPH_C_PERM
+  b2:	4907      	ldr	r1, [pc, #28]	@ (d0 <Reset_Handler+0x3c>)
+    str  r0, [r1]
+  b4:	6008      	str	r0, [r1, #0]
+
+    ldr r0, =VPR_CODE_RAM_START /* start address 0x20000000 */
+  b6:	f04f 5000 	mov.w	r0, #536870912	@ 0x20000000
+    ldr r1, =VPR00_INITPC
+  ba:	4906      	ldr	r1, [pc, #24]	@ (d4 <Reset_Handler+0x40>)
+    str r0, [r1]
+  bc:	6008      	str	r0, [r1, #0]
+
+    movs r0, #1 /* RUN */
+  be:	2001      	movs	r0, #1
+    ldr r1, =VPR00_CPURUN
+  c0:	4905      	ldr	r1, [pc, #20]	@ (d8 <Reset_Handler+0x44>)
+    str r0, [r1]
+  c2:	6008      	str	r0, [r1, #0]
+
+    ldr r0, =P0_OUT
+    str r1, [r0]
+*/
+
+    wfe
+  c4:	bf20      	wfe
+    wfi
+  c6:	bf30      	wfi
+    ldr r1, =OSCILLATORS_PLL_FREQ
+  c8:	50120800 	.word	0x50120800
+    ldr r3, =VPR_CODE_RAM_END
+  cc:	20040000 	.word	0x20040000
+    ldr r1, =SPU00_PERIPH_C_PERM
+  d0:	50040530 	.word	0x50040530
+    ldr r1, =VPR00_INITPC
+  d4:	5004c808 	.word	0x5004c808
+    ldr r1, =VPR00_CPURUN
+  d8:	5004c800 	.word	0x5004c800
+
+000000dc <_init>:
+  dc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+  de:	bf00      	nop
+  e0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+  e2:	bc08      	pop	{r3}
+  e4:	469e      	mov	lr, r3
+  e6:	4770      	bx	lr
+
+000000e8 <__frame_dummy_init_array_entry>:
+  e8:	0075 0000                                   u...
+
+000000ec <_fini>:
+  ec:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+  ee:	bf00      	nop
+  f0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+  f2:	bc08      	pop	{r3}
+  f4:	469e      	mov	lr, r3
+  f6:	4770      	bx	lr
+
+000000f8 <__do_global_dtors_aux_fini_array_entry>:
+  f8:	004d 0000                                   M...
+
+000000fc <__EH_FRAME_BEGIN__>:
+  fc:	0000 0000                                   ....

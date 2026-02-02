@@ -1,0 +1,106 @@
+CM33_CROSS_COMPILE ?= arm-none-eabi-
+
+#default to vpr_launcher
+CM33_APP ?= apps/cm33/vpr_launcher
+CM33_APP_DIR = $(patsubst %/,%,$(CM33_APP))
+CM33_OUTPUT_FILENAME = firmware
+CM33_TARGET ?= cm33
+CM33_FOLDER ?= .
+CM33_BUILD ?= $(CM33_FOLDER)/build-$(CM33_TARGET)-$(subst /,_,$(CM33_APP_DIR))
+
+include mk/mkenv.mk
+include $(CM33_APP_DIR)/app.mk
+
+CM33_MDK_PATH = lib/nrfx/bsp/stable/mdk
+
+CM33_LD_FILES ?= memory_nvm.ld
+CM33_LD_FILES += $(CM33_MDK_PATH)/nrf_common.ld
+
+CM33_INC += -I$(CM33_MDK_PATH)
+CM33_INC += -I./include
+CM33_INC += -I./lib/cmsis/CMSIS/Core/Include/
+CM33_INC += -I $(CM33_APP_DIR)/test
+CM33_INC += -I $(CM33_APP_DIR)
+
+CM33_SYSTEM_C_SRC ?= 
+CM33_APP_CUSTOM_SYSTEM_FILE ?= 0
+ifeq ($(CM33_APP_CUSTOM_SYSTEM_FILE), 0)
+CM33_SYSTEM_C_SRC += $(CM33_MDK_PATH)/system_nrf54l.c
+endif
+
+CM33_SRC_S ?= $(CM33_MDK_PATH)/gcc_startup_nrf54lm20a_application.S
+
+CM33_CFLAGS += -DNRF54LM20A_XXAA -DNRF_APPLICATION -DNRF_TRUSTZONE_SECURE
+CM33_CFLAGS += $(CM33_APP_EXTRA_DEFINES)
+CM33_CFLAGS += -DNRF_SKIP_SAU_CONFIGURATION
+CM33_CFLAGS += -mthumb -mabi=aapcs -mcmse
+
+CM33_CFLAGS += -mcpu=cortex-m33
+CM33_CFLAGS += -march=armv8-m.main+dsp
+CM33_CFLAGS += -mfpu=fpv5-sp-d16 -mfloat-abi=hard
+
+CM33_CFLAGS += $(CM33_INC)
+CM33_CFLAGS += -D__STARTUP_CLEAR_BSS
+CM33_CFLAGS += -ffreestanding
+CM33_CFLAGS += -ffunction-sections -fdata-sections 
+CM33_CFLAGS += $(CM33_APP_EXTRA_CFLAGS)
+
+CM33_UARTE ?= 1
+ifneq ($(CM33_UARTE), 0)
+CM33_CFLAGS += --specs=nano.specs -lgcc -lc
+CM33_SRC_C += drivers/print_lib.c
+CM33_SRC_C += drivers/uarte.c
+CM33_SRC_C += drivers/retarget.c
+CM33_CFLAGS += -DUARTE_ENABLED
+endif
+
+CM33_CFLAGS += -D__HEAP_SIZE=0 -D__STACK_SIZE=1024
+
+CM33_DEBUG ?= 0
+ifeq ($(CM33_DEBUG), 0)
+        CM33_ASMFLAGS += -O3
+        CM33_CFLAGS += -O3 -g3 -DNDEBUG
+        CM33_LDFLAGS += -O3
+else
+        CM33_ASMFLAGS += -O0 -g3 -gtabs+
+        CM33_CFLAGS += -O0 -ggdb3
+        CM33_LDFLAGS += -O0
+endif
+
+CM33_LDFLAGS += $(CM33_CFLAGS) -Wl,--gc-sections -Xlinker -Map=$(@:.elf=.map)
+CM33_LDFLAGS += $(addprefix -T,$(CM33_LD_FILES)) -L linkerscripts/
+
+CM33_OBJ += $(addprefix $(CM33_BUILD)/, $(CM33_SRC_C:.c=.o) $(CM33_SRC_S:.S=.o))
+CM33_OBJ += $(addprefix $(CM33_BUILD)/, $(CM33_SYSTEM_C_SRC:.c=.o))
+
+.PHONY: cm33_all cm33_binary cm33_hex cm33_size cm33_dump cm33_deploy
+all: | cm33_binary cm33_hex cm33_size cm33_dump
+
+cm33_binary: 
+## Create binary .bin file from the .out file
+cm33_binary: $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).bin
+
+$(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).bin: $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).elf
+	$(CM33_OBJCOPY) -O binary $< $@
+
+## Create binary .hex file from the .out file
+cm33_hex: $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).hex cm33_size
+
+$(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).hex: $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).elf
+	$(CM33_OBJCOPY) -O ihex $< $@
+
+$(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).elf: $(CM33_OBJ)
+	$(ECHO) "LINK $@"
+	$(Q)$(CM33_CC) -o $@ $(OBJ_CPP) $(CM33_OBJ) $(LIBS) $(CM33_LDFLAGS) $(APP_LIBS) $(EXTRA_FLAGS)
+
+cm33_size: $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).elf
+	$(Q)$(CM33_SIZE) $<
+
+cm33_dump: $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).elf
+	$(CM33_OBJDUMP) -S $< > $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).dump
+
+cm33_deploy: $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).hex
+	nrfutil device program --firmware $(CM33_BUILD)/$(CM33_OUTPUT_FILENAME).hex
+	nrfutil device reset
+
+include mk/cm33_mkrules.mk
