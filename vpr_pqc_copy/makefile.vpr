@@ -1,0 +1,117 @@
+
+VPR_CROSS_COMPILE ?= /home/haar/opt/corev-open-hw-gcc/bin/riscv32-corev-elf-
+
+VPR_APP ?= apps/vpr/mlkem_ref
+
+VPR_APP_DIR = $(patsubst %/,%,$(VPR_APP))
+VPR_OUTPUT_FILENAME = firmware
+VPR_TARGET ?= vpr
+VPR_FOLDER ?= .
+VPR_BUILD ?= $(VPR_FOLDER)/build-$(VPR_TARGET)-$(subst /,_,$(VPR_APP_DIR))
+
+include mk/mkenv.mk
+include $(VPR_APP_DIR)/app.mk
+
+VPR_MDK_PATH = lib/nrfx/bsp/stable/mdk
+VPR_HAL_PATH = lib/nrfx/hal
+VPR_NRFX_PATH = lib/nrfx
+VPR_BSP_PATH = lib/nrfx/bsp/stable
+VPR_TEMPLATES_PATH = lib/nrfx/templates
+
+VPR_LD_FILES += memory_ram.ld
+VPR_LD_FILES += $(VPR_MDK_PATH)/nrf_common_riscv.ld
+
+VPR_INC += -I $(VPR_MDK_PATH)
+VPR_INC += -I ./include
+VPR_INC += -I $(VPR_APP_DIR)/test
+VPR_INC += -I $(VPR_APP_DIR)
+VPR_INC += -I $(VPR_HAL_PATH)
+VPR_INC += -I $(VPR_NRFX_PATH)
+VPR_INC += -I $(VPR_BSP_PATH)
+VPR_INC += -I $(VPR_TEMPLATES_PATH)
+
+VPR_SYSTEM_C_SRC += $(VPR_MDK_PATH)/system_nrf54l.c
+VPR_SRC_S += $(VPR_MDK_PATH)/gcc_startup_nrf54lm20a_flpr.S
+
+VPR_CFLAGS += -DNRF54LM20A_XXAA -DNRF_FLPR -DNRF_TRUSTZONE_SECURE
+VPR_CFLAGS += -mabi=ilp32e -march=rv32emc_zicsr_zifencei -ffunction-sections -fdata-sections -nostdlib 
+
+VPR_CFLAGS += $(VPR_INC)
+VPR_CFLAGS += -D__STARTUP_CLEAR_BSS
+VPR_CFLAGS += -ffreestanding
+VPR_CFLAGS += -ffunction-sections -fdata-sections 
+VPR_CFLAGS += $(VPR_APP_EXTRA_CFLAGS)
+
+#VPR_UARTE ?= 0
+#ifneq ($(VPR_UARTE), 0)
+VPR_CFLAGS += --specs=nano.specs -lgcc -lc
+VPR_SRC_C += drivers/print_lib.c
+VPR_SRC_C += drivers/uarte.c
+#VPR_SRC_C += drivers/retarget.c
+VPR_CFLAGS += -DUARTE_ENABLED
+#endif
+
+VPR_CFLAGS += -D__HEAP_SIZE=0 -D__STACK_SIZE=4096
+
+VPR_DEBUG ?= 0
+ifeq ($(VPR_DEBUG), 0)
+        VPR_ASMFLAGS += -O3 -g3
+        VPR_CFLAGS += -O3 -g3
+        VPR_LDFLAGS += -O3
+else
+        VPR_ASMFLAGS += -O0 -g3 -gtabs+
+        VPR_CFLAGS += -O0 -ggdb3
+        VPR_LDFLAGS += -O0
+endif
+
+VPR_LDFLAGS += $(VPR_CFLAGS) -Wl,--gc-sections -Xlinker -Map=$(@:.elf=.map)
+VPR_LDFLAGS += $(addprefix -T,$(VPR_LD_FILES)) -L linkerscripts/
+
+VPR_OBJ += $(addprefix $(VPR_BUILD)/, $(VPR_SRC_C:.c=.o) $(VPR_SRC_S:.S=.o))
+VPR_OBJ += $(addprefix $(VPR_BUILD)/, $(VPR_SYSTEM_C_SRC:.c=.o))
+
+.PHONY: vpr_print vpr_all vpr_binary vpr_hex vpr_size vpr_dump vpr_nvmcode vpr_deploy
+all: | vpr_binary vpr_hex vpr_size vpr_dump vpr_nvmcode
+
+vpr_print:
+	echo $(VPR_APP_DIR) $(VPR_SRC_C) $(VPR_INC)
+
+vpr_binary: 
+## Create binary .bin file from the .out file
+vpr_binary: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).bin
+
+$(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).bin: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).elf
+	$(VPR_OBJCOPY) -O binary $< $@
+
+## Create binary .hex file from the .out file
+vpr_hex: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).hex vpr_size
+
+$(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).hex: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).elf
+	$(VPR_OBJCOPY) -O ihex $< $@
+
+$(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).elf: $(VPR_OBJ)
+	$(ECHO) "LINK $@"
+	$(Q)$(VPR_CC) -o $@ $(OBJ_CPP) $(VPR_OBJ) $(LIBS) $(VPR_LDFLAGS) $(APP_LIBS) $(EXTRA_FLAGS)
+
+vpr_size: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).elf
+	$(Q)$(VPR_SIZE) $<
+
+vpr_dump: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).elf
+	$(VPR_OBJDUMP) -S $< > $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).dump
+
+vpr_nvmcode: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME)_nvm.hex
+$(VPR_BUILD)/$(VPR_OUTPUT_FILENAME)_nvm.hex: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).hex
+	$(VPR_OBJCOPY) --change-address -0x1ffc0000 $< $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME)_nvm.hex
+
+#vpr_deploy: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).hex
+#	nrfutil device program --firmware $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).hex
+
+vpr_deploy: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).bin
+	JLinkExe -CommandFile relight_commands.jlinkcommands
+
+vpr_debug: $(VPR_BUILD)/$(VPR_OUTPUT_FILENAME).elf
+	$(VPR_GDB) -x gdbscripts/gdbinit_vpr $< --eval-command="target remote :3333"
+vpr_gdbserver:
+	pyocd gdbserver -v -t vpr_generic --json gdbscripts/nrf54lm20aflpr.json
+
+include mk/vpr_mkrules.mk

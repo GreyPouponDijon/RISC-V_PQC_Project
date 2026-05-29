@@ -1,0 +1,378 @@
+set print pretty on
+
+set $VPR_REGS_BASE = 0x5004c000
+set $CLIC_REGS_BASE = 0xF0000000
+set $VPR_DEBUGIF_DATA0 = $VPR_REGS_BASE + 0x410
+set $VPR_DEBUGIF_DATA1 = $VPR_REGS_BASE + 0x414
+set $VPR_DEBUGIF_DMCONTROL = $VPR_REGS_BASE + 0x440
+set $VPR_DEBUGIF_DMSTATUS = $VPR_REGS_BASE + 0x444
+set $VPR_DEBUGIF_ABSTRACTCS = $VPR_REGS_BASE + 0x458
+set $VPR_DEBUGIF_ABSTRACTCMD = $VPR_REGS_BASE + 0x45C
+
+set $VPR_CPURUN_REG  = $VPR_REGS_BASE + 0x800
+set $VPR_INITPC_REG  = $VPR_REGS_BASE + 0x808
+
+
+
+define read_initpc
+   p/x *(uint32_t*)0x5f8D4808
+end
+
+define csr_write
+   set *(uint32_t *)$VPR_DEBUGIF_DATA0 = $arg1
+   set *(uint32_t *)$VPR_DEBUGIF_ABSTRACTCMD = (0 << 24) | (2 << 20) | (1 << 17) | (1 << 16) | ($arg0 & 0xFFF)
+   set $end_loop = 0
+   while ($end_loop != 0) 
+        set $abstractcs = *((uint32_t *)$VPR_DEBUG_ABSTRACTCS) & (1 << 12)
+        if ($abstractcs == 0)
+            set $end_loop = 1
+        end
+   end
+end
+
+define csr_read
+   set *(uint32_t *)$VPR_DEBUGIF_ABSTRACTCMD = (0 << 24) | (2 << 20) | (1 << 17) | (0 << 16) | (0xC00 & 0xFFF)
+   set $end_loop = 0
+   while ($end_loop != 0) 
+        set $abstractcs = *((uint32_t *)$VPR_DEBUGIF_ABSTRACTCS) & (1 << 12)
+        if ($abstractcs == 0)
+            set $end_loop = 1
+        end
+   end
+   set $res = *(uint32_t *)$VPR_DEBUGIF_DATA0
+   set *(uint32_t *)$VPR_DEBUGIF_ABSTRACTCMD = (0 << 24) | (2 << 20) | (1 << 17) | (0 << 16) | ($arg0 & 0xFFF)
+   set $end_loop = 0
+   while ($end_loop != 0) 
+        set $abstractcs = *((uint32_t *)$VPR_DEBUG_ABSTRACTCS) & (1 << 12)
+        if ($abstractcs == 0)
+            set $end_loop = 1
+        end
+   end
+   set $res = *(uint32_t *)$VPR_DEBUGIF_DATA0
+   p/x $res
+end
+
+define write_csr
+    csr_write $arg0 $arg1
+end
+
+define read_csr
+    csr_read $arg0
+end
+
+define csr
+    if $argc == 1
+        read_csr $arg0
+    else
+        write_csr $arg0 $arg1
+    end
+end
+
+set $CSR_NORDIC_VPRNORDICCTRL            = 0x7C0	
+set $CSR_NORDIC_VPRNORDICSLEEPCTRL       = 0x7C1	
+set $CSR_NORDIC_VPRNORDICFEATURESDISABLE = 0x7C2	
+set $CSR_NORDIC_VIOPINS                  = 0x7C3	
+set $CSR_NORDIC_EXTPARAMS                = 0x7C4	
+set $CSR_NORDIC_CNTMODE0                 = 0x7D0	
+set $CSR_NORDIC_CNTMODE1                 = 0x7D1	
+set $CSR_NORDIC_CNT                      = 0x7D2	
+set $CSR_NORDIC_CNTTOP                   = 0x7D3	
+set $CSR_NORDIC_CNTADD                   = 0x7D4	
+set $CSR_NORDIC_CNT0                     = 0x7D5	
+set $CSR_NORDIC_CNTADD0                  = 0x7D6	
+set $CSR_NORDIC_CNT1                     = 0x7D7	
+set $CSR_NORDIC_CNTADD1                  = 0x7D8	
+set $CSR_NORDIC_WAIT0                    = 0x7DA	
+set $CSR_NORDIC_WAIT1                    = 0x7DB	
+set $CSR_NORDIC_WAIT                     = 0x7DC	
+set $CSR_NORDIC_TASKS                    = 0x7E0	
+set $CSR_NORDIC_SUBSCRIBE                = 0x7E1	
+set $CSR_NORDIC_EVENTS                   = 0x7E2	
+set $CSR_NORDIC_PUBLISH                  = 0x7E3	
+set $CSR_NORDIC_INTEN                    = 0x7E4	
+set $CSR_NORDIC_EVENTSB                  = 0x7E5	
+set $CSR_NORDIC_EVENTSBS                 = 0x7E6	
+set $CSR_NORDIC_OUT                      = 0xBC0	
+set $CSR_NORDIC_DIR                      = 0xBC1	
+set $CSR_NORDIC_IN                       = 0xBC2	
+set $CSR_NORDIC_INMODE                   = 0xBC3	
+set $CSR_NORDIC_OUTB                     = 0xBC4	
+set $CSR_NORDIC_DIRB                     = 0xBC5	
+set $CSR_NORDIC_DIROUT                   = 0xBC6	
+set $CSR_NORDIC_DIROUTB                  = 0xBC7	
+set $CSR_NORDIC_OUTTGL                   = 0xBD0	
+set $CSR_NORDIC_DIRTGL                   = 0xBD1	
+set $CSR_NORDIC_OUTBTGL                  = 0xBD2	
+set $CSR_NORDIC_DIRBTGL                  = 0xBD3	
+set $CSR_NORDIC_DIROUTTGL                = 0xBD4	
+set $CSR_NORDIC_DIROUTBTGL               = 0xBD5	
+set $CSR_NORDIC_OUTBS                    = 0xBD8	
+set $CSR_NORDIC_DIRBS                    = 0xBD9	
+set $CSR_NORDIC_DIROUTBS                 = 0xBDA	
+set $CSR_NORDIC_OUTBD                    = 0xBE0	
+set $CSR_NORDIC_OUTBDTGL                 = 0xBE1
+set $CSR_NORDIC_OUTBDS                   = 0xBE2	
+set $CSR_NORDIC_OUTMODE                  = 0xBE3
+
+define CSR_NORDIC
+end
+
+document CSR_NORDIC
+    $CSR_NORDIC_VPRNORDICCTRL            - 0x7C0 - Nordic Core Control
+    $CSR_NORDIC_VPRNORDICSLEEPCTRL       - 0x7C1 - Nordic Sleep Control
+    $CSR_NORDIC_VPRNORDICFEATURESDISABLE - 0x7C2	
+    $CSR_NORDIC_VIOPINS                  - 0x7C3 - VPR pins used for Real Time
+                                                   Peripherals VIO
+    $CSR_NORDIC_EXTPARAMS                - 0x7C4 - Reads values of external
+                                                   configuration parameters
+    $CSR_NORDIC_CNTMODE0                 - 0x7D0 - CNT0 Mode
+    $CSR_NORDIC_CNTMODE1                 - 0x7D1 - CNT1 Mode
+    $CSR_NORDIC_CNT                      - 0x7D2 - 32-bit Counter
+    $CSR_NORDIC_CNTTOP                   - 0x7D3 - Counter Top
+    $CSR_NORDIC_CNTADD                   - 0x7D4 - CNT Add
+    $CSR_NORDIC_CNT0                     - 0x7D5 - 16 bit Counter 0
+    $CSR_NORDIC_CNTADD0                  - 0x7D6 - CNT0 Add
+    $CSR_NORDIC_CNT1                     - 0x7D7 - 16-bit Counter 1
+    $CSR_NORDIC_CNTADD1                  - 0x7D8 - CNT1 Add
+    $CSR_NORDIC_WAIT0                    - 0x7DA - Wait 0
+    $CSR_NORDIC_WAIT1                    - 0x7DB - Wait 1
+    $CSR_NORDIC_WAIT                     - 0x7DC - Wait
+    $CSR_NORDIC_TASKS                    - 0x7E0 - DPPI Tasks
+    $CSR_NORDIC_SUBSCRIBE                - 0x7E1 - Enable Task Subscription
+    $CSR_NORDIC_EVENTS                   - 0x7E2 - DPPI Events
+    $CSR_NORDIC_PUBLISH                  - 0x7E3 - Enable Event Publication
+    $CSR_NORDIC_INTEN                    - 0x7E4 - DPPI Event Interrupt Enable
+    $CSR_NORDIC_EVENTSB                  - 0x7E5 - Buffered DPPI Events
+    $CSR_NORDIC_EVENTSBS                 - 0x7E6 - EVENTSB Dirty Status
+    $CSR_NORDIC_OUT                      - 0xBC0 - GPIO Output value. Real Time
+                                                   Peripherals VIO.
+    $CSR_NORDIC_DIR                      - 0xBC1 - GPIO pin Direction. Real Time
+                                                   Peripherals VIO.
+    $CSR_NORDIC_IN                       - 0xBC2 - GPIO Input. Real Time
+                                                   Peripherals VIO.
+    $CSR_NORDIC_INMODE                   - 0xBC3 - Input Mode
+    $CSR_NORDIC_OUTB                     - 0xBC4 - Buffered GPIO Output
+    $CSR_NORDIC_DIRB                     - 0xBC5 - Buffered GPIO pin Direction
+    $CSR_NORDIC_DIROUT                   - 0xBC6 - DIR and OUT concatenation
+    $CSR_NORDIC_DIROUTB                  - 0xBC7 - Concatenation of DIRB and
+                                                   OUTB
+    $CSR_NORDIC_OUTTGL                   - 0xBD0 - GPIO Output Toggle
+    $CSR_NORDIC_DIRTGL                   - 0xBD1 - GPIO pin Direction Toggle
+    $CSR_NORDIC_OUTBTGL                  - 0xBD2 - Buffered GPIO Output Toggle
+    $CSR_NORDIC_DIRBTGL                  - 0xBD3 - Buffered GPIO pin Direction
+                                                   Toggle
+    $CSR_NORDIC_DIROUTTGL                - 0xBD4 - DIROUT Toggle
+    $CSR_NORDIC_DIROUTBTGL               - 0xBD5 - DIROUTB Toggle
+    $CSR_NORDIC_OUTBS                    - 0xBD8 - Buffered GPIO Output Dirty
+                                                   Status
+    $CSR_NORDIC_DIRBS                    - 0xBD9 - Buffered GPIO pin Direction
+                                                   Dirty Status
+    $CSR_NORDIC_DIROUTBS                 - 0xBDA - Combination of DIRB and OUTB
+                                                   Dirty Status
+    $CSR_NORDIC_OUTBD                    - 0xBE0 - Concatenation of Buffered
+                                                   GPIO Output and GPIO Output
+    $CSR_NORDIC_OUTBDTGL                 - 0xBE1 - OUTBD Toggle
+    $CSR_NORDIC_OUTBDS                   - 0xBE2 - OUTBD Dirty Status
+    $CSR_NORDIC_OUTMODE                  - 0xBE3 - Read or write serial output
+                                                   mode 
+end
+
+set $CSR_MSTATUS       = 0x300
+set $CSR_MISA          = 0x301
+set $CSR_MTVEC         = 0x305
+set $CSR_MTVT          = 0x307
+set $CSR_MCOUNTINHIBIT = 0x320
+set $CSR_MSCRATCH      = 0x340
+set $CSR_MEPC          = 0x341
+set $CSR_MCAUSE        = 0x342
+set $CSR_MTVAL         = 0x343
+set $CSR_MINTSTATUS    = 0x346
+set $CSR_MINTTHRESH    = 0x347
+set $CSR_MCLICBASE     = 0x350
+set $CSR_TSELECT       = 0x7A0
+set $CSR_TDATA1        = 0x7A1
+set $CSR_TDATA2        = 0x7A2
+set $CSR_TDATA3        = 0x7A3
+set $CSR_TINFO         = 0x7A4
+set $CSR_TCONTROL      = 0x7A5
+set $CSR_DCSR          = 0x7B0
+set $CSR_DPC           = 0x7B1
+set $CSR_MCYCLE        = 0xB00
+set $CSR_MINSTRET      = 0xB02
+set $CSR_MCYCLEH       = 0xB80
+set $CSR_MINSTRETH     = 0xB82
+set $CSR_UCYCLE        = 0xC00
+set $CSR_UINSTRET      = 0xC02
+set $CSR_UCYCLEH       = 0xC80
+set $CSR_UINSTRETH     = 0xC82
+set $CSR_MVENDORID     = 0xF11
+set $CSR_MARCHID       = 0xF12
+set $CSR_MIMPID        = 0xF13
+set $CSR_MHARTID       = 0xF14
+
+define CSR_CORE
+end
+
+document CSR_CORE
+    $CSR_MSTATUS - 0x300 - Machine Status
+    $CSR_MISA - 0x301 - Machine ISA
+    $CSR_MTVEC - 0x305 - Machine Trap-Vector
+    $CSR_MTVT - 0x307 - Machine Trap Vector Table
+    $CSR_MCOUNTINHIBIT - 0x320 - Machine Counter-Inhibit
+    $CSR_MSCRATCH - 0x340 - Machine Scratch
+    $CSR_MEPC - 0x341 - Machine Exception Program Counter
+    $CSR_MCAUSE - 0x342 - Machine Cause
+    $CSR_MTVAL - 0x343 - Machine Trap Value
+    $CSR_MINTSTATUS - 0x346 - M-mode Interrupt Status
+    $CSR_MINTTHRESH - 0x347 - M-mode Interrupt-level Threshold
+    $CSR_MCLICBASE - 0x350 - Machine CLIC Base
+    $CSR_TSELECT - 0x7A0 - Trigger Select
+    $CSR_TDATA1 - 0x7A1 - Trigger Data 1
+    $CSR_TDATA2 - 0x7A2 - Trigger Data 2
+    $CSR_TDATA3 - 0x7A3 - Trigger Data 3
+    $CSR_TINFO - 0x7A4 - Trigger Info
+    $CSR_TCONTROL - 0x7A5 - Trigger Control
+    $CSR_DCSR - 0x7B0 - Debug Control and Status
+    $CSR_DPC - 0x7B1 - Debug PC
+    $CSR_MCYCLE - 0xB00 - Machine Cycle Counter
+    $CSR_MINSTRET - 0xB02 - Machine Instruction Counter
+    $CSR_MCYCLEH - 0xB80 - Machine Cycle Counter (Upper part)
+    $CSR_MINSTRETH - 0xB82 - Machine Instruction Counter (Upper part)
+    $CSR_UCYCLE - 0xC00 - User Cycle Counter
+    $CSR_UINSTRET - 0xC02 - User Instruction Counter
+    $CSR_UCYCLEH - 0xC80 - User Cycle Counter (Upper part)
+    $CSR_UINSTRETH - 0xC82 - User Instruction Counter (Upper part)
+    $CSR_MVENDORID - 0xF11 - Machine Vendor ID
+    $CSR_MARCHID - 0xF12 - Machine Architecture ID
+    $CSR_MIMPID - 0xF13	- Machine Implementation ID
+    $CSR_MHARTID - 0xF14 - Machine Hart ID
+end
+
+define CSR
+end
+
+document CSR
+    CSR_CORE   - RISC-V CSR's
+    CSR_NORDIC - VPR specific CSR's
+end
+
+define clic_write
+   set *(uint32_t *)$VPR_DEBUGIF_DATA1 = $arg0
+   set *(uint32_t *)$VPR_DEBUGIF_DATA0 = $arg1
+   set *(uint32_t *)$VPR_DEBUGIF_ABSTRACTCMD = (2 << 24) | (2 << 20) | (0 << 17) | (1 << 16)
+   set $end_loop = 0
+   while ($end_loop != 0) 
+        set $abstractcs = *((uint32_t *)$VPR_DEBUG_ABSTRACTCS) & (1 << 12)
+        if ($abstractcs == 0)
+            set $end_loop = 1
+        end
+   end
+end
+
+define clic_read
+   set *(uint32_t *)$VPR_DEBUGIF_DATA1 = $arg0
+   set *(uint32_t *)$VPR_DEBUGIF_ABSTRACTCMD = (2 << 24) | (2 << 20) | (0 << 17) | (0 << 16)
+   set $end_loop = 0
+   while ($end_loop != 0)
+        set $abstractcs = *((uint32_t *)$VPR_DEBUGIF_ABSTRACTCS) & (1 << 12)
+        if ($abstractcs == 0)
+            set $end_loop = 1
+        end
+   end
+   set $res = *(uint32_t *)$VPR_DEBUGIF_DATA0
+   set *(uint32_t *)$VPR_DEBUGIF_ABSTRACTCMD = (2 << 24) | (2 << 20) | (0 << 17) | (0 << 16)
+   set $end_loop = 0
+   while ($end_loop != 0)
+        set $abstractcs = *((uint32_t *)$VPR_DEBUG_ABSTRACTCS) & (1 << 12)
+        if ($abstractcs == 0)
+            set $end_loop = 1
+        end
+   end
+   set $res = *(uint32_t *)$VPR_DEBUGIF_DATA0
+   p/x $res
+end
+
+set $CLIC_INT_ADDR_BASE = $CLIC_REGS_BASE + 0x1000
+
+define CLIC_CFG
+    set $clic_cfg_addr = $CLIC_REGS_BASE
+    clic_read $clic_cfg_addr
+end
+
+define CLIC_INFO
+    set $clic_cfg_addr = $CLIC_REGS_BASE + 0x4
+    clic_read $clic_cfg_addr
+end
+
+define CLIC_INT
+    set $clic_int_addr = $CLIC_INT_ADDR_BASE + 4*$arg0
+    if $argc == 1
+        clic_read $clic_int_addr
+    else
+        clic_write $clic_int_addr $arg1 
+    end
+end
+
+
+document CLIC_INT
+    usage: CLIC_INT <num> [val]
+    Read and Write CLIC.CLICINT[n*4]
+end
+
+define vpr_rt_enable
+    set $nordic_ctrl_new = (0x507D << 16) | 0x1
+    csr_write $CSR_NORDIC_VPRNORDICCTRL $nordic_ctrl_new
+    printf "CSR_NORDIC_VPRNORDICCTRL = %08x", $nordic_ctrl_new
+end
+
+define vpr_rt_and_cntirq_enable
+    set $nordic_ctrl_new = (0x507D << 16) | (0x1 << 6) | 0x1
+    csr_write $CSR_NORDIC_VPRNORDICCTRL $nordic_ctrl_new
+end
+
+define print_jobs
+    set $i = 0
+    printf "num_of_jobs: %u\n", $arg0->num_of_jobs
+    printf "current_job: %u\n", $arg0->current_job
+    printf "last_job: %u\n", $arg0->last_job
+    while $i < $arg0->num_of_jobs
+        set $job = $arg0->jobs[$i]
+        if ($job.id == 0)
+            printf "conf: pending: %u, spiframeformat: %u, frequency: %u\n", $job.pending, $job.payload.conf.spiframeformat, $job.payload.conf.frequency
+        end
+        if ($job.id == 1)
+            printf "trans: pending %u, addr: 0x%.8lx, addrlen %u, transtype: %u, transmode: %u, txdata_len: %u\n", $job.pending, $job.payload.trans.address, $job.payload.trans.address_len, $job.payload.trans.transtype, $job.payload.trans.transmode, $job.payload.trans.tx_data_len
+        end
+        set $i = $i + 1
+    end
+end
+
+define pstates
+p (fsm_state_t[])m_state_history
+end
+
+define pinterrupt
+    set logging file /dev/null
+    set logging redirect on
+    set logging enabled on
+    read_csr $CSR_MSTATUS
+    set $mstatus = $
+    read_csr $CSR_MINTTHRESH
+    set $mintthresh = $
+    CLIC_INT 16
+    set $clicint16 = $
+    CLIC_INT 17
+    set $clicint17 = $
+    CLIC_INT 18
+    set $clicint18 = $
+    CLIC_INT 19
+    set $clicint19 = $
+    set logging redirect off
+    set logging enabled off
+    printf "MSTATUS\t\t 0x%08x\n", $mstatus
+    printf "MINTTHRESH\t 0x%08x\n", $mintthresh
+    printf "CLIC 16\t\t 0x%08x\n", $clicint16
+    printf "CLIC 17\t\t 0x%08x\n", $clicint17
+    printf "CLIC 18\t\t 0x%08x\n", $clicint18
+    printf "CLIC 19\t\t 0x%08x\n", $clicint19
+end

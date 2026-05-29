@@ -1,0 +1,3 @@
+CM33_UARTE = 1
+
+CM33_SRC_C += $(CM33_APP_DIR)/main.c

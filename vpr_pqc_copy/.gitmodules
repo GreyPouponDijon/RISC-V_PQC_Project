@@ -1,0 +1,9 @@
+[submodule "lib/nrfx"]
+	path = lib/nrfx
+	url = https://github.com/NordicSemiconductor/nrfx.git
+[submodule "lib/cmsis"]
+	path = lib/cmsis
+	url = https://github.com/ARM-software/CMSIS_6.git
+[submodule "tools/pyocd"]
+	path = tools/pyocd
+	url = ssh://git@bitbucket.nordicsemi.no:7999/sag/pyocd.git
